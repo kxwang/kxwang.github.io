@@ -1,0 +1,11 @@
+{
+    "bounds": "-122.846,45.4246,-122.4539,45.6559",
+    "center": "-122.627,45.5371,11",
+    "minzoom": "11",
+    "maxzoom": "15",
+    "name": "Portland Neighborhood",
+    "description": "",
+    "attribution": "",
+    "template": "",
+    "version": "1.0.0"
+}

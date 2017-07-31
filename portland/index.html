@@ -22,7 +22,7 @@
   //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
       //attribution: 'Tiles by <a href="http://http://www.openstreetmap.org">OpenStreetMap</a>',
-      maxZoom: 17,
+      maxZoom: 15,
       minZoom: 8,
 	  id: 'mapbox.light'
     });
@@ -157,6 +157,13 @@
  
  L.control.layers(baseMaps, overlayMaps, {autoZIndex: false}).addTo(map);
 
+	map.createPane('labels'); 
+	map.getPane('labels').style.zIndex = 650;
+	map.getPane('labels').style.pointerEvents = 'none';
+	var positronLabels = L.tileLayer('/pdxhood/{z}/{x}/{y}.png', {
+        pane: 'labels'
+	}).addTo(map);
+	
   </script>
 </body>
 </html>
