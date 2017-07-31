@@ -143,7 +143,7 @@
   var map = L.map('map', {
 	center: [45.53, -122.68],
 	zoom: 11,
-	layers: [lightLayer, neighborhoodLayer, densityLayer]
+	layers: [lightLayer, densityLayer]
 	});
 	
 
@@ -153,6 +153,8 @@
 	var neighborhoodLabels = L.tileLayer('/portland/pdxhood/{z}/{x}/{y}.png', {
         pane: 'labels'
 	});
+	
+	map.addLayer(neighborhoodLabels);
 	
   var overlayMaps = {
 	"Neighborhood": neighborhoodLayer,
