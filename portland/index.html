@@ -110,7 +110,7 @@
 			else if ( density > 10 ) fillColor = "#fdbe85";
 			//else if ( density >= 0 ) fillColor = "#feedde";
 			else fillColor = "#feedde";  // no data
-			return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .5 };
+			return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .7 };
 		},
 		onEachFeature: function( feature, layer ){
 			layer.bindPopup( "<strong>" + feature.properties.name + "</strong><br/>" + feature.properties.density + " distressed homes" );
@@ -146,8 +146,17 @@
 	layers: [lightLayer, neighborhoodLayer, densityLayer]
 	});
 	
+
+	map.createPane('labels'); 
+	map.getPane('labels').style.zIndex = 650;
+	map.getPane('labels').style.pointerEvents = 'none';
+	var neighborhoodLabels = L.tileLayer('/portland/pdxhood/{z}/{x}/{y}.png', {
+        pane: 'labels'
+	});
+	
   var overlayMaps = {
 	"Neighborhood": neighborhoodLayer,
+	"Label": neighborhoodLabels,
 	"Density": densityLayer,
 	"Clusters": clusters,
 	"Heat": heatLayer,
@@ -157,12 +166,6 @@
  
  L.control.layers(baseMaps, overlayMaps, {autoZIndex: false}).addTo(map);
 
-	map.createPane('labels'); 
-	map.getPane('labels').style.zIndex = 650;
-	map.getPane('labels').style.pointerEvents = 'none';
-	var positronLabels = L.tileLayer('/pdxhood/{z}/{x}/{y}.png', {
-        pane: 'labels'
-	}).addTo(map);
 	
   </script>
 </body>
