@@ -9,6 +9,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <style>
     #map{ height: 100% }
+	.legend {
+		line-height: 18px;
+		color: #555;
+	}
+	.legend i {
+		width: 16px;
+		height: 16px;
+		float: left;
+		margin-right: 8px;
+		opacity: 0.8;
+	}
   </style>
 </head>
 <body>
@@ -97,20 +108,22 @@
   });
  
  
+ function getColor(density) {
+	var fillColor = "#feedde";
+	if ( density > 80 ) fillColor = "#a63603";
+	else if ( density > 40 ) fillColor = "#e6550d";
+	else if ( density > 20 ) fillColor = "#fd8d3c";
+	else if ( density > 10 ) fillColor = "#fdbe85";
+	//else if ( density >= 0 ) fillColor = "#feedde";
+    return fillColor;
+}
  
   // density layer
   var densityLayer = L.geoJson(null, {
 	  style: function(feature){
-			var fillColor,
-				density = Math.floor(Math.random() * 100);
+			var density = Math.floor(Math.random() * 100);
 				feature.properties.density = density;
-			if ( density > 80 ) fillColor = "#a63603";
-			else if ( density > 40 ) fillColor = "#e6550d";
-			else if ( density > 20 ) fillColor = "#fd8d3c";
-			else if ( density > 10 ) fillColor = "#fdbe85";
-			//else if ( density >= 0 ) fillColor = "#feedde";
-			else fillColor = "#feedde";  // no data
-			return { color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .7 };
+			return { color: "#999", weight: 1, fillColor: getColor(density), fillOpacity: .7 };
 		},
 		onEachFeature: function( feature, layer ){
 			layer.bindPopup( "<strong>" + feature.properties.name + "</strong><br/>" + feature.properties.density + " distressed homes" );
@@ -120,30 +133,30 @@
   
 
 
-  // Neighborhood layer
-  var neighborhoodLayer = L.geoJson(null, { 
+	// Neighborhood layer
+	var neighborhoodLayer = L.geoJson(null, { 
 		style: { color: "#999", weight: 1, fillOpacity: 0.0 },
-	
-  });
-  
-  $.getJSON("portland.geojson",function(hoodData){
-    densityLayer.addData(hoodData);
-  });
+
+	});
+
+	$.getJSON("portland.geojson",function(hoodData){
+		densityLayer.addData(hoodData);
+	});
   
  
-  $.getJSON("portland.geojson",function(hoodData){
-	neighborhoodLayer.addData(hoodData);
-    densityLayer.addData(hoodData);
-  });
+	$.getJSON("portland.geojson",function(hoodData){
+		neighborhoodLayer.addData(hoodData);
+		densityLayer.addData(hoodData);
+	});
   
  
  
 
-  // initialize the map
-  var map = L.map('map', {
-	center: [45.53, -122.68],
-	zoom: 11,
-	layers: [lightLayer, densityLayer]
+	  // initialize the map
+	var map = L.map('map', {
+		center: [45.53, -122.68],
+		zoom: 11,
+		layers: [lightLayer, densityLayer]
 	});
 	
 
@@ -156,18 +169,47 @@
 	
 	map.addLayer(neighborhoodLabels);
 	
-  var overlayMaps = {
-	"Neighborhood": neighborhoodLayer,
-	"Label": neighborhoodLabels,
-	"Density": densityLayer,
-	"Clusters": clusters,
-	"Heat": heatLayer,
-  }
+	var overlayMaps = {
+		"Neighborhood": neighborhoodLayer,
+		"Label": neighborhoodLabels,
+		"Density": densityLayer,
+		"Clusters": clusters,
+		"Heat": heatLayer,
+	}
  
- 
- 
- L.control.layers(baseMaps, overlayMaps, {autoZIndex: false}).addTo(map);
+	var legend = L.control({position: 'bottomright'});
 
+	legend.onAdd = function (map) {
+
+		var div = L.DomUtil.create('div', 'info legend'),
+			grades = [0, 20, 40, 60, 80],
+			labels = [];
+
+		// loop through our density intervals and generate a label with a colored square for each interval
+		for (var i = 0; i < grades.length; i++) {
+			div.innerHTML +=
+				'<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+				grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+		}
+
+		return div;
+	};
+
+	legend.addTo(map);
+ 
+	L.control.layers(baseMaps, overlayMaps, {autoZIndex: false}).addTo(map);
+
+	map.on('overlayadd', function (eventLayer) {
+		if (eventLayer.name === 'Density') {
+			legend.addTo(map);
+		}
+	});
+
+	map.on('overlayremove', function (eventLayer) {
+		 if (eventLayer.name === 'Density') {
+			this.removeControl(legend);
+		}
+	});
 	
   </script>
 </body>
