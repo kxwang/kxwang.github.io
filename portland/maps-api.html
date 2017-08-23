@@ -1,0 +1,258 @@
+<html>
+<head>
+  <title>A Leaflet map!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/MarkerCluster.Default.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css"/>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/leaflet.markercluster.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  
+  
+  <style>
+    #map{ height: 700px; }
+	.legend {
+		line-height: 18px;
+		color: #555;
+	}
+	.legend i {
+		width: 16px;
+		height: 16px;
+		float: left;
+		margin-right: 8px;
+		opacity: 0.8;
+	}
+	.ui-autocomplete-loading {
+		background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+	}
+	ul.ui-autocomplete.ui-menu {
+	  z-index: 1000;
+	}	
+  </style>
+</head>
+<body>
+ 
+	<div class="ui-widget">
+	<input id="user-address">
+	</div>
+ 
+ 
+  <div id="map"></div>
+ 
+  <script>
+
+	 $( "#user-address" ).autocomplete({
+	  delay: 200,
+	  source: function( request, response ) {
+		$.ajax( {
+		  url: "https://www.portlandmaps.com/arcgis/rest/services/Public/Centerline_Geocoding_PDX/GeocodeServer/findAddressCandidates",
+		  dataType: "jsonp",
+		  data: { Street: "", City: "", Zip: "", 'Single Line Input': request.term, outFields: "", outSR: "4326", searchExtent: "", f: "json"},
+		  success: function( data ) {
+			if(data.candidates.length === 0) { response(''); return; }
+			
+			var candidates  = data.candidates.map(function(candidate, index) {
+				return {id: index, label: candidate.address, value: candidate.address};
+			});
+			//console.log(candidates);
+			response( candidates );
+		  }
+		} );
+	  },
+	  minLength: 3,
+	  select: function( event, ui ) {
+		console.log( "Value: " + ui.item.value + ", ID: " + ui.item.id );
+	  }
+	} );
+
+  // load a tile layer
+  var lightLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+  //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      //attribution: 'Tiles by <a href="http://http://www.openstreetmap.org">OpenStreetMap</a>',
+      maxZoom: 15,
+      minZoom: 8,
+	  id: 'mapbox.light'
+    });
+	
+  var streetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+  //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      //attribution: 'Tiles by <a href="http://http://www.openstreetmap.org">OpenStreetMap</a>',
+      maxZoom: 17,
+      minZoom: 8,
+	  id: 'mapbox.streets'
+    });
+	
+	var baseMaps = {
+		"Light": lightLayer,
+		"Streets": streetsLayer
+	};
+
+	
+	
+	
+  
+ 
+
+	var homeIconRed = L.icon({
+	  iconUrl: 'home-red.png',
+	  iconSize: [30,30]
+	});
+	var homeIconYellow = L.icon({
+	  iconUrl: 'home-yellow.png',
+	  iconSize: [30,30]
+	});
+	var homeIconGreen = L.icon({
+	  iconUrl: 'home-green.png',
+	  iconSize: [30,30]
+	});
+ 
+ function genRandomHomeIcon() {
+	var dice = Math.random() * 3;
+	if(dice < 1) return homeIconGreen;
+	if(dice < 2) return homeIconYellow;
+	return homeIconRed;
+ }
+ 
+ 
+ // Home marker layer
+ var clusters = L.markerClusterGroup();
+ var heatLayer = L.heatLayer([], {});
+
+
+	
+  $.getJSON("qgis-random-gen-1000.geojson",function(data){
+    var homes = L.geoJson(data,{
+      pointToLayer: function(feature,latlng){
+        var marker = L.marker(latlng,{icon: genRandomHomeIcon()});
+        marker.bindPopup('Street Adress Here<br/> Status: to be inspected'
+		//feature.properties.Location + '<br/>' + feature.properties.OPEN_DT
+		);
+        return marker;
+      }
+    });
+    
+    clusters.addLayer(homes);
+    
+	var locations = data.features.map(function(rat) {
+		var location = rat.geometry.coordinates.reverse();
+		location.push(0.5);
+		return location;
+	  });
+	heatLayer.setLatLngs(locations);
+	heatLayer.setOptions({ radius: 35 });	
+  });
+ 
+ 
+ function getColor(density) {
+	var fillColor = "#feedde";
+	if ( density > 80 ) fillColor = "#a63603";
+	else if ( density > 40 ) fillColor = "#e6550d";
+	else if ( density > 20 ) fillColor = "#fd8d3c";
+	else if ( density > 10 ) fillColor = "#fdbe85";
+	//else if ( density >= 0 ) fillColor = "#feedde";
+    return fillColor;
+}
+ 
+  // density layer
+  var densityLayer = L.geoJson(null, {
+	  style: function(feature){
+			var density = Math.floor(Math.random() * 100);
+				feature.properties.density = density;
+			return { color: "#999", weight: 1, fillColor: getColor(density), fillOpacity: .7 };
+		},
+		onEachFeature: function( feature, layer ){
+			layer.bindPopup( "<strong>" + feature.properties.name + "</strong><br/>" + feature.properties.density + " distressed homes" );
+			//layer.bindTooltip(feature.properties.name, {permanent: true, className: "neighborhood-name", offset: [0, 0] });
+		}
+  });
+  
+
+
+	// Neighborhood layer
+	var neighborhoodLayer = L.geoJson(null, { 
+		style: { color: "#999", weight: 1, fillOpacity: 0.0 },
+
+	});
+
+	$.getJSON("portland.geojson",function(hoodData){
+		densityLayer.addData(hoodData);
+	});
+  
+ 
+	$.getJSON("portland.geojson",function(hoodData){
+		neighborhoodLayer.addData(hoodData);
+		densityLayer.addData(hoodData);
+	});
+  
+ 
+ 
+
+	  // initialize the map
+	var map = L.map('map', {
+		center: [45.53, -122.68],
+		zoom: 11,
+		layers: [lightLayer, densityLayer]
+	});
+	
+
+	map.createPane('labels'); 
+	map.getPane('labels').style.zIndex = 650;
+	map.getPane('labels').style.pointerEvents = 'none';
+	var neighborhoodLabels = L.tileLayer('/portland/pdxhood/{z}/{x}/{y}.png', {
+        pane: 'labels'
+	});
+	
+	map.addLayer(neighborhoodLabels);
+	
+	var overlayMaps = {
+		"Neighborhood": neighborhoodLayer,
+		"Label": neighborhoodLabels,
+		"Density": densityLayer,
+		"Clusters": clusters,
+		"Heat": heatLayer,
+	}
+ 
+	var legend = L.control({position: 'bottomright'});
+
+	legend.onAdd = function (map) {
+
+		var div = L.DomUtil.create('div', 'info legend'),
+			grades = [0, 20, 40, 60, 80],
+			labels = [];
+
+		// loop through our density intervals and generate a label with a colored square for each interval
+		for (var i = 0; i < grades.length; i++) {
+			div.innerHTML +=
+				'<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+				grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+		}
+
+		return div;
+	};
+
+	legend.addTo(map);
+ 
+	L.control.layers(baseMaps, overlayMaps, {autoZIndex: false}).addTo(map);
+
+	map.on('overlayadd', function (eventLayer) {
+		if (eventLayer.name === 'Density') {
+			legend.addTo(map);
+		}
+	});
+
+	map.on('overlayremove', function (eventLayer) {
+		 if (eventLayer.name === 'Density') {
+			this.removeControl(legend);
+		}
+	});
+	
+  </script>
+</body>
+</html>
