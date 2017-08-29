@@ -15,7 +15,7 @@
   
   
   <style>
-    #map{ height: 700px; }
+    #map{ height: 600px; }
 	.legend {
 		line-height: 18px;
 		color: #555;
@@ -32,20 +32,20 @@
 	}
 	ul.ui-autocomplete.ui-menu {
 	  z-index: 1000;
-	}	
+	}
   </style>
 </head>
 <body>
  
 	<div class="ui-widget">
-	<input id="user-address">
+	<input size="45" id="user-address"> <br/>Water District: <label id="water-district"></label>
 	</div>
  
  
   <div id="map"></div>
  
   <script>
-
+  
 	 $( "#user-address" ).autocomplete({
 	  delay: 200,
 	  source: function( request, response ) {
@@ -57,7 +57,12 @@
 			if(data.candidates.length === 0) { response(''); return; }
 			
 			var candidates  = data.candidates.map(function(candidate, index) {
-				return {id: index, label: candidate.address, value: candidate.address};
+				return {
+					id: index, 
+					label: candidate.address, 
+					value: candidate.address,
+					location: candidate.location
+				};
 			});
 			//console.log(candidates);
 			response( candidates );
@@ -67,6 +72,11 @@
 	  minLength: 3,
 	  select: function( event, ui ) {
 		console.log( "Value: " + ui.item.value + ", ID: " + ui.item.id );
+		if( marker) marker.removeFrom(map);
+		map.flyTo(new L.LatLng(ui.item.location.y, ui.item.location.x), 15);
+		marker = L.marker([ui.item.location.y, ui.item.location.x]).addTo(map);
+		
+		getWaterDistrictName(ui.item.location);
 	  }
 	} );
 
@@ -94,165 +104,111 @@
 		"Streets": streetsLayer
 	};
 
-	
-	
-	
-  
- 
-
-	var homeIconRed = L.icon({
-	  iconUrl: 'home-red.png',
-	  iconSize: [30,30]
-	});
-	var homeIconYellow = L.icon({
-	  iconUrl: 'home-yellow.png',
-	  iconSize: [30,30]
-	});
-	var homeIconGreen = L.icon({
-	  iconUrl: 'home-green.png',
-	  iconSize: [30,30]
-	});
- 
- function genRandomHomeIcon() {
-	var dice = Math.random() * 3;
-	if(dice < 1) return homeIconGreen;
-	if(dice < 2) return homeIconYellow;
-	return homeIconRed;
- }
- 
- 
- // Home marker layer
- var clusters = L.markerClusterGroup();
- var heatLayer = L.heatLayer([], {});
-
-
-	
-  $.getJSON("qgis-random-gen-1000.geojson",function(data){
-    var homes = L.geoJson(data,{
-      pointToLayer: function(feature,latlng){
-        var marker = L.marker(latlng,{icon: genRandomHomeIcon()});
-        marker.bindPopup('Street Adress Here<br/> Status: to be inspected'
-		//feature.properties.Location + '<br/>' + feature.properties.OPEN_DT
-		);
-        return marker;
-      }
-    });
-    
-    clusters.addLayer(homes);
-    
-	var locations = data.features.map(function(rat) {
-		var location = rat.geometry.coordinates.reverse();
-		location.push(0.5);
-		return location;
-	  });
-	heatLayer.setLatLngs(locations);
-	heatLayer.setOptions({ radius: 35 });	
-  });
- 
- 
- function getColor(density) {
-	var fillColor = "#feedde";
-	if ( density > 80 ) fillColor = "#a63603";
-	else if ( density > 40 ) fillColor = "#e6550d";
-	else if ( density > 20 ) fillColor = "#fd8d3c";
-	else if ( density > 10 ) fillColor = "#fdbe85";
-	//else if ( density >= 0 ) fillColor = "#feedde";
-    return fillColor;
-}
- 
-  // density layer
-  var densityLayer = L.geoJson(null, {
-	  style: function(feature){
-			var density = Math.floor(Math.random() * 100);
-				feature.properties.density = density;
-			return { color: "#999", weight: 1, fillColor: getColor(density), fillOpacity: .7 };
-		},
-		onEachFeature: function( feature, layer ){
-			layer.bindPopup( "<strong>" + feature.properties.name + "</strong><br/>" + feature.properties.density + " distressed homes" );
-			//layer.bindTooltip(feature.properties.name, {permanent: true, className: "neighborhood-name", offset: [0, 0] });
-		}
-  });
-  
-
-
-	// Neighborhood layer
-	var neighborhoodLayer = L.geoJson(null, { 
-		style: { color: "#999", weight: 1, fillOpacity: 0.0 },
-
-	});
-
-	$.getJSON("portland.geojson",function(hoodData){
-		densityLayer.addData(hoodData);
-	});
-  
- 
-	$.getJSON("portland.geojson",function(hoodData){
-		neighborhoodLayer.addData(hoodData);
-		densityLayer.addData(hoodData);
-	});
-  
- 
- 
-
 	  // initialize the map
 	var map = L.map('map', {
 		center: [45.53, -122.68],
 		zoom: 11,
-		layers: [lightLayer, densityLayer]
+		layers: [lightLayer]
 	});
 	
 
-	map.createPane('labels'); 
-	map.getPane('labels').style.zIndex = 650;
-	map.getPane('labels').style.pointerEvents = 'none';
-	var neighborhoodLabels = L.tileLayer('/portland/pdxhood/{z}/{x}/{y}.png', {
-        pane: 'labels'
-	});
+	var marker = null;
 	
-	map.addLayer(neighborhoodLabels);
+	L.control.layers(baseMaps, null, {autoZIndex: false}).addTo(map);
 	
-	var overlayMaps = {
-		"Neighborhood": neighborhoodLayer,
-		"Label": neighborhoodLabels,
-		"Density": densityLayer,
-		"Clusters": clusters,
-		"Heat": heatLayer,
+	
+	
+	
+	
+	// Use location to look up water district
+function getWaterDistrictName(location) {
+	//console.log(JSON.stringify(location));
+	var geometryObject = {
+		x: location.x,
+		y: location.y,
+		spatialReference: {
+			wkid: 4326
+		}
 	}
- 
-	var legend = L.control({position: 'bottomright'});
 
-	legend.onAdd = function (map) {
+	var waterDistrictQueryObject = {
+		where: '',
+		text: '',
+		objectIds: '',
+		time: '',
+		geometry: JSON.stringify(geometryObject),
+		geometryType: 'esriGeometryPoint',
+		inSR: '4326',
+		spatialRel: 'esriSpatialRelIntersects',
+		relationParam: '',
+		outFields: 'DISTRICT',
+		returnGeometry: 'false',
+		returnTrueCurves: 'false',
+		maxAllowableOffset: '',
+		geometryPrecision: '',
+		outSR: '',
+		returnIdsOnly: 'false',
+		returnCountOnly: 'false',
+		orderByFields: '',
+		groupByFieldsForStatistics: '',
+		outStatistics: '',
+		returnZ: 'false',
+		returnM: 'false',
+		gdbVersion: '',
+		returnDistinctValues: 'false',
+		resultOffset: '',
+		resultRecordCount: '',
+		f: 'pjson'
+	}
 
-		var div = L.DomUtil.create('div', 'info legend'),
-			grades = [0, 20, 40, 60, 80],
-			labels = [];
-
-		// loop through our density intervals and generate a label with a colored square for each interval
-		for (var i = 0; i < grades.length; i++) {
-			div.innerHTML +=
-				'<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-				grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-		}
-
-		return div;
-	};
-
-	legend.addTo(map);
- 
-	L.control.layers(baseMaps, overlayMaps, {autoZIndex: false}).addTo(map);
-
-	map.on('overlayadd', function (eventLayer) {
-		if (eventLayer.name === 'Density') {
-			legend.addTo(map);
+	var waterLookupUrl = 'https://www.portlandmaps.com/arcgis/rest/services/Public/Utilities_Water/MapServer/6/query';
+	$.ajax( {
+		url: waterLookupUrl,
+		data: waterDistrictQueryObject,
+		dataType: 'jsonp',
+		success: function (result) {
+			try {
+				/*
+				{
+				 "displayFieldName": "PhoneNo",
+				 "fieldAliases": {
+				  "DISTRICT": "DISTRICT"
+				 },
+				 "fields": [
+				  {
+				   "name": "DISTRICT",
+				   "type": "esriFieldTypeString",
+				   "alias": "DISTRICT",
+				   "length": 50
+				  }
+				 ],
+				 "features": [
+				  {
+				   "attributes": {
+					"DISTRICT": "City of Milwaukie"
+				   }
+				  }
+				 ]
+				}
+				*/			
+				if(!result.features || 
+					result.features.length !== 1 || 
+					!result.features[0].attributes) {
+					console.log('No water district info found');
+					return;
+				}
+				
+				console.log(result.features[0].attributes.DISTRICT);
+				$('#water-district').text(result.features[0].attributes.DISTRICT);
+				//lookupDistrictDetails(result.features[0].attributes.DISTRICT);
+				
+			} catch(e) {
+				console.error('JSON.parse: ' + e.message);
+			}
 		}
 	});
+}
 
-	map.on('overlayremove', function (eventLayer) {
-		 if (eventLayer.name === 'Density') {
-			this.removeControl(legend);
-		}
-	});
-	
   </script>
 </body>
 </html>
