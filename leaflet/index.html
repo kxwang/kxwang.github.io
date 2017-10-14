@@ -82,9 +82,24 @@
 	var topmap = L.map('top-map').setView([45.5236111, -122.675], 7);	lightLayer.addTo(topmap);
 	var map = L.map('map').setView([30.6666667, 104.0666667], 7);	lightLayer2.addTo(map);
 	
-	topmap.on('zoomend', function() { if(map.getZoom() !== topmap.getZoom()) map.setZoom(topmap.getZoom()); });
-	map.on('zoomend', function() { if(map.getZoom() !== topmap.getZoom()) topmap.setZoom(map.getZoom()); });
+	topmap.on('zoomend', function() {
+		if(map.getZoom() !== topmap.getZoom()) {
+			var zoomPoint = topmap.latLngToContainerPoint(L.latLng(lat, lng));
+			zoomPoint.x += 50;
+			zoomPoint.y += 50;
+			map.setZoomAround(zoomPoint, topmap.getZoom());
+		}
+	});
+	map.on('zoomend', function() { 
+		if(map.getZoom() !== topmap.getZoom()) topmap.setZoom(map.getZoom()); 
+	});
+	
  
+	var lat, lng;
+	topmap.addEventListener('mousemove', function(ev) {
+		lat = ev.latlng.lat;
+		lng = ev.latlng.lng;
+	});
  
  /*
 
