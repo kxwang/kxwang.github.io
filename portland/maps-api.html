@@ -1,0 +1,219 @@
+<html>
+<head>
+  <title>A Leaflet map!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/MarkerCluster.Default.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css"/>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/leaflet.markercluster.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  
+  
+  <style>
+    #map{ height: 400px; }
+	.legend {
+		line-height: 18px;
+		color: #555;
+	}
+	.legend i {
+		width: 16px;
+		height: 16px;
+		float: left;
+		margin-right: 8px;
+		opacity: 0.8;
+	}
+	.ui-autocomplete-loading {
+		background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+	}
+	ul.ui-autocomplete.ui-menu {
+	  z-index: 1000;
+	}
+	input, .water-district-result {
+		margin: 5px;
+	}
+  </style>
+</head>
+<body>
+ 
+	<div class="ui-widget">
+	<input size="40" placeholder="Try 123 Main" id="user-address"> <br/>
+	<div class="water-district-result">Water District: <label id="water-district"></label></div>
+	</div>
+ 
+ 
+  <div id="map"></div>
+ 
+  <script>
+  
+	 $( "#user-address" ).autocomplete({
+	  delay: 200,
+	  source: function( request, response ) {
+		$.ajax( {
+		  url: "https://www.portlandmaps.com/arcgis/rest/services/Public/Centerline_Geocoding_PDX/GeocodeServer/findAddressCandidates",
+		  dataType: "jsonp",
+		  data: { Street: "", City: "", Zip: "", 'Single Line Input': request.term, outFields: "", outSR: "4326", searchExtent: "", f: "json"},
+		  success: function( data ) {
+			if(data.candidates.length === 0) { response(''); return; }
+			
+			var candidates  = data.candidates.map(function(candidate, index) {
+				return {
+					id: index, 
+					label: candidate.address, 
+					value: candidate.address,
+					location: candidate.location
+				};
+			});
+			//console.log(candidates);
+			response( candidates );
+		  }
+		} );
+	  },
+	  minLength: 3,
+	  select: function( event, ui ) {
+		console.log( "Value: " + ui.item.value + ", ID: " + ui.item.id );
+		if( marker) marker.removeFrom(map);
+		map.flyTo(new L.LatLng(ui.item.location.y, ui.item.location.x), 15);
+		marker = L.marker([ui.item.location.y, ui.item.location.x]).addTo(map);
+		
+		getWaterDistrictName(ui.item.location);
+	  }
+	} );
+
+  // load a tile layer
+  var lightLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+  //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      //attribution: 'Tiles by <a href="http://http://www.openstreetmap.org">OpenStreetMap</a>',
+      maxZoom: 15,
+      minZoom: 8,
+	  id: 'mapbox.light'
+    });
+	
+  var streetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+  //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      //attribution: 'Tiles by <a href="http://http://www.openstreetmap.org">OpenStreetMap</a>',
+      maxZoom: 17,
+      minZoom: 8,
+	  id: 'mapbox.streets'
+    });
+	
+	var baseMaps = {
+		"Light": lightLayer,
+		"Streets": streetsLayer
+	};
+
+	  // initialize the map
+	var map = L.map('map', {
+		center: [45.53, -122.68],
+		zoom: 11,
+		layers: [lightLayer]
+	});
+	
+
+	var marker = null;
+	
+	L.control.layers(baseMaps, null, {autoZIndex: false}).addTo(map);
+	
+	
+	
+	
+	
+	// Use location to look up water district
+function getWaterDistrictName(location) {
+	//console.log(JSON.stringify(location));
+	var geometryObject = {
+		x: location.x,
+		y: location.y,
+		spatialReference: {
+			wkid: 4326
+		}
+	}
+
+	var waterDistrictQueryObject = {
+		where: '',
+		text: '',
+		objectIds: '',
+		time: '',
+		geometry: JSON.stringify(geometryObject),
+		geometryType: 'esriGeometryPoint',
+		inSR: '4326',
+		spatialRel: 'esriSpatialRelIntersects',
+		relationParam: '',
+		outFields: 'DISTRICT',
+		returnGeometry: 'false',
+		returnTrueCurves: 'false',
+		maxAllowableOffset: '',
+		geometryPrecision: '',
+		outSR: '',
+		returnIdsOnly: 'false',
+		returnCountOnly: 'false',
+		orderByFields: '',
+		groupByFieldsForStatistics: '',
+		outStatistics: '',
+		returnZ: 'false',
+		returnM: 'false',
+		gdbVersion: '',
+		returnDistinctValues: 'false',
+		resultOffset: '',
+		resultRecordCount: '',
+		f: 'pjson'
+	}
+
+	var waterLookupUrl = 'https://www.portlandmaps.com/arcgis/rest/services/Public/Utilities_Water/MapServer/6/query';
+	$.ajax( {
+		url: waterLookupUrl,
+		data: waterDistrictQueryObject,
+		dataType: 'jsonp',
+		success: function (result) {
+			try {
+				/*
+				{
+				 "displayFieldName": "PhoneNo",
+				 "fieldAliases": {
+				  "DISTRICT": "DISTRICT"
+				 },
+				 "fields": [
+				  {
+				   "name": "DISTRICT",
+				   "type": "esriFieldTypeString",
+				   "alias": "DISTRICT",
+				   "length": 50
+				  }
+				 ],
+				 "features": [
+				  {
+				   "attributes": {
+					"DISTRICT": "City of Milwaukie"
+				   }
+				  }
+				 ]
+				}
+				*/			
+				if(!result.features || 
+					result.features.length !== 1 || 
+					!result.features[0].attributes) {
+					console.log('No water district info found');
+					$('#water-district').text('Out of service area');
+					return;
+				}
+				
+				console.log(result.features[0].attributes.DISTRICT);
+				$('#water-district').text(result.features[0].attributes.DISTRICT);
+				//lookupDistrictDetails(result.features[0].attributes.DISTRICT);
+				
+			} catch(e) {
+				console.error('JSON.parse: ' + e.message);
+			}
+		}
+	});
+}
+
+  </script>
+</body>
+</html>
