@@ -1,0 +1,60 @@
+<html>
+
+<head>
+	<title>Public Alerts Map</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/MarkerCluster.Default.css"
+	/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.1.0/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.6/leaflet.markercluster.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	
+	<style>
+		#map {
+			height: 600px;
+		}
+
+		.legend {
+			line-height: 18px;
+			color: #555;
+		}
+
+		.legend i {
+			width: 16px;
+			height: 16px;
+			float: left;
+			margin-right: 8px;
+			opacity: 0.8;
+		}
+
+		.ui-autocomplete-loading {
+			background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+		}
+
+		ul.ui-autocomplete.ui-menu {
+			z-index: 1000;
+		}
+
+		input,
+		.water-district-result {
+			margin: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div class="ui-widget">
+		<input size="40" placeholder="Try 123 Main" id="user-address">
+		<br/>
+		<div class="water-district-result">Water District:
+			<label id="water-district"></label>
+		</div>
+	</div>
+	<div id="map"></div>
+	<script src="esri2geo.js"></script>
+	<script src="water-lookup.js"></script>
+	<script src="alert-map.js"></script>
+</body>
+</html>
