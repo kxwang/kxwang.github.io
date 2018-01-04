@@ -11,14 +11,15 @@ var twitter_sources = require('./twitter_sources');
 
 // Create a map with screen name as the key
 var twitterScreenNameMap = new Map();
-twitter_sources.nodes.forEach(function(item){
-    item.node['Twitter Handle'] = item.node['Twitter Handle'].substring(1); // Remove the @ sign
+twitter_sources.nodes.forEach(function (item) {
+    // Remove the @ sign and conver to lower case. Twitter screen name is case INSENSITIVE
+    item.node['Twitter Handle'] = item.node['Twitter Handle'].substring(1).toLowerCase(); 
     twitterScreenNameMap.set(item.node['Twitter Handle'], item.node);
 })
 
 var twitterUserIDs = [];
 var userIds = twitter_sources.nodes.map(function (item) { return item.node['Twitter Handle'] });
-console.log(userIds.join());
+//console.log(userIds.join());
 
 client.post('users/lookup', { screen_name: userIds.join() }, function (error, users) {
     twitterUserIDs = users.map(function (user) {
@@ -28,9 +29,9 @@ client.post('users/lookup', { screen_name: userIds.join() }, function (error, us
 })
 
 
-for (var [key, value] of twitterScreenNameMap) {
-    console.log(key + ' = ' + JSON.stringify(value));
-  }
+// for (var [key, value] of twitterScreenNameMap) {
+//     console.log(key + ' = ' + JSON.stringify(value));
+// }
 
 /**
  * Stream statuses filtered by keyword
@@ -38,46 +39,89 @@ for (var [key, value] of twitterScreenNameMap) {
  **/
 
 //var twitterUserIDs = [14604442, 125789932, 5652522, 78668646];
+var stream = null;
+var timer = null;
+var calm = 1;
 
-function startListening(twitterUserIDs) {
-    console.log(twitterUserIDs.join());
-    client.stream('statuses/filter', { follow: twitterUserIDs.join() }, function (stream) {
+function restart() {
+    calm = 1;
+    clearTimeout(timer);
+    if (stream !== null && stream.active) {
+        stream.destroy();
+    } else {
+        startListening();
+    }
+}
+
+var dataCount = 0;
+
+function startListening() {
+    client.stream('statuses/filter', { follow: twitterUserIDs.join() }, function (newStream) {
+
+        stream = newStream;
+
         stream.on('data', function (tweet) {
+            console.log('------------------- dataCount = ', ++dataCount);
             if (tweet.retweeted_status ||            // is retweet
                 tweet.in_reply_to_status_id ||      // is reply
                 twitterUserIDs.indexOf(tweet.user.id) === -1 // is not from the user list we track
             ) {
-                console.log('retweet or reply ignored');
+                console.log('retweet or reply ignored: ' + tweet.text);
                 return;
             }
-            console.log(tweet.user.screen_name);
-            console.log(twitterScreenNameMap.get(tweet.user.screen_name)['Search Terms']);
 
+            tweet.user.screen_name = tweet.user.screen_name.toLowerCase();
+            if (!twitterScreenNameMap.has(tweet.user.screen_name)) {
+                console.log('Cannot find screen name:' + tweet.user.screen_name);
+                return;
+            }
             var searchTerm = twitterScreenNameMap.get(tweet.user.screen_name)['Search Terms'];
-            if(searchTerm.indexOf(',') === -1) {
-                if(tweet.text.indexOf(searchTerm) === -1){
-                    console.log('filtered out by keyword');
-                    return;
-                }
-            }
-            else {
-                var terms = searchTerm.split(',')
-                            .map(function(str) { return str.trim(); })
-                            .filter(function(str) { return (str.length > 0); });
-                var foundTerm = terms.some(function(term){
-                    return tweet.text.indexOf(term) >= 0;
-                });
-                if(!foundTerm) {
-                    console.log('filtered out by keyword');
-                    return;
-                }
-            }
+            console.log(tweet.user.screen_name, searchTerm);
 
+            if (searchTerm) {
+                if (searchTerm.indexOf(',') === -1) {
+                    if (tweet.text.indexOf(searchTerm) === -1) {
+                        console.log('filtered out by keyword: ' + tweet.text);
+                        return;
+                    }
+                }
+                else {
+                    var terms = searchTerm.split(',')
+                        .map(function (str) { return str.trim(); })
+                        .filter(function (str) { return (str.length > 0); });
+                    var foundTerm = terms.some(function (term) {
+                        return tweet.text.indexOf(term) >= 0;
+                    });
+                    if (!foundTerm) {
+                        console.log('filtered out by keyword: ' + tweet.text);
+                        return;
+                    }
+                }
+            }
+            console.log('===================================================================');
             console.log(tweet);
         });
 
         stream.on('error', function (error) {
             console.log(error);
+            if (err.message == 'Status Code: 420') {
+                calm++;
+            }
+        });
+
+        stream.on('end', function () {
+            console.log('stream end event');
+            stream.active = false;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                clearTimeout(timer);
+                if (stream.active) {
+                    stream.destroy();
+                } else {
+                    console.log('reconnect stream. calm=', calm);
+                    init();
+                }
+            }, 1000 * calm * calm);
         });
     });
 }
