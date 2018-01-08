@@ -1,1 +1,994 @@
-{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"incidentId":306255,"type":"INCIDENT","lastUpdated":"12/19/2017 1:46 pm","startTime":"09/28/2017 3:07 pm","locationName":"COLUMBIA RIVER","route":"I-84","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"OF","odotOffHwyDescription":"Off Ramp","odotSeverityDescript":"Informational only","iconType":2,"beginMP":28,"beginMarker":"I-84, 3 miles West of Multnomah Falls","endMP":28,"startLatitude":45.55871,"startLongitude":-122.17883,"displayLatitude":45.55871,"displayLongitude":-122.17883,"endLatitude":45.55871,"endLongitude":-122.17883,"highwayDirection":"WE","incidentDirection":"WB","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["I-84 Exit 28, Bridal Veil: Closed, resident access only. Ramps Affected."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.55871,-122.17883]}},{"type":"Feature","properties":{"incidentId":306256,"type":"INCIDENT","lastUpdated":"12/19/2017 1:46 pm","startTime":"09/28/2017 3:13 pm","locationName":"COLUMBIA RIVER","route":"I-84","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"OF","odotOffHwyDescription":"Off Ramp","odotSeverityDescript":"Informational only","iconType":2,"beginMP":35,"beginMarker":"I-84, 4 miles East of Multnomah Falls","endMP":35,"startLatitude":45.59997,"startLongitude":-122.05013,"displayLatitude":45.59997,"displayLongitude":-122.05013,"endLatitude":45.59997,"endLongitude":-122.05013,"highwayDirection":"WE","incidentDirection":"EB","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["I-84 Exit 35, Historic Columbia River Highway, Ainsworth interchange open but access to"," US-30 closed. Ramps Affected."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.59997,-122.05013]}},{"type":"Feature","properties":{"incidentId":306258,"type":"INCIDENT","lastUpdated":"12/19/2017 1:45 pm","startTime":"09/28/2017 3:17 pm","locationName":"COLUMBIA RIVER","route":"I-84","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"OF","odotOffHwyDescription":"Off Ramp","odotSeverityDescript":"Informational only","iconType":2,"beginMP":40,"beginMarker":"I-84, 5 miles West of Cascade Locks","endMP":40,"startLatitude":45.63115,"startLongitude":-121.95952,"displayLatitude":45.63115,"displayLongitude":-121.95952,"endLatitude":45.63115,"endLongitude":-121.95952,"highwayDirection":"WE","incidentDirection":"EB","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["I-84 Exit 40, Bonneville south of interchange: closed. Ramps Affected."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.63115,-121.95952]}},{"type":"Feature","properties":{"incidentId":306259,"type":"INCIDENT","lastUpdated":"12/19/2017 1:45 pm","startTime":"09/28/2017 3:20 pm","locationName":"COLUMBIA RIVER","route":"I-84","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"OF","odotOffHwyDescription":"Off Ramp","odotSeverityDescript":"Informational only","iconType":2,"beginMP":41,"beginMarker":"I-84, 4 miles West of Cascade Locks","endMP":41,"startLatitude":45.63695,"startLongitude":-121.94107,"displayLatitude":45.63695,"displayLongitude":-121.94107,"endLatitude":45.63695,"endLongitude":-121.94107,"highwayDirection":"WE","incidentDirection":"EB","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["I-84 Exit 41, Eagle Creek: closed. Ramps Affected."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.63695,-121.94107]}},{"type":"Feature","properties":{"incidentId":306266,"type":"INCIDENT","lastUpdated":"12/14/2017 2:01 pm","startTime":"09/28/2017 3:55 pm","locationName":"COLUMBIA RIVER","route":"I-84","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"OF","odotOffHwyDescription":"Off Ramp","odotSeverityDescript":"Informational only","iconType":2,"beginMP":35.71,"beginMarker":"I-84, 5 miles East of Multnomah Falls","endMP":35.71,"startLatitude":45.60541,"startLongitude":-122.03765,"displayLatitude":45.60541,"displayLongitude":-122.03765,"endLatitude":45.60541,"endLongitude":-122.03765,"highwayDirection":"WE","incidentDirection":"EB","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["Frontage Road, Dodson Road east from Warrendale interchange to John B Yeon State Park:"," closed, resident access only Ramps Affected."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.60541,-122.03765]}},{"type":"Feature","properties":{"incidentId":306268,"type":"INCIDENT","lastUpdated":"12/19/2017 1:45 pm","startTime":"09/28/2017 3:59 pm","locationName":"HISTORIC COLUMBIA RIVER","route":"US30","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"OF","odotOffHwyDescription":"Off Ramp","odotSeverityDescript":"Informational only","iconType":2,"beginMP":30.46,"beginMarker":"US30, West Cascade Locks","endMP":30.46,"startLatitude":45.66244,"startLongitude":-121.89784,"displayLatitude":45.66244,"displayLongitude":-121.89784,"endLatitude":45.66244,"endLongitude":-121.89784,"highwayDirection":"WE","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["State Parks Trail at Cascade Locks to Eagle Creek: closed Ramps Affected."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.66244,-121.89784]}},{"type":"Feature","properties":{"incidentId":306270,"type":"INCIDENT","lastUpdated":"12/19/2017 1:45 pm","startTime":"09/28/2017 4:01 pm","locationName":"COLUMBIA RIVER","route":"I-84","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"OF","odotOffHwyDescription":"Off Ramp","odotSeverityDescript":"Informational only","iconType":2,"beginMP":56,"beginMarker":"I-84, 8 miles West of Hood River","endMP":56,"startLatitude":45.69544,"startLongitude":-121.67141,"displayLatitude":45.69544,"displayLongitude":-121.67141,"endLatitude":45.69544,"endLongitude":-121.67141,"highwayDirection":"WE","incidentDirection":"EB","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["I-84 Exit 56, Viento interchange: open; north and south access closed. Ramps Affected."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.69544,-121.67141]}},{"type":"Feature","properties":{"incidentId":312445,"type":"INCIDENT","lastUpdated":"12/19/2017 1:44 pm","startTime":"11/21/2017 5:24 pm","locationName":"COLUMBIA RIVER","route":"I-84","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"FR","odotOffHwyDescription":"Frontage Road","odotSeverityDescript":"Informational only","iconType":2,"beginMP":63.02,"beginMarker":"I-84, Hood River","endMP":63.02,"startLatitude":45.71269,"startLongitude":-121.53067,"displayLatitude":45.71269,"displayLongitude":-121.53067,"endLatitude":45.71269,"endLongitude":-121.53067,"highwayDirection":"WE","incidentDirection":"EB","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["Maintenance operations have the frontage road (Westcliff Dr) closed at exit 62. Use an"," alternate route."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.71269,-121.53067]}},{"type":"Feature","properties":{"incidentId":313075,"type":"INCIDENT","lastUpdated":"12/19/2017 1:44 pm","startTime":"11/28/2017 2:53 pm","locationName":"HISTORIC COLUMBIA RIVER","route":"Hwy100","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":4,"odotSeverityDescript":"Closure","iconType":8,"beginMP":16,"beginMarker":"HWY100, 6 miles West of Ainsworth State Park","endMP":22,"endMarker":"I-84, Ainsworth State Park","startLatitude":45.57186,"startLongitude":-122.15355,"displayLatitude":45.57186,"displayLongitude":-122.15355,"endLatitude":45.60204,"endLongitude":-122.04236,"highwayDirection":"WE","recorderInitials":"RC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["Historic Columbia River Highway is closed EB & WB from Angels Rest near MP 16 to Dodson"," Park near MP 22."],"tmddOther":[""],"lanesAffected":["left lane, westbound","left lane, eastbound"]},"geometry":{"type":"Point","coordinates":[45.57186,-122.15355]}},{"type":"Feature","properties":{"incidentId":313154,"type":"INCIDENT","lastUpdated":"12/17/2017 06:26 am","startTime":"11/29/2017 09:12 am","locationName":"OREGON COAST","route":"US101","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":7,"odotSeverityDescript":"No to Minimum Delay","iconType":4,"beginMP":343.7,"beginMarker":"US101, 12 miles North of Brookings","endMP":343.7,"startLatitude":42.21878,"startLongitude":-124.37164,"displayLatitude":42.21878,"displayLongitude":-124.37164,"endLatitude":42.21878,"endLongitude":-124.37164,"highwayDirection":"NS","recorderInitials":"KFC","publicContact":"ODOT/STOC Central Point/Medford","publicContactPhone":"None","infoUrl":"None","comments":["Rough road, use caution."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[42.21878,-124.37164]}},{"type":"Feature","properties":{"incidentId":315013,"type":"INCIDENT","lastUpdated":"12/20/2017 1:40 pm","startTime":"12/15/2017 11:00 pm","locationName":"NORTH SANTIAM","route":"ORE22","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":8,"odotSeverityDescript":"Closure with Detour","iconType":8,"beginMP":55,"beginMarker":"ORE22, Idanha","endMP":81,"endMarker":"ORE22, 1 mile West of Intersection with Santiam Highway US20","startLatitude":44.70045,"startLongitude":-122.07208,"displayLatitude":44.70045,"displayLongitude":-122.07208,"endLatitude":44.43876,"endLongitude":-121.95413,"highwayDirection":"WE","recorderInitials":"None","publicContact":"ODOT/NWTOC Salem","publicContactPhone":"None","infoUrl":"None","comments":["The highway is closed from MP 55-81. All traffic use an alternate route."],"tmddOther":["Vehicles and trucks are advised to use OR 126 through Springfield coming from or going"," to Central Oregon. US 26 and OR 58 can also be used as an alternate route."],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[44.70045,-122.07208]}},{"type":"Feature","properties":{"incidentId":315343,"type":"INCIDENT","lastUpdated":"12/19/2017 4:55 pm","startTime":"12/19/2017 12:27 pm","locationName":"OREGON COAST","route":"US101","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityDescript":"Informational only","iconType":2,"beginMP":238.63,"beginMarker":"US101, Coos Bay","endMP":238.63,"startLatitude":43.36269,"startLongitude":-124.21223,"displayLatitude":43.36269,"displayLongitude":-124.21223,"endLatitude":43.36269,"endLongitude":-124.21223,"highwayDirection":"NS","incidentDirection":"NB","recorderInitials":"KBH","publicContact":"ODOT/STOC Central Point/Medford","publicContactPhone":"None","infoUrl":"None","comments":["High water, use caution."],"tmddOther":[""],"lanesAffected":["left lane, northbound","left lane, northbound"]},"geometry":{"type":"Point","coordinates":[43.36269,-124.21223]}},{"type":"Feature","properties":{"incidentId":315459,"type":"INCIDENT","lastUpdated":"12/20/2017 1:59 pm","startTime":"12/20/2017 09:47 am","locationName":"HEPPNER","route":"ORE74","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":6,"odotSeverityDescript":"Unconfirmed","iconType":3,"beginMP":39,"beginMarker":"ORE74, 2 miles South of Lexington","endMP":39,"startLatitude":45.42499,"startLongitude":-119.64643,"displayLatitude":45.42499,"displayLongitude":-119.64643,"endLatitude":45.42499,"endLongitude":-119.64643,"highwayDirection":"NS","recorderInitials":"None","publicContact":"ODOT/CTOC Bend","publicContactPhone":"None","infoUrl":"None","comments":["An unconfirmed report of hazardous debris has been received, use caution."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[45.42499,-119.64643]}},{"type":"Feature","properties":{"incidentId":315478,"type":"INCIDENT","lastUpdated":"12/20/2017 2:03 pm","startTime":"12/20/2017 11:03 am","locationName":"WARM SPRINGS","route":"US26","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":7,"odotSeverityDescript":"No to Minimum Delay","iconType":4,"beginMP":69,"beginMarker":"US26, 12 miles South of Intersection with Mount Hood Highway ORE35","endMP":69,"startLatitude":45.14998,"startLongitude":-121.6377,"displayLatitude":45.14998,"displayLongitude":-121.6377,"endLatitude":45.14998,"endLongitude":-121.6377,"highwayDirection":"NS","recorderInitials":"MFD ","publicContact":"ODOT/CTOC Bend","publicContactPhone":"None","infoUrl":"None","comments":["A disabled vehicle is creating a hazard causing no to minimum delays, use caution."],"tmddOther":[""],"lanesAffected":["left lane, northbound"]},"geometry":{"type":"Point","coordinates":[45.14998,-121.6377]}},{"type":"Feature","properties":{"incidentId":315491,"type":"INCIDENT","lastUpdated":"12/20/2017 12:24 pm","startTime":"12/20/2017 12:14 pm","locationName":"REDWOOD","route":"US199","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":1,"odotSeverityDescript":"Estimated delay under 20 minutes","iconType":5,"beginMP":24,"beginMarker":"US199, 2 miles North of Kerby","endMP":24,"startLatitude":42.23213,"startLongitude":-123.64235,"displayLatitude":42.23213,"displayLongitude":-123.64235,"endLatitude":42.23213,"endLongitude":-123.64235,"highwayDirection":"NS","recorderInitials":"NL","publicContact":"ODOT/STOC Central Point/Medford","publicContactPhone":"None","infoUrl":"None","comments":["A crash has occurred, use caution."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[42.23213,-123.64235]}},{"type":"Feature","properties":{"incidentId":315497,"type":"INCIDENT","lastUpdated":"12/20/2017 3:27 pm","startTime":"12/19/2017 6:20 pm","locationName":"SANTIAM","route":"US20","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":1,"odotSeverityDescript":"Estimated delay under 20 minutes","iconType":5,"beginMP":63,"beginMarker":"US20, Tombstone SnoPark Area","endMP":63,"startLatitude":44.39479,"startLongitude":-122.15343,"displayLatitude":44.39479,"displayLongitude":-122.15343,"endLatitude":44.39479,"endLongitude":-122.15343,"highwayDirection":"WE","recorderInitials":"AC","publicContact":"ODOT/NWTOC Salem","publicContactPhone":"None","infoUrl":"None","comments":["A disabled vehicle is creating a hazard, use caution."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[44.39479,-122.15343]}},{"type":"Feature","properties":{"incidentId":315507,"type":"INCIDENT","lastUpdated":"12/20/2017 3:04 pm","startTime":"12/20/2017 3:03 pm","locationName":"PENDLETON-JOHN DAY","route":"US395","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":6,"odotSeverityDescript":"Unconfirmed","iconType":3,"beginMP":95,"beginMarker":"US395, 3 miles North of Fox","endMP":95,"startLatitude":44.67567,"startLongitude":-119.13275,"displayLatitude":44.67567,"displayLongitude":-119.13275,"endLatitude":44.67567,"endLongitude":-119.13275,"highwayDirection":"NS","recorderInitials":"KH","publicContact":"ODOT/CTOC Bend","publicContactPhone":"None","infoUrl":"None","comments":["An unconfirmed report of a crash has been received, use caution."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[44.67567,-119.13275]}},{"type":"Feature","properties":{"incidentId":315508,"type":"INCIDENT","lastUpdated":"12/20/2017 3:27 pm","startTime":"12/20/2017 1:03 pm","locationName":"MT. HOOD","route":"ORE35","odotCategoryID":"A","odotCategoryDescript":"Crash/Hazard","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":1,"odotSeverityDescript":"Estimated delay under 20 minutes","iconType":5,"beginMP":57.8,"beginMarker":"US26, Intersection with Mount Hood Highway ORE35","endMP":57.8,"startLatitude":45.28383,"startLongitude":-121.71011,"displayLatitude":45.28383,"displayLongitude":-121.71011,"endLatitude":45.28383,"endLongitude":-121.71011,"highwayDirection":"WE","incidentDirection":"EB","recorderInitials":"NDC","publicContact":"ODOT/TMOC Portland","publicContactPhone":"None","infoUrl":"None","comments":["A disabled vehicle has the right lane clsoed NB at MP 58, use caution."],"tmddOther":[""],"lanesAffected":["left lane, eastbound"]},"geometry":{"type":"Point","coordinates":[45.28383,-121.71011]}},{"type":"Feature","properties":{"incidentId":307831,"type":"INCIDENT","lastUpdated":"12/15/2017 1:13 pm","startTime":"10/13/2017 10:04 am","locationName":"MCKENZIE","route":"ORE242","odotCategoryID":"I","odotCategoryDescript":"Information","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":5,"odotSeverityDescript":"Seasonal Closure","iconType":8,"beginMP":61.91,"beginMarker":"ORE242, 7 miles East of Intersection with McKenzie Highway ORE126","endMP":83.7,"endMarker":"ORE242, 7 miles West of Sisters","startLatitude":44.16797,"startLongitude":-121.96464,"displayLatitude":44.16797,"displayLongitude":-121.96464,"endLatitude":44.3065,"endLongitude":-121.71154,"highwayDirection":"WE","recorderInitials":"AC","publicContact":"ODOT/NWTOC Salem","publicContactPhone":"None","infoUrl":"None","comments":["Old McKenzie highway 242 is closed for the season from MP 61-83 in both directions. Use"," alternate route."],"tmddOther":[""],"lanesAffected":[]},"geometry":{"type":"Point","coordinates":[44.16797,-121.96464]}},{"type":"Feature","properties":{"incidentId":311800,"type":"INCIDENT","lastUpdated":"11/15/2017 9:43 pm","startTime":"11/15/2017 9:32 pm","locationName":"CENTURY DRIVE","route":"HWY372","odotCategoryID":"I","odotCategoryDescript":"Information","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":5,"odotSeverityDescript":"Seasonal Closure","iconType":8,"beginMP":21.98,"beginMarker":"HWY372, Mount Bachelor Ski Area","endMP":21.98,"startLatitude":44.00237,"startLongitude":-121.66622,"displayLatitude":44.00237,"displayLongitude":-121.66622,"endLatitude":44.00237,"endLongitude":-121.66622,"highwayDirection":"EW","recorderInitials":"MFD ","publicContact":"ODOT/CTOC Bend","publicContactPhone":"None","infoUrl":"None","comments":["The snow gate at Mt. Bachelor on the Cascade Lakes Highway is closed for the season."],"tmddOther":[""],"lanesAffected":["left lane, westbound"]},"geometry":{"type":"Point","coordinates":[44.00237,-121.66622]}},{"type":"Feature","properties":{"incidentId":315496,"type":"INCIDENT","lastUpdated":"12/20/2017 1:00 pm","startTime":"12/20/2017 12:59 pm","locationName":"THE DALLES-CALIFORNIA","route":"US197","odotCategoryID":"I","odotCategoryDescript":"Information","odotOffHwyCD":"None","odotOffHwyDescription":"None","odotSeverityID":7,"odotSeverityDescript":"No to Minimum Delay","iconType":4,"beginMP":8,"beginMarker":"US197, 5 miles North of Dufur","endMP":8,"startLatitude":45.51546,"startLongitude":-121.09072,"displayLatitude":45.51546,"displayLongitude":-121.09072,"endLatitude":45.51546,"endLongitude":-121.09072,"highwayDirection":"NS","recorderInitials":"None","publicContact":"ODOT/CTOC Bend","publicContactPhone":"None","infoUrl":"None","comments":["Burning is taking place along the highway causing no to minimum delays. Use caution."],"tmddOther":[""],"lanesAffected":["right shoulder, southbound"]},"geometry":{"type":"Point","coordinates":[45.51546,-121.09072]}}]}
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 306255,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:46 pm",
+                "startTime": "09/28/2017 3:07 pm",
+                "locationName": "COLUMBIA RIVER",
+                "route": "I-84",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "OF",
+                "odotOffHwyDescription": "Off Ramp",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 28,
+                "beginMarker": "I-84, 3 miles West of Multnomah Falls",
+                "endMP": 28,
+                "startLatitude": 45.55871,
+                "startLongitude": -122.17883,
+                "displayLatitude": 45.55871,
+                "displayLongitude": -122.17883,
+                "endLatitude": 45.55871,
+                "endLongitude": -122.17883,
+                "highwayDirection": "WE",
+                "incidentDirection": "WB",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "I-84 Exit 28, Bridal Veil: Closed, resident access only. Ramps Affected."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.55871,
+                    -122.17883
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 306256,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:46 pm",
+                "startTime": "09/28/2017 3:13 pm",
+                "locationName": "COLUMBIA RIVER",
+                "route": "I-84",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "OF",
+                "odotOffHwyDescription": "Off Ramp",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 35,
+                "beginMarker": "I-84, 4 miles East of Multnomah Falls",
+                "endMP": 35,
+                "startLatitude": 45.59997,
+                "startLongitude": -122.05013,
+                "displayLatitude": 45.59997,
+                "displayLongitude": -122.05013,
+                "endLatitude": 45.59997,
+                "endLongitude": -122.05013,
+                "highwayDirection": "WE",
+                "incidentDirection": "EB",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "I-84 Exit 35, Historic Columbia River Highway, Ainsworth interchange open but access to",
+                    " US-30 closed. Ramps Affected."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.59997,
+                    -122.05013
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 306258,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:45 pm",
+                "startTime": "09/28/2017 3:17 pm",
+                "locationName": "COLUMBIA RIVER",
+                "route": "I-84",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "OF",
+                "odotOffHwyDescription": "Off Ramp",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 40,
+                "beginMarker": "I-84, 5 miles West of Cascade Locks",
+                "endMP": 40,
+                "startLatitude": 45.63115,
+                "startLongitude": -121.95952,
+                "displayLatitude": 45.63115,
+                "displayLongitude": -121.95952,
+                "endLatitude": 45.63115,
+                "endLongitude": -121.95952,
+                "highwayDirection": "WE",
+                "incidentDirection": "EB",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "I-84 Exit 40, Bonneville south of interchange: closed. Ramps Affected."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.63115,
+                    -121.95952
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 306259,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:45 pm",
+                "startTime": "09/28/2017 3:20 pm",
+                "locationName": "COLUMBIA RIVER",
+                "route": "I-84",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "OF",
+                "odotOffHwyDescription": "Off Ramp",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 41,
+                "beginMarker": "I-84, 4 miles West of Cascade Locks",
+                "endMP": 41,
+                "startLatitude": 45.63695,
+                "startLongitude": -121.94107,
+                "displayLatitude": 45.63695,
+                "displayLongitude": -121.94107,
+                "endLatitude": 45.63695,
+                "endLongitude": -121.94107,
+                "highwayDirection": "WE",
+                "incidentDirection": "EB",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "I-84 Exit 41, Eagle Creek: closed. Ramps Affected."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.63695,
+                    -121.94107
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 306266,
+                "type": "INCIDENT",
+                "lastUpdated": "12/14/2017 2:01 pm",
+                "startTime": "09/28/2017 3:55 pm",
+                "locationName": "COLUMBIA RIVER",
+                "route": "I-84",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "OF",
+                "odotOffHwyDescription": "Off Ramp",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 35.71,
+                "beginMarker": "I-84, 5 miles East of Multnomah Falls",
+                "endMP": 35.71,
+                "startLatitude": 45.60541,
+                "startLongitude": -122.03765,
+                "displayLatitude": 45.60541,
+                "displayLongitude": -122.03765,
+                "endLatitude": 45.60541,
+                "endLongitude": -122.03765,
+                "highwayDirection": "WE",
+                "incidentDirection": "EB",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "Frontage Road, Dodson Road east from Warrendale interchange to John B Yeon State Park:",
+                    " closed, resident access only Ramps Affected."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.60541,
+                    -122.03765
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 306268,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:45 pm",
+                "startTime": "09/28/2017 3:59 pm",
+                "locationName": "HISTORIC COLUMBIA RIVER",
+                "route": "US30",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "OF",
+                "odotOffHwyDescription": "Off Ramp",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 30.46,
+                "beginMarker": "US30, West Cascade Locks",
+                "endMP": 30.46,
+                "startLatitude": 45.66244,
+                "startLongitude": -121.89784,
+                "displayLatitude": 45.66244,
+                "displayLongitude": -121.89784,
+                "endLatitude": 45.66244,
+                "endLongitude": -121.89784,
+                "highwayDirection": "WE",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "State Parks Trail at Cascade Locks to Eagle Creek: closed Ramps Affected."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.66244,
+                    -121.89784
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 306270,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:45 pm",
+                "startTime": "09/28/2017 4:01 pm",
+                "locationName": "COLUMBIA RIVER",
+                "route": "I-84",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "OF",
+                "odotOffHwyDescription": "Off Ramp",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 56,
+                "beginMarker": "I-84, 8 miles West of Hood River",
+                "endMP": 56,
+                "startLatitude": 45.69544,
+                "startLongitude": -121.67141,
+                "displayLatitude": 45.69544,
+                "displayLongitude": -121.67141,
+                "endLatitude": 45.69544,
+                "endLongitude": -121.67141,
+                "highwayDirection": "WE",
+                "incidentDirection": "EB",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "I-84 Exit 56, Viento interchange: open; north and south access closed. Ramps Affected."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.69544,
+                    -121.67141
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 312445,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:44 pm",
+                "startTime": "11/21/2017 5:24 pm",
+                "locationName": "COLUMBIA RIVER",
+                "route": "I-84",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "FR",
+                "odotOffHwyDescription": "Frontage Road",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 63.02,
+                "beginMarker": "I-84, Hood River",
+                "endMP": 63.02,
+                "startLatitude": 45.71269,
+                "startLongitude": -121.53067,
+                "displayLatitude": 45.71269,
+                "displayLongitude": -121.53067,
+                "endLatitude": 45.71269,
+                "endLongitude": -121.53067,
+                "highwayDirection": "WE",
+                "incidentDirection": "EB",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "Maintenance operations have the frontage road (Westcliff Dr) closed at exit 62. Use an",
+                    " alternate route."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.71269,
+                    -121.53067
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 313075,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 1:44 pm",
+                "startTime": "11/28/2017 2:53 pm",
+                "locationName": "HISTORIC COLUMBIA RIVER",
+                "route": "Hwy100",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 4,
+                "odotSeverityDescript": "Closure",
+                "iconType": 8,
+                "beginMP": 16,
+                "beginMarker": "HWY100, 6 miles West of Ainsworth State Park",
+                "endMP": 22,
+                "endMarker": "I-84, Ainsworth State Park",
+                "startLatitude": 45.57186,
+                "startLongitude": -122.15355,
+                "displayLatitude": 45.57186,
+                "displayLongitude": -122.15355,
+                "endLatitude": 45.60204,
+                "endLongitude": -122.04236,
+                "highwayDirection": "WE",
+                "recorderInitials": "RC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "Historic Columbia River Highway is closed EB & WB from Angels Rest near MP 16 to Dodson",
+                    " Park near MP 22."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": [
+                    "left lane, westbound",
+                    "left lane, eastbound"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.57186,
+                    -122.15355
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 313154,
+                "type": "INCIDENT",
+                "lastUpdated": "12/17/2017 06:26 am",
+                "startTime": "11/29/2017 09:12 am",
+                "locationName": "OREGON COAST",
+                "route": "US101",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 7,
+                "odotSeverityDescript": "No to Minimum Delay",
+                "iconType": 4,
+                "beginMP": 343.7,
+                "beginMarker": "US101, 12 miles North of Brookings",
+                "endMP": 343.7,
+                "startLatitude": 42.21878,
+                "startLongitude": -124.37164,
+                "displayLatitude": 42.21878,
+                "displayLongitude": -124.37164,
+                "endLatitude": 42.21878,
+                "endLongitude": -124.37164,
+                "highwayDirection": "NS",
+                "recorderInitials": "KFC",
+                "publicContact": "ODOT/STOC Central Point/Medford",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "Rough road, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    42.21878,
+                    -124.37164
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315013,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 1:40 pm",
+                "startTime": "12/15/2017 11:00 pm",
+                "locationName": "NORTH SANTIAM",
+                "route": "ORE22",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 8,
+                "odotSeverityDescript": "Closure with Detour",
+                "iconType": 8,
+                "beginMP": 55,
+                "beginMarker": "ORE22, Idanha",
+                "endMP": 81,
+                "endMarker": "ORE22, 1 mile West of Intersection with Santiam Highway US20",
+                "startLatitude": 44.70045,
+                "startLongitude": -122.07208,
+                "displayLatitude": 44.70045,
+                "displayLongitude": -122.07208,
+                "endLatitude": 44.43876,
+                "endLongitude": -121.95413,
+                "highwayDirection": "WE",
+                "recorderInitials": "None",
+                "publicContact": "ODOT/NWTOC Salem",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "The highway is closed from MP 55-81. All traffic use an alternate route."
+                ],
+                "tmddOther": [
+                    "Vehicles and trucks are advised to use OR 126 through Springfield coming from or going",
+                    " to Central Oregon. US 26 and OR 58 can also be used as an alternate route."
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.70045,
+                    -122.07208
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315343,
+                "type": "INCIDENT",
+                "lastUpdated": "12/19/2017 4:55 pm",
+                "startTime": "12/19/2017 12:27 pm",
+                "locationName": "OREGON COAST",
+                "route": "US101",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityDescript": "Informational only",
+                "iconType": 2,
+                "beginMP": 238.63,
+                "beginMarker": "US101, Coos Bay",
+                "endMP": 238.63,
+                "startLatitude": 43.36269,
+                "startLongitude": -124.21223,
+                "displayLatitude": 43.36269,
+                "displayLongitude": -124.21223,
+                "endLatitude": 43.36269,
+                "endLongitude": -124.21223,
+                "highwayDirection": "NS",
+                "incidentDirection": "NB",
+                "recorderInitials": "KBH",
+                "publicContact": "ODOT/STOC Central Point/Medford",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "High water, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": [
+                    "left lane, northbound",
+                    "left lane, northbound"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    43.36269,
+                    -124.21223
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315459,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 1:59 pm",
+                "startTime": "12/20/2017 09:47 am",
+                "locationName": "HEPPNER",
+                "route": "ORE74",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 6,
+                "odotSeverityDescript": "Unconfirmed",
+                "iconType": 3,
+                "beginMP": 39,
+                "beginMarker": "ORE74, 2 miles South of Lexington",
+                "endMP": 39,
+                "startLatitude": 45.42499,
+                "startLongitude": -119.64643,
+                "displayLatitude": 45.42499,
+                "displayLongitude": -119.64643,
+                "endLatitude": 45.42499,
+                "endLongitude": -119.64643,
+                "highwayDirection": "NS",
+                "recorderInitials": "None",
+                "publicContact": "ODOT/CTOC Bend",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "An unconfirmed report of hazardous debris has been received, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.42499,
+                    -119.64643
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315478,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 2:03 pm",
+                "startTime": "12/20/2017 11:03 am",
+                "locationName": "WARM SPRINGS",
+                "route": "US26",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 7,
+                "odotSeverityDescript": "No to Minimum Delay",
+                "iconType": 4,
+                "beginMP": 69,
+                "beginMarker": "US26, 12 miles South of Intersection with Mount Hood Highway ORE35",
+                "endMP": 69,
+                "startLatitude": 45.14998,
+                "startLongitude": -121.6377,
+                "displayLatitude": 45.14998,
+                "displayLongitude": -121.6377,
+                "endLatitude": 45.14998,
+                "endLongitude": -121.6377,
+                "highwayDirection": "NS",
+                "recorderInitials": "MFD ",
+                "publicContact": "ODOT/CTOC Bend",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "A disabled vehicle is creating a hazard causing no to minimum delays, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": [
+                    "left lane, northbound"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.14998,
+                    -121.6377
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315491,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 12:24 pm",
+                "startTime": "12/20/2017 12:14 pm",
+                "locationName": "REDWOOD",
+                "route": "US199",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 1,
+                "odotSeverityDescript": "Estimated delay under 20 minutes",
+                "iconType": 5,
+                "beginMP": 24,
+                "beginMarker": "US199, 2 miles North of Kerby",
+                "endMP": 24,
+                "startLatitude": 42.23213,
+                "startLongitude": -123.64235,
+                "displayLatitude": 42.23213,
+                "displayLongitude": -123.64235,
+                "endLatitude": 42.23213,
+                "endLongitude": -123.64235,
+                "highwayDirection": "NS",
+                "recorderInitials": "NL",
+                "publicContact": "ODOT/STOC Central Point/Medford",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "A crash has occurred, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    42.23213,
+                    -123.64235
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315497,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 3:27 pm",
+                "startTime": "12/19/2017 6:20 pm",
+                "locationName": "SANTIAM",
+                "route": "US20",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 1,
+                "odotSeverityDescript": "Estimated delay under 20 minutes",
+                "iconType": 5,
+                "beginMP": 63,
+                "beginMarker": "US20, Tombstone SnoPark Area",
+                "endMP": 63,
+                "startLatitude": 44.39479,
+                "startLongitude": -122.15343,
+                "displayLatitude": 44.39479,
+                "displayLongitude": -122.15343,
+                "endLatitude": 44.39479,
+                "endLongitude": -122.15343,
+                "highwayDirection": "WE",
+                "recorderInitials": "AC",
+                "publicContact": "ODOT/NWTOC Salem",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "A disabled vehicle is creating a hazard, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.39479,
+                    -122.15343
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315507,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 3:04 pm",
+                "startTime": "12/20/2017 3:03 pm",
+                "locationName": "PENDLETON-JOHN DAY",
+                "route": "US395",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 6,
+                "odotSeverityDescript": "Unconfirmed",
+                "iconType": 3,
+                "beginMP": 95,
+                "beginMarker": "US395, 3 miles North of Fox",
+                "endMP": 95,
+                "startLatitude": 44.67567,
+                "startLongitude": -119.13275,
+                "displayLatitude": 44.67567,
+                "displayLongitude": -119.13275,
+                "endLatitude": 44.67567,
+                "endLongitude": -119.13275,
+                "highwayDirection": "NS",
+                "recorderInitials": "KH",
+                "publicContact": "ODOT/CTOC Bend",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "An unconfirmed report of a crash has been received, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.67567,
+                    -119.13275
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315508,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 3:27 pm",
+                "startTime": "12/20/2017 1:03 pm",
+                "locationName": "MT. HOOD",
+                "route": "ORE35",
+                "odotCategoryID": "A",
+                "odotCategoryDescript": "Crash/Hazard",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 1,
+                "odotSeverityDescript": "Estimated delay under 20 minutes",
+                "iconType": 5,
+                "beginMP": 57.8,
+                "beginMarker": "US26, Intersection with Mount Hood Highway ORE35",
+                "endMP": 57.8,
+                "startLatitude": 45.28383,
+                "startLongitude": -121.71011,
+                "displayLatitude": 45.28383,
+                "displayLongitude": -121.71011,
+                "endLatitude": 45.28383,
+                "endLongitude": -121.71011,
+                "highwayDirection": "WE",
+                "incidentDirection": "EB",
+                "recorderInitials": "NDC",
+                "publicContact": "ODOT/TMOC Portland",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "A disabled vehicle has the right lane clsoed NB at MP 58, use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": [
+                    "left lane, eastbound"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.28383,
+                    -121.71011
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 307831,
+                "type": "INCIDENT",
+                "lastUpdated": "12/15/2017 1:13 pm",
+                "startTime": "10/13/2017 10:04 am",
+                "locationName": "MCKENZIE",
+                "route": "ORE242",
+                "odotCategoryID": "I",
+                "odotCategoryDescript": "Information",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 5,
+                "odotSeverityDescript": "Seasonal Closure",
+                "iconType": 8,
+                "beginMP": 61.91,
+                "beginMarker": "ORE242, 7 miles East of Intersection with McKenzie Highway ORE126",
+                "endMP": 83.7,
+                "endMarker": "ORE242, 7 miles West of Sisters",
+                "startLatitude": 44.16797,
+                "startLongitude": -121.96464,
+                "displayLatitude": 44.16797,
+                "displayLongitude": -121.96464,
+                "endLatitude": 44.3065,
+                "endLongitude": -121.71154,
+                "highwayDirection": "WE",
+                "recorderInitials": "AC",
+                "publicContact": "ODOT/NWTOC Salem",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "Old McKenzie highway 242 is closed for the season from MP 61-83 in both directions. Use",
+                    " alternate route."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.16797,
+                    -121.96464
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 311800,
+                "type": "INCIDENT",
+                "lastUpdated": "11/15/2017 9:43 pm",
+                "startTime": "11/15/2017 9:32 pm",
+                "locationName": "CENTURY DRIVE",
+                "route": "HWY372",
+                "odotCategoryID": "I",
+                "odotCategoryDescript": "Information",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 5,
+                "odotSeverityDescript": "Seasonal Closure",
+                "iconType": 8,
+                "beginMP": 21.98,
+                "beginMarker": "HWY372, Mount Bachelor Ski Area",
+                "endMP": 21.98,
+                "startLatitude": 44.00237,
+                "startLongitude": -121.66622,
+                "displayLatitude": 44.00237,
+                "displayLongitude": -121.66622,
+                "endLatitude": 44.00237,
+                "endLongitude": -121.66622,
+                "highwayDirection": "EW",
+                "recorderInitials": "MFD ",
+                "publicContact": "ODOT/CTOC Bend",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "The snow gate at Mt. Bachelor on the Cascade Lakes Highway is closed for the season."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": [
+                    "left lane, westbound"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    44.00237,
+                    -121.66622
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "incidentId": 315496,
+                "type": "INCIDENT",
+                "lastUpdated": "12/20/2017 1:00 pm",
+                "startTime": "12/20/2017 12:59 pm",
+                "locationName": "THE DALLES-CALIFORNIA",
+                "route": "US197",
+                "odotCategoryID": "I",
+                "odotCategoryDescript": "Information",
+                "odotOffHwyCD": "None",
+                "odotOffHwyDescription": "None",
+                "odotSeverityID": 7,
+                "odotSeverityDescript": "No to Minimum Delay",
+                "iconType": 4,
+                "beginMP": 8,
+                "beginMarker": "US197, 5 miles North of Dufur",
+                "endMP": 8,
+                "startLatitude": 45.51546,
+                "startLongitude": -121.09072,
+                "displayLatitude": 45.51546,
+                "displayLongitude": -121.09072,
+                "endLatitude": 45.51546,
+                "endLongitude": -121.09072,
+                "highwayDirection": "NS",
+                "recorderInitials": "None",
+                "publicContact": "ODOT/CTOC Bend",
+                "publicContactPhone": "None",
+                "infoUrl": "None",
+                "comments": [
+                    "Burning is taking place along the highway causing no to minimum delays. Use caution."
+                ],
+                "tmddOther": [
+                    ""
+                ],
+                "lanesAffected": [
+                    "right shoulder, southbound"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    45.51546,
+                    -121.09072
+                ]
+            }
+        }
+    ]
+}
