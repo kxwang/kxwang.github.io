@@ -66,10 +66,55 @@ Severity ID
     8 Closure with Detour
 */
 
+
+
+////////////////////////////////////////////////////////////////////////
+// Common data
+
+// https://www2.census.gov/geo/docs/reference/codes/files/st41_or_cou.txt
+var fipsCountyMap = {
+    41001: "Baker County",
+    41003: "Benton County",
+    41005: "Clackamas County",
+    41007: "Clatsop County",
+    41009: "Columbia County",
+    41011: "Coos County",
+    41013: "Crook County",
+    41015: "Curry County",
+    41017: "Deschutes County",
+    41019: "Douglas County",
+    41021: "Gilliam County",
+    41023: "Grant County",
+    41025: "Harney County",
+    41027: "Hood River County",
+    41029: "Jackson County",
+    41031: "Jefferson County",
+    41033: "Josephine County",
+    41035: "Klamath County",
+    41037: "Lake County",
+    41039: "Lane County",
+    41041: "Lincoln County",
+    41043: "Linn County",
+    41045: "Malheur County",
+    41047: "Marion County",
+    41049: "Morrow County",
+    41051: "Multnomah County",
+    41053: "Polk County",
+    41055: "Sherman County",
+    41057: "Tillamook County",
+    41059: "Umatilla County",
+    41061: "Union County",
+    41063: "Wallowa County",
+    41065: "Wasco County",
+    41067: "Washington County",
+    41069: "Wheeler County",
+    41071: "Yamhill County",
+}
+
+
 ////////////////////////////////////////////////////////////////////////
 // Incident: unscheduled
 var incidentLayer = L.geoJSON(null, {
-    onEachFeature: onEachIncidentFeature, // bind popup
     pointToLayer: generateIncidentMarker,
 });
 $.getJSON("tripcheck.incident.esri.json", generateEsriJsonHandler({
@@ -96,8 +141,7 @@ $.getJSON("tripcheck.incident.esri.json", generateEsriJsonHandler({
 ////////////////////////////////////////////////////////////////////////
 // Event: scheduled closure, slowdown, etc.
 var eventLayer = L.geoJSON(null, {
-    onEachFeature: onEachIncidentFeature,
-    pointToLayer: generateCircleMarker,
+    pointToLayer: generateEventMarker,
 });
 
 $.getJSON("tripcheck.event.esri.json", generateEsriJsonHandler({
@@ -118,7 +162,6 @@ $.getJSON("tripcheck.event.esri.json", generateEsriJsonHandler({
 // Incident-TLE: Traffic Local Events. Events reported outside tripcheck agencies.
 // https://tripcheck.com/scripts/map/data/incd-tle.js
 var incidentTleLayer = L.geoJSON(null, {
-    onEachFeature: onEachIncidentFeature,
     pointToLayer: generateIncidentTleMarker,
 });
 
@@ -140,13 +183,27 @@ $.getJSON("tripcheck.incidentTle.esri.json", generateEsriJsonHandler({
 // Add them all
 ///////////////////////////////////////
 
+var oregonCountyLayer = L.geoJSON(null, {
+    style: {
+        color: "#999", 
+        weight: 1, 
+        fillOpacity: 0.0,
+        zIndex: 0,
+    }
+});
+
+$.getJSON("oregon.county.geojson", function(data) {
+    oregonCountyLayer.addData(data).addTo(map);
+});
+
 var overlayMaps = {
     "Incident": incidentLayer,
     "Event": eventLayer,
     "Incident TLE": incidentTleLayer,
+    'Oregon': oregonCountyLayer,
 }
 
-L.control.layers(baseMaps, overlayMaps, { autoZIndex: false }).addTo(map);
+L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
 
 ///////////////////////////////////////
 // Helper functions
@@ -160,10 +217,19 @@ function generateIncidentMarker(feature, latlng) {
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
+    }).on('mouseover', function (e) {
+        //open popup;
+        var popup = L.popup()
+            .setLatLng(e.latlng)
+            .setContent(feature.properties.comments
+            + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
+            + '<br>started: ' + feature.properties.startTime
+            + '<br>updated: ' + feature.properties.lastUpdated)
+            .openOn(map);
     });
 }
 
-function generateCircleMarker(feature, latlng) {
+function generateEventMarker(feature, latlng) {
     return L.circleMarker(latlng, {
         radius: 8,
         fillColor: "#ff7800",
@@ -171,6 +237,15 @@ function generateCircleMarker(feature, latlng) {
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
+    }).on('mouseover', function (e) {
+        //open popup;
+        var popup = L.popup()
+            .setLatLng(e.latlng)
+            .setContent(feature.properties.comments
+            + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
+            + '<br>started: ' + feature.properties.startTime
+            + '<br>updated: ' + feature.properties.lastUpdated)
+            .openOn(map);
     });
 }
 
@@ -183,18 +258,18 @@ function generateIncidentTleMarker(feature, latlng) {
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
+    }).on('mouseover', function (e) {
+        //open popup;
+        var popup = L.popup()
+            .setLatLng(e.latlng)
+            .setContent(feature.properties.publicCommentText
+                + '<br>odotSeverityID: ' + feature.properties.travelImpact
+                + '<br>started: ' + feature.properties.starts
+                + '<br>updated: ' + feature.properties.lastUpdated)
+            .openOn(map);
     });
 }
 
-function onEachIncidentFeature(feature, layer) {
-    // does this feature have a property named popupContent?
-    if (feature.properties && feature.properties.comments) {
-        layer.bindPopup(feature.properties.comments
-            + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
-            + '<br>started: ' + feature.properties.startTime
-            + '<br>updated: ' + feature.properties.lastUpdated);
-    }
-}
 
 // Generate a funciton that handles ESRI Json data
 // Input: an option object that contains info to customize the returned function
