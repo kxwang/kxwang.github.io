@@ -61,7 +61,7 @@ function startListening() {
         stream = newStream;
 
         stream.on('data', function (tweet) {
-            console.log('------------------- dataCount = ', ++dataCount);
+            console.log(new Date().toLocaleString(), '--------------- dataCount = ', ++dataCount);
             if (tweet.retweeted_status ||            // is retweet
                 tweet.in_reply_to_status_id ||      // is reply
                 twitterUserIDs.indexOf(tweet.user.id) === -1 // is not from the user list we track
@@ -98,7 +98,7 @@ function startListening() {
                     }
                 }
             }
-            console.log('===================================================================');
+            console.log(new Date().toLocaleString(), '===================================');
             console.log(tweet);
         });
 
@@ -119,7 +119,7 @@ function startListening() {
                     stream.destroy();
                 } else {
                     console.log('reconnect stream. calm=', calm);
-                    init();
+                    startListening();
                 }
             }, 1000 * calm * calm);
         });
