@@ -1,4 +1,5 @@
 var Twitter = require('twitter');
+var JsonApiStub = require('./jsonapi_stub')
 
 var client = new Twitter({
     consumer_key: 'GGM0g7EgY6pDkJRTiPW4uBsxX',
@@ -13,7 +14,7 @@ var twitter_sources = require('./twitter_sources');
 var twitterScreenNameMap = new Map();
 twitter_sources.nodes.forEach(function (item) {
     // Remove the @ sign and conver to lower case. Twitter screen name is case INSENSITIVE
-    item.node['Twitter Handle'] = item.node['Twitter Handle'].substring(1).toLowerCase(); 
+    item.node['Twitter Handle'] = item.node['Twitter Handle'].substring(1).toLowerCase();
     twitterScreenNameMap.set(item.node['Twitter Handle'], item.node);
 })
 
@@ -66,7 +67,7 @@ function startListening() {
                 tweet.in_reply_to_status_id ||      // is reply
                 twitterUserIDs.indexOf(tweet.user.id) === -1 // is not from the user list we track
             ) {
-                console.log('retweet or reply ignored: ' + tweet.text);
+                console.log('retweet or reply ignored: '); // + tweet.text);
                 return;
             }
 
@@ -99,7 +100,16 @@ function startListening() {
                 }
             }
             console.log(new Date().toLocaleString(), '===================================');
-            console.log(tweet);
+            //console.log(tweet);
+
+            // Convert Tweet to Alert
+            var alert = {
+                title: tweet.text,
+                body: tweet.text,
+                link: 'https://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str,
+                sourceTypeName: 'Twitter',
+            };
+            JsonApiStub.createAlert(alert);
         });
 
         stream.on('error', function (error) {
