@@ -18,7 +18,7 @@ module.exports = {
                 "Tags": "Law Enforcement, Portland",
                 "Tweet / Re-Tweet?": "",
                 "Twitter Handle": "@PortlandPolice",
-                "Search Terms": "#alert"
+                "Search Terms": "#alert,#Alert"
             }
         },
         {
@@ -135,7 +135,7 @@ module.exports = {
                 "Tags": "Regional, Road",
                 "Tweet / Re-Tweet?": "",
                 "Twitter Handle": "@oregondot",
-                "Search Terms": "#pdx, #pdxtraffic"
+                "Search Terms": "#pdx, #pdxtraffic, #PDXtraffic"
             }
         },
         {
@@ -477,7 +477,7 @@ module.exports = {
                 "Tags": "Multnomah County, Portland",
                 "Tweet / Re-Tweet?": "",
                 "Twitter Handle": "@PDXParksandRec",
-                "Search Terms": "Alert"
+                "Search Terms": "Alert,alert"
             }
         },
         {

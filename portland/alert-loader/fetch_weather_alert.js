@@ -3,7 +3,8 @@ var request = require('request'); // for fetching the feed
 
 var req = request(
     {
-        url: 'https://api.weather.gov/alerts?active=1&state=or',
+        url: 'https://api.weather.gov/alerts?active=1&state=OR',
+        // for portland metro https://api.weather.gov/alerts?active=1&zone=ORZ006
         headers: {
             // Requred header. Will get a 403 error without it
             'User-Agent': 'CityOfPortland/v1.0 (http://portlandoregon.gov; xinju.wang@portlandoregon.gov)',

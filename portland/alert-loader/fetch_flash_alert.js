@@ -2,6 +2,9 @@ var parseString = require('xml2js').parseString;
 var util = require('util')
 var request = require('request'); // for fetching the feed
 
+// windows run script every 5 minutes
+//schtasks /create /sc minute /mo 5 /tn "TaskName" /tr \\scripts\whatever.bat
+
 var req = request('http://www.craigwalker.net/IIN/reportsX/flashnews_xml2.php', function (error, response, body) {
     if (error) {
         console.log('error:', error); // Print the error if one occurred
@@ -40,8 +43,23 @@ var req = request('http://www.craigwalker.net/IIN/reportsX/flashnews_xml2.php', 
                     ['Mosier OR -- For the seventh year in a row, the Oregon Parks and Recreation Department (OPRD) is partnering with America\'s State Parks to offer free guided First Day Hikes in state parks across Oregon on New Year\'s Day. Information about the special hike hosted at Historic Columbia River Highway State Trail is below. The usual $5 parking fee will be waived Jan. 1 only.\r\n\r\nHikers can register for the hike at the Oregon State Parks Store, http://bit.ly/ColumbiaRiverTrailFDH2018 . Online registration is new this year--although not required--and will help park staff plan for the hike and provide them with participant contact information should hike details change. \r\n\r\nHike time: Noon\r\nStarting location: Mark O. Hatfield Visitors Center West Trailhead\r\nTerrain and length of trail: Moderate, four-mile hike. We recommend this hike for children at least 12 years old, unless supervised by an adult. Dogs permitted on a 6-foot leash. Be prepared for icy and/or snowy trail conditions.     \r\nContact information:(541) 374-8811 \r\nAdditional details: Learn about the plants and animals that call the Gorge ecosystem home, as well as how this wonder of the Northwest was formed.\r\n\r\nParticipants should dress in layers, wear sturdy shoes, and bring water as well as a camera or binoculars for wildlife viewing. \r\n\r\nShare photos of First Day Hikes via Twitter and Instagram by using the hashtag #ORfirstdayhikes or tagging "Oregon State Parks" on Facebook.' ] },
             */
 
-            //console.log(util.inspect(result, false, null));
-            console.log(result.flashnews.news[0].news_category[0]);
+            //console.log(util.inspect(result.flashnews, false, null));
+            //console.log(result.flashnews.news[0].news_category[0]);
+            var maxNewsId = 0;
+            result.flashnews.news[0].news_category.forEach(function (newsList, index) {
+
+                newsList['news_report'].forEach(function (newsReport, index) {
+                    maxNewsId = (maxNewsId > +newsReport['$']['news_id']) ? maxNewsId : +newsReport['$']['news_id'];
+                    console.log(newsList['$'].name, // category
+                        newsReport['$']['news_id'],
+                        newsReport['$']['effective_date'],
+                        newsReport['orgname'][0]['_'],
+                        newsReport['orgname'][0]['$']['orgid'],
+                        newsReport['headline'][0]
+                    );
+                });
+            })
+            console.log('maxNewsId =', maxNewsId);
         });
     }
 });
