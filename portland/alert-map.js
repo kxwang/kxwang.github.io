@@ -2,6 +2,18 @@
 // Base layers
 //////////////////////////////////////////////////
 
+// The feature layer from Metro
+var esri = L.esri.featureLayer({
+    url: "https://gis.oregonmetro.gov/arcgis/rest/services/OpenData/BoundaryData/MapServer/1",
+});
+
+// Base layer from Metro. Token required
+var esriBase = L.esri.tiledMapLayer({
+    url: "https://gis.oregonmetro.gov/arcgis/rest/services/metromap/baseGraySimple/MapServer",
+    token: 'FKzRbI4X2PFi6h4cg3yLlWv_OPz0BJWGtKEWxFwhufk.',
+});
+
+
 // load a tile layer
 var lightLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
     //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -23,7 +35,8 @@ var streetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}
 
 var baseMaps = {
     "Light": lightLayer,
-    "Streets": streetsLayer
+    "Streets": streetsLayer,
+    'esriBase': esriBase
 };
 
 // initialize the map
@@ -114,19 +127,20 @@ var fipsCountyMap = {
 
 ////////////////////////////////////////////////////////////////////////
 // Incident: unscheduled
+// Create the layer first. Get the data later.
 var incidentLayer = L.geoJSON(null, {
     pointToLayer: generateIncidentMarker,
 });
-$.getJSON("tripcheck.incident.esri.json", generateEsriJsonHandler({
+$.getJSON("http://www.pccep.local/tripcheck/INCD.js", generateEsriJsonHandler({
     layer: incidentLayer,
     filterEsriFeature: function (feature) {
-        return true;
-        /*(feature.attributes.odotCategoryID == 'A') && 
-                        (feature.attributes.odotSeverityID == 2 || 
-                        feature.attributes.odotSeverityID == 3 || 
-                        feature.attributes.odotSeverityID == 4 || 
-                        feature.attributes.odotSeverityID == 5 || 
-                        feature.attributes.odotSeverityID == 8);*/
+        //return true;
+        return (feature.attributes.odotCategoryID == 'A') &&
+            (feature.attributes.odotSeverityID == 2 ||
+                feature.attributes.odotSeverityID == 3 ||
+                feature.attributes.odotSeverityID == 4 ||
+                //feature.attributes.odotSeverityID == 5 || 
+                feature.attributes.odotSeverityID == 8);
     },
     onEachGeoJsonFeature: function (feature) {
         // The original coordinates is in spcacial reference wkid: 3857.
@@ -144,9 +158,16 @@ var eventLayer = L.geoJSON(null, {
     pointToLayer: generateEventMarker,
 });
 
-$.getJSON("tripcheck.event.esri.json", generateEsriJsonHandler({
+$.getJSON("http://www.pccep.local/tripcheck/EVENT.js", generateEsriJsonHandler({
     layer: eventLayer,
-    filterEsriFeature: function (feature) { return true; },
+    filterEsriFeature: function (feature) {
+        // return true;
+        return (feature.attributes.odotSeverityID == 2 ||
+            feature.attributes.odotSeverityID == 3 ||
+            feature.attributes.odotSeverityID == 4 ||
+            //feature.attributes.odotSeverityID == 5 || 
+            feature.attributes.odotSeverityID == 8);
+    },
     onEachGeoJsonFeature: function (feature) {
         // The original coordinates is in spcacial reference wkid: 3857.
         // E.g. x: -13600885.141317938, y: 5709912.011602259
@@ -158,6 +179,77 @@ $.getJSON("tripcheck.event.esri.json", generateEsriJsonHandler({
 })
 );
 
+
+// Vancouver accident JSON
+// Original
+// http://www.wsdot.com/traffic/webservices/incidents.asmx/IncidentsJson?MapAreaID=L3VTR&Count=-1
+// Proxy
+// http://www.pccep.local/wsdot/IncidentsJson?MapAreaID=L3VTR&Count=-1
+
+var wsdotLayer = L.featureGroup().addTo(map);
+
+$.getJSON("http://www.pccep.local/wsdot/MapArea=L3VTR")
+    .done(function (jsonData) {
+        jsonData.forEach(function (item) {
+            wsdotLayer.addLayer(L.marker(
+                [item.StartRoadwayLocation.Latitude, item.StartRoadwayLocation.Longitude],
+                {
+                    icon: redCarMarker
+                }).on('mouseover', function (e) {
+                    //open popup;
+                    var popup = L.popup()
+                        .setLatLng(e.latlng)
+                        .setContent(item.HeadlineDescription
+                        + '<br>Priority: ' + item.Priority
+                        + '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString()
+                        + '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString()
+                        + '<br>updated: ' + new Date(parseInt(item.LastUpdatedTime.substr(6))).toLocaleString())
+                        .openOn(map);
+                })
+            );
+        });
+    })
+    .fail(function (jqxhr, textStatus, error) {
+        console.error(error);
+    });
+
+
+
+// PGE outages
+
+var pgeLayer = L.geoJson(null, {
+        filter: function () {
+            return true;
+        },
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: L.AwesomeMarkers.icon({
+                    icon: 'plug',
+                    prefix: 'fa',
+                    markerColor: 'red'
+                })
+            }).on('mouseover', function (e) {
+                //open popup;
+                var popup = L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent(feature.properties.description)
+                    .openOn(map);
+            });
+        }
+    }
+).addTo(map);
+
+
+// TODO:Add Pacific Power outage data 
+// https://www.pacificpower.net/etc/datafiles/outagemap/outagesOR.json
+
+// TODO: add weather.gov alerts for Portland Metro
+// https://api.weather.gov/alerts?active=1&zone=ORZ006,WAZ039
+
+
+// https://www.portlandgeneral.com/outage-data/outages
+var pgeKmlLayer = omnivore.kml('http://www.pccep.local/pge/outages', null, pgeLayer);
+
 ////////////////////////////////////////////////////////////////////////
 // Incident-TLE: Traffic Local Events. Events reported outside tripcheck agencies.
 // https://tripcheck.com/scripts/map/data/incd-tle.js
@@ -165,9 +257,12 @@ var incidentTleLayer = L.geoJSON(null, {
     pointToLayer: generateIncidentTleMarker,
 });
 
-$.getJSON("tripcheck.incidentTle.esri.json", generateEsriJsonHandler({
+$.getJSON("http://www.pccep.local/tripcheck/INCD-tle.js", generateEsriJsonHandler({
     layer: incidentTleLayer,
-    filterEsriFeature: function (feature) { return true; },
+    filterEsriFeature: function (feature) {
+        // return true; 
+        return feature.attributes.travelImpact.toLowerCase().indexOf('substantial') === 0;
+    },
     onEachGeoJsonFeature: function (feature) {
         // Convert from Spacial Reference 3857 to 4326
         var latLng = L.CRS.EPSG3857.unproject(L.point(feature.geometry.coordinates));
@@ -185,22 +280,25 @@ $.getJSON("tripcheck.incidentTle.esri.json", generateEsriJsonHandler({
 
 var oregonCountyLayer = L.geoJSON(null, {
     style: {
-        color: "#999", 
-        weight: 1, 
+        color: "#999",
+        weight: 1,
         fillOpacity: 0.0,
         zIndex: 0,
     }
 });
 
-$.getJSON("oregon.county.geojson", function(data) {
-    oregonCountyLayer.addData(data).addTo(map);
-});
+// $.getJSON("oregon.county.geojson", function(data) {
+//     oregonCountyLayer.addData(data).addTo(map);
+// });
 
 var overlayMaps = {
     "Incident": incidentLayer,
     "Event": eventLayer,
     "Incident TLE": incidentTleLayer,
-    'Oregon': oregonCountyLayer,
+    'Vancouver': wsdotLayer,
+    //'Oregon': oregonCountyLayer,
+
+    'esri': esri,
 }
 
 L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
@@ -208,15 +306,28 @@ L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
 ///////////////////////////////////////
 // Helper functions
 ///////////////////////////////////////
+// Creates a red marker with the coffee icon
+var redCarMarker = L.AwesomeMarkers.icon({
+    icon: 'car',
+    prefix: 'fa',
+    markerColor: 'red'
+});
+
+var orangeCarMarker = L.AwesomeMarkers.icon({
+    icon: 'car',
+    prefix: 'fa',
+    markerColor: 'orange'
+});
+
+var yellowFlagMarker = L.AwesomeMarkers.icon({
+    icon: 'flag',
+    prefix: 'fa',
+    markerColor: 'blue'
+});
 
 function generateIncidentMarker(feature, latlng) {
-    return L.circleMarker(latlng, {
-        radius: 8,
-        fillColor: "#ee0000",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
+    return L.marker(latlng, {
+        icon: redCarMarker
     }).on('mouseover', function (e) {
         //open popup;
         var popup = L.popup()
@@ -227,16 +338,29 @@ function generateIncidentMarker(feature, latlng) {
             + '<br>updated: ' + feature.properties.lastUpdated)
             .openOn(map);
     });
+
+    // return L.circleMarker(latlng, {
+    //     radius: 8,
+    //     fillColor: "#ee0000",
+    //     color: "#000",
+    //     weight: 1,
+    //     opacity: 1,
+    //     fillOpacity: 0.8
+    // }).on('mouseover', function (e) {
+    //     //open popup;
+    //     var popup = L.popup()
+    //         .setLatLng(e.latlng)
+    //         .setContent(feature.properties.comments
+    //         + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
+    //         + '<br>started: ' + feature.properties.startTime
+    //         + '<br>updated: ' + feature.properties.lastUpdated)
+    //         .openOn(map);
+    // });
 }
 
 function generateEventMarker(feature, latlng) {
-    return L.circleMarker(latlng, {
-        radius: 8,
-        fillColor: "#ff7800",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
+    return L.marker(latlng, {
+        icon: yellowFlagMarker
     }).on('mouseover', function (e) {
         //open popup;
         var popup = L.popup()
@@ -251,21 +375,16 @@ function generateEventMarker(feature, latlng) {
 
 
 function generateIncidentTleMarker(feature, latlng) {
-    return L.circleMarker(latlng, {
-        radius: 8,
-        fillColor: "#00ee00",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
+    return L.marker(latlng, {
+        icon: orangeCarMarker
     }).on('mouseover', function (e) {
         //open popup;
         var popup = L.popup()
             .setLatLng(e.latlng)
             .setContent(feature.properties.publicCommentText
-                + '<br>odotSeverityID: ' + feature.properties.travelImpact
-                + '<br>started: ' + feature.properties.starts
-                + '<br>updated: ' + feature.properties.lastUpdated)
+            + '<br>odotSeverityID: ' + feature.properties.travelImpact
+            + '<br>started: ' + feature.properties.starts
+            + '<br>updated: ' + feature.properties.lastUpdated)
             .openOn(map);
     });
 }
