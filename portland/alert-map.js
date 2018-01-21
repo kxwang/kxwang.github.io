@@ -42,7 +42,7 @@ var baseMaps = {
 // initialize the map
 var map = L.map('map', {
     center: [45.53, -122.68],
-    zoom: 8,
+    zoom: 10,
     layers: [lightLayer]
 });
 
@@ -83,47 +83,6 @@ Severity ID
 
 ////////////////////////////////////////////////////////////////////////
 // Common data
-
-// https://www2.census.gov/geo/docs/reference/codes/files/st41_or_cou.txt
-var fipsCountyMap = {
-    41001: "Baker County",
-    41003: "Benton County",
-    41005: "Clackamas County",
-    41007: "Clatsop County",
-    41009: "Columbia County",
-    41011: "Coos County",
-    41013: "Crook County",
-    41015: "Curry County",
-    41017: "Deschutes County",
-    41019: "Douglas County",
-    41021: "Gilliam County",
-    41023: "Grant County",
-    41025: "Harney County",
-    41027: "Hood River County",
-    41029: "Jackson County",
-    41031: "Jefferson County",
-    41033: "Josephine County",
-    41035: "Klamath County",
-    41037: "Lake County",
-    41039: "Lane County",
-    41041: "Lincoln County",
-    41043: "Linn County",
-    41045: "Malheur County",
-    41047: "Marion County",
-    41049: "Morrow County",
-    41051: "Multnomah County",
-    41053: "Polk County",
-    41055: "Sherman County",
-    41057: "Tillamook County",
-    41059: "Umatilla County",
-    41061: "Union County",
-    41063: "Wallowa County",
-    41065: "Wasco County",
-    41067: "Washington County",
-    41069: "Wheeler County",
-    41071: "Yamhill County",
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 // Incident: unscheduled
@@ -201,9 +160,9 @@ $.getJSON("http://www.pccep.local/wsdot/MapArea=L3VTR")
                         .setLatLng(e.latlng)
                         .setContent(item.HeadlineDescription
                         + '<br>Priority: ' + item.Priority
-                        + '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString()
-                        + '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString()
-                        + '<br>updated: ' + new Date(parseInt(item.LastUpdatedTime.substr(6))).toLocaleString())
+                        + ((item.StartTime) ? '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString() : '')
+                        + ((item.EndTime) ? '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString() : '')
+                        + ((item.LastUpdatedTime) ? '<br>updated: ' + new Date(parseInt(item.LastUpdatedTime.substr(6))).toLocaleString() : ''))
                         .openOn(map);
                 })
             );
@@ -232,23 +191,62 @@ var pgeLayer = L.geoJson(null, {
                 //open popup;
                 var popup = L.popup()
                     .setLatLng(e.latlng)
-                    .setContent(feature.properties.description)
+                    .setContent('PGE Outage <br>' + feature.properties.description)
                     .openOn(map);
             });
         }
     }
 ).addTo(map);
 
+// https://www.portlandgeneral.com/outage-data/outages
+var pgeKmlLayer = omnivore.kml('http://www.pccep.local/pge/outages', null, pgeLayer);
+
 
 // TODO:Add Pacific Power outage data 
 // https://www.pacificpower.net/etc/datafiles/outagemap/outagesOR.json
+
+var pacificPowerLayer = L.featureGroup().addTo(map);
+
+$.getJSON("http://www.pccep.local/pacific-power/outagesOR.json")
+    .done(function (jsonData) {
+        jsonData.outages.forEach(function (item) {
+            pacificPowerLayer.addLayer(L.marker(
+                [item.latitude, item.longitude],
+                {
+                    icon: L.AwesomeMarkers.icon({
+                        icon: 'plug',
+                        prefix: 'fa',
+                        markerColor: 'orange'
+                    })
+                }).on('mouseover', function (e) {
+                    //open popup;
+                    var popup = L.popup()
+                        .setLatLng(e.latlng)
+                        .setContent('Pacific Power Outage'
+                        + '<br>Outage Count: ' + item.outCount
+                        + '<br>Customers Count: ' + item.custOut
+                        + '<br>Last Updated: ' + jsonData.last_upd)
+                        .openOn(map);
+                })
+            );
+        });
+    })
+    .fail(function (jqxhr, textStatus, error) {
+        console.error(error);
+    });
 
 // TODO: add weather.gov alerts for Portland Metro
 // https://api.weather.gov/alerts?active=1&zone=ORZ006,WAZ039
 
 
-// https://www.portlandgeneral.com/outage-data/outages
-var pgeKmlLayer = omnivore.kml('http://www.pccep.local/pge/outages', null, pgeLayer);
+// TODO: add weather.gov alerts for Portland Metro
+// http://water.weather.gov/ahps2/rss/alert/ca.rss
+// http://water.weather.gov/ahps/rss/alerts.php
+// Gauge locations
+// https://water.weather.gov/ahps2/index.php?wfo=PQR
+
+
+
 
 ////////////////////////////////////////////////////////////////////////
 // Incident-TLE: Traffic Local Events. Events reported outside tripcheck agencies.
@@ -296,6 +294,8 @@ var overlayMaps = {
     "Event": eventLayer,
     "Incident TLE": incidentTleLayer,
     'Vancouver': wsdotLayer,
+    'PGE': pgeLayer,
+    'Pacific Power': pacificPowerLayer,
     //'Oregon': oregonCountyLayer,
 
     'esri': esri,
@@ -322,7 +322,7 @@ var orangeCarMarker = L.AwesomeMarkers.icon({
 var yellowFlagMarker = L.AwesomeMarkers.icon({
     icon: 'flag',
     prefix: 'fa',
-    markerColor: 'blue'
+    markerColor: 'purple'
 });
 
 function generateIncidentMarker(feature, latlng) {
