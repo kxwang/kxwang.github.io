@@ -14,6 +14,12 @@ var esriBase = L.esri.tiledMapLayer({
 });
 
 
+// BEECN
+// https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92
+var beecn = L.esri.featureLayer({
+    url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92",
+});
+
 // load a tile layer
 var lightLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
     //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -299,6 +305,7 @@ var overlayMaps = {
     //'Oregon': oregonCountyLayer,
 
     'esri': esri,
+    'beecn': beecn,
 }
 
 L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
