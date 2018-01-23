@@ -183,32 +183,32 @@ $.getJSON("http://www.pccep.local/wsdot/MapArea=L3VTR")
 // PGE outages
 
 var pgeLayer = L.geoJson(null, {
-        filter: function () {
-            return true;
-        },
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: L.AwesomeMarkers.icon({
-                    icon: 'plug',
-                    prefix: 'fa',
-                    markerColor: 'red'
-                })
-            }).on('mouseover', function (e) {
-                //open popup;
-                var popup = L.popup()
-                    .setLatLng(e.latlng)
-                    .setContent('PGE Outage <br>' + feature.properties.description)
-                    .openOn(map);
-            });
-        }
+    filter: function () {
+        return true;
+    },
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.AwesomeMarkers.icon({
+                icon: 'plug',
+                prefix: 'fa',
+                markerColor: 'red'
+            })
+        }).on('mouseover', function (e) {
+            //open popup;
+            var popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent('PGE Outage <br>' + feature.properties.description)
+                .openOn(map);
+        });
     }
+}
 ).addTo(map);
 
 // https://www.portlandgeneral.com/outage-data/outages
 var pgeKmlLayer = omnivore.kml('http://www.pccep.local/pge/outages', null, pgeLayer);
 
 
-// TODO:Add Pacific Power outage data 
+// Pacific Power outage data 
 // https://www.pacificpower.net/etc/datafiles/outagemap/outagesOR.json
 
 var pacificPowerLayer = L.featureGroup().addTo(map);
@@ -252,6 +252,76 @@ $.getJSON("http://www.pccep.local/pacific-power/outagesOR.json")
 // https://water.weather.gov/ahps2/index.php?wfo=PQR
 
 
+var floodColorMap = {
+    'Near flood stage': 'blue',
+    'Minor flooding': 'orange',
+    'Moderate flooding': 'pink',
+    'Major flooding': 'red',
+}
+
+var waterGaugeLayer = L.geoJSON(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.AwesomeMarkers.icon({
+                icon: 'tint',
+                prefix: 'fa',
+                markerColor: floodColorMap[feature.properties.level]
+            })
+        }).on('mouseover', function (e) {
+            //open popup;
+            var popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent(feature.properties.name
+                + '<br>' + feature.properties.level
+                + '<br>' + feature.properties.link
+                + '<br>' + feature.properties.pubDate)
+                .openOn(map);
+        });
+    }
+});
+
+//var waterGaugesGeoJson; defined in water-lookup.js
+$.get('http://www.pccep.local/water-alert/or.rss', function (data) {
+    var $xml = $(data);
+    var alertArray = [];
+    $xml.find("item").each(function () {
+        var $this = $(this),
+            item = {
+                title: $this.find("title").text(),
+                link: $this.find("link").text(),
+                pubDate: $this.find("pubDate").text()
+            }
+
+        // Format of title:
+        // Action (16.35 ft) - Alert - DLLO3 - Tualatin River near Dilley (Oregon)
+        var titleParts = item.title.split('-');
+        if (titleParts.length === 4) {
+            if(titleParts[0].indexOf('Action') === 0) item.level = 'Near flood stage';
+            else if(titleParts[0].indexOf('Minor') === 0) item.level = 'Minor flooding';
+            else if(titleParts[0].indexOf('Moderate')  === 0) item.level = 'Moderate flooding';
+            else if(titleParts[0].indexOf('Major') === 0) item.level = 'Major flooding';
+
+            item.lid = titleParts[2].trim().toLowerCase();
+
+            alertArray.push(item);
+        }
+    });
+
+    var alertedWaterGaugesGeoJson = {"type":"FeatureCollection"};
+    alertedWaterGaugesGeoJson.features = waterGaugesGeoJson.features.filter(function(waterGauge){
+        for(var i=0; i<alertArray.length; i++) {
+            if(waterGauge.properties.lid === alertArray[i].lid) {
+                waterGauge.properties.level = alertArray[i].level;
+                waterGauge.properties.link = alertArray[i].link;
+                waterGauge.properties.pubDate = alertArray[i].pubDate;
+                return true;
+            }
+        }
+        return false;
+    });
+
+    waterGaugeLayer.addData(alertedWaterGaugesGeoJson).addTo(map)
+})
 
 
 ////////////////////////////////////////////////////////////////////////
