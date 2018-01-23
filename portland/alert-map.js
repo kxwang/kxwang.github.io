@@ -253,7 +253,7 @@ $.getJSON("http://www.pccep.local/pacific-power/outagesOR.json")
 
 
 var floodColorMap = {
-    'Near flood stage': 'blue',
+    'Near flood stage': 'darkblue',
     'Minor flooding': 'orange',
     'Moderate flooding': 'pink',
     'Major flooding': 'red',
