@@ -8,7 +8,7 @@ var esri = L.esri.featureLayer({
 });
 
 // Base layer from Metro. Token required
-var esriBase = L.esri.tiledMapLayer({
+var metroBaseGray = L.esri.tiledMapLayer({
     url: "https://gis.oregonmetro.gov/arcgis/rest/services/metromap/baseGraySimple/MapServer",
     token: 'FKzRbI4X2PFi6h4cg3yLlWv_OPz0BJWGtKEWxFwhufk.',
 });
@@ -20,36 +20,24 @@ var beecn = L.esri.featureLayer({
     url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92",
 });
 
-// load a tile layer
-var lightLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
-    //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-        //attribution: 'Tiles by <a href="http://http://www.openstreetmap.org">OpenStreetMap</a>',
-        maxZoom: 15,
-        minZoom: 4,
-        id: 'mapbox.light'
-    });
-
-var streetsLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
-    //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-        //attribution: 'Tiles by <a href="http://http://www.openstreetmap.org">OpenStreetMap</a>',
-        maxZoom: 17,
-        minZoom: 4,
-        id: 'mapbox.streets'
-    });
-
+var esriGray = L.esri.basemapLayer('Gray'),
+esriGrayLabels = L.esri.basemapLayer('GrayLabels'),
+test = L.esri.tiledMapLayer({
+    url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/Basemap_Gray_Complete/MapServer'
+    //url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/Basemap_Gray_Complete/MapServer'
+});
 var baseMaps = {
-    "Light": lightLayer,
-    "Streets": streetsLayer,
-    'esriBase': esriBase
+    'metroBaseGray': metroBaseGray,
+    'esriGray': L.esri.basemapLayer('Streets'),
+    'esriGrayLabels': L.esri.basemapLayer('GrayLabels'),
+    'test': test 
 };
 
 // initialize the map
 var map = L.map('map', {
     center: [45.53, -122.68],
     zoom: 10,
-    layers: [lightLayer]
+    layers: [test]
 });
 
 
@@ -96,7 +84,7 @@ Severity ID
 var incidentLayer = L.geoJSON(null, {
     pointToLayer: generateIncidentMarker,
 });
-$.getJSON("http://www.pccep.local/tripcheck/INCD.js", generateEsriJsonHandler({
+$.getJSON("http://www.pa2.local/tripcheck/INCD.js", generateEsriJsonHandler({
     layer: incidentLayer,
     filterEsriFeature: function (feature) {
         //return true;
@@ -123,7 +111,7 @@ var eventLayer = L.geoJSON(null, {
     pointToLayer: generateEventMarker,
 });
 
-$.getJSON("http://www.pccep.local/tripcheck/EVENT.js", generateEsriJsonHandler({
+$.getJSON("http://www.pa2.local/tripcheck/EVENT.js", generateEsriJsonHandler({
     layer: eventLayer,
     filterEsriFeature: function (feature) {
         // return true;
@@ -149,11 +137,11 @@ $.getJSON("http://www.pccep.local/tripcheck/EVENT.js", generateEsriJsonHandler({
 // Original
 // http://www.wsdot.com/traffic/webservices/incidents.asmx/IncidentsJson?MapAreaID=L3VTR&Count=-1
 // Proxy
-// http://www.pccep.local/wsdot/IncidentsJson?MapAreaID=L3VTR&Count=-1
+// http://www.pa2.local/wsdot/IncidentsJson?MapAreaID=L3VTR&Count=-1
 
 var wsdotLayer = L.featureGroup().addTo(map);
 
-$.getJSON("http://www.pccep.local/wsdot/MapArea=L3VTR")
+$.getJSON("http://www.pa2.local/wsdot/MapArea=L3VTR")
     .done(function (jsonData) {
         jsonData.forEach(function (item) {
             wsdotLayer.addLayer(L.marker(
@@ -205,7 +193,7 @@ var pgeLayer = L.geoJson(null, {
 ).addTo(map);
 
 // https://www.portlandgeneral.com/outage-data/outages
-var pgeKmlLayer = omnivore.kml('http://www.pccep.local/pge/outages', null, pgeLayer);
+var pgeKmlLayer = omnivore.kml('http://www.pa2.local/pge/outages', null, pgeLayer);
 
 
 // Pacific Power outage data 
@@ -213,7 +201,7 @@ var pgeKmlLayer = omnivore.kml('http://www.pccep.local/pge/outages', null, pgeLa
 
 var pacificPowerLayer = L.featureGroup().addTo(map);
 
-$.getJSON("http://www.pccep.local/pacific-power/outagesOR.json")
+$.getJSON("http://www.pa2.local/pacific-power/outagesOR.json")
     .done(function (jsonData) {
         jsonData.outages.forEach(function (item) {
             pacificPowerLayer.addLayer(L.marker(
@@ -281,7 +269,7 @@ var waterGaugeLayer = L.geoJSON(null, {
 });
 
 //var waterGaugesGeoJson; defined in water-lookup.js
-$.get('http://www.pccep.local/water-alert/or.rss', function (data) {
+$.get('http://www.pa2.local/water-alert/or.rss', function (data) {
     var $xml = $(data);
     var alertArray = [];
     $xml.find("item").each(function () {
@@ -296,10 +284,10 @@ $.get('http://www.pccep.local/water-alert/or.rss', function (data) {
         // Action (16.35 ft) - Alert - DLLO3 - Tualatin River near Dilley (Oregon)
         var titleParts = item.title.split('-');
         if (titleParts.length === 4) {
-            if(titleParts[0].indexOf('Action') === 0) item.level = 'Near flood stage';
-            else if(titleParts[0].indexOf('Minor') === 0) item.level = 'Minor flooding';
-            else if(titleParts[0].indexOf('Moderate')  === 0) item.level = 'Moderate flooding';
-            else if(titleParts[0].indexOf('Major') === 0) item.level = 'Major flooding';
+            if (titleParts[0].indexOf('Action') === 0) item.level = 'Near flood stage';
+            else if (titleParts[0].indexOf('Minor') === 0) item.level = 'Minor flooding';
+            else if (titleParts[0].indexOf('Moderate') === 0) item.level = 'Moderate flooding';
+            else if (titleParts[0].indexOf('Major') === 0) item.level = 'Major flooding';
 
             item.lid = titleParts[2].trim().toLowerCase();
 
@@ -307,10 +295,10 @@ $.get('http://www.pccep.local/water-alert/or.rss', function (data) {
         }
     });
 
-    var alertedWaterGaugesGeoJson = {"type":"FeatureCollection"};
-    alertedWaterGaugesGeoJson.features = waterGaugesGeoJson.features.filter(function(waterGauge){
-        for(var i=0; i<alertArray.length; i++) {
-            if(waterGauge.properties.lid === alertArray[i].lid) {
+    var alertedWaterGaugesGeoJson = { "type": "FeatureCollection" };
+    alertedWaterGaugesGeoJson.features = waterGaugesGeoJson.features.filter(function (waterGauge) {
+        for (var i = 0; i < alertArray.length; i++) {
+            if (waterGauge.properties.lid === alertArray[i].lid) {
                 waterGauge.properties.level = alertArray[i].level;
                 waterGauge.properties.link = alertArray[i].link;
                 waterGauge.properties.pubDate = alertArray[i].pubDate;
@@ -331,7 +319,7 @@ var incidentTleLayer = L.geoJSON(null, {
     pointToLayer: generateIncidentTleMarker,
 });
 
-$.getJSON("http://www.pccep.local/tripcheck/INCD-tle.js", generateEsriJsonHandler({
+$.getJSON("http://www.pa2.local/tripcheck/INCD-tle.js", generateEsriJsonHandler({
     layer: incidentTleLayer,
     filterEsriFeature: function (feature) {
         // return true; 
@@ -376,6 +364,8 @@ var overlayMaps = {
 
     'esri': esri,
     'beecn': beecn,
+
+    'pdxStreet': L.esri.featureLayer({url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/Basemap_Gray_Complete/MapServer/1'})
 }
 
 L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);

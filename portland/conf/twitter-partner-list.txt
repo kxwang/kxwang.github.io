@@ -1,0 +1,80 @@
+Law Enforcement & Fire
+
+(#alert from:@PortlandPolice)
+(Alert from:@CentralCourthou)
+(Alert from:@BeavertonPolice)
+(Alert from:@WCSheriff)
+(#alert from:@ClarkCoSheriff)
+(#alert from:@WCCCA)
+(#alert from:@TVFR)
+(#Alert  #pdx  #portland  #amberalert from:@ORStatePolice)
+(Portlandalert from:@OregonGuard)
+(Alert from:@MultCoSO)
+(#alert from:@FBIPortland)
+(#alert from:@clackamasfire)
+(Alert from:@WLPDNews)
+(#Alert from:@PDXFire)
+(Alert from:@HillsboroFire)
+
+Weather
+
+(WA  OR  NOT from:@NWS_NTWC)
+(Mag from:@PNSN1)
+(Oregon  Washington  Alaska  California from:@USGSbigquakes)
+(#pdx  #flood  #dam  #waterlevels  #risingwater from:@PortlandCorps)
+(#orwx  #wawx  #pdxtst from:@NWSPortland)
+
+Traffic:
+
+
+(Alert from:@sellwoodbridge)
+(#pdx  #pdxtraffic from:@oregondot)
+(#alert from:@wsdot_sw)
+(Alert from:@flypdx)
+(2hrs from:@TripCheckPDX)
+(Alert from:@MultCoRoads)
+(Alert from:@MultCoBridges)
+(Alert from:@rider_cc)
+(Alert  Traffic Advisory from:@PBOTinfo)
+(alert from:@washcoroads)
+
+
+
+Utilities
+
+(outage  outages from:@portlandgeneral)
+(Alert from:@nwnatural)
+( from:@ClarkPubUtilFA)
+(Alert  "Traffic Advisory" from:@PortlandWater)
+
+
+General:
+
+(alert from:@multcoelections)
+(alert from:@multcodchs)
+(alert from:@ahfe_multco)
+(#alert from:@Clackamas911)
+(#alert from:@911BOEC)
+(#alert from:@WashCoOregon)
+(#pdxalerts  #oemalerts from:@OregonOEM)
+(Alert from:@MultCoHealth)
+(Alert from:@MultCoEM)
+(Alert from:@MultCoPets)
+(Alert from:@multco)
+(#alert from:@mthoodnf)
+(Alert from:@LegacyAmber)
+( from:@CRESA)
+(#alert from:@columbiacoem)
+(Alert from:@ClarkCoWA_PW)
+(Alert from:@ClarkCoWA_PH)
+(#alert from:@ClackamasDM)
+(#Alert from:@ClackamasCounty)
+(Alert from:@PDXParksandRec)
+(Alert from:@onipdx)
+(Alert from:@PDXInfo8234000)
+(Alert from:@BESPortland)
+(Emergency from:@BDSPortland)
+(#alert from:@LakeOswegoInfo)
+(#alert from:@CityOfGresham)
+(#alert from:@RedCrossCasc)
+(#alert from:@211info)

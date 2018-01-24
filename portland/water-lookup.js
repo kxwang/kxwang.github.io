@@ -2,23 +2,28 @@
 //////////////////////////////////////////////////
 // Use PortlandMaps.com to get a list of address candidates. Show them in the auto-complete list
 //////////////////////////////////////////////////
-
+var marker;
 $("#user-address").autocomplete({
     delay: 200,
     source: function (request, response) {
-        $.ajax({
-            url: "https://www.portlandmaps.com/arcgis/rest/services/Public/Centerline_Geocoding_PDX/GeocodeServer/findAddressCandidates",
-            dataType: "jsonp",
-            data: { Street: "", City: "", Zip: "", 'Single Line Input': request.term, outFields: "", outSR: "4326", searchExtent: "", f: "json" },
+        $.post({
+            url: "https://www.portlandmaps.com/api/suggest/",
+            //dataType: "jsonp",
+            data: { 'query': request.term, count: 5, alt_coords: 1, api_key: '0B5AACFEAAED77E2B3562F771090B45F' },
             success: function (data) {
                 if (data.candidates.length === 0) { response(''); return; }
 
                 var candidates = data.candidates.map(function (candidate, index) {
                     return {
                         id: index,
-                        label: candidate.address,
-                        value: candidate.address,
-                        location: candidate.location
+                        label: candidate.address 
+                            + ((candidate.attributes.city) ? (', ' + candidate.attributes.city) : '')
+                            + ((candidate.attributes.zip_code) ? (', ' + candidate.attributes.zip_code) : ''),
+                        value: candidate.address 
+                            + ((candidate.attributes.city) ? (', ' + candidate.attributes.city) : '')
+                            + ((candidate.attributes.zip_code) ? (', ' + candidate.attributes.zip_code) : '')
+                            + ((candidate.attributes.county) ? (', ' + candidate.attributes.county) : ''),
+                        location: { x: candidate.attributes.lon, y: candidate.attributes.lat }
                     };
                 });
                 //console.log(candidates);
@@ -28,9 +33,9 @@ $("#user-address").autocomplete({
     },
     minLength: 3,
     select: function (event, ui) {
-        console.log("Value: " + ui.item.value + ", ID: " + ui.item.id);
+        console.log("Selected: " + ui.item.value + ", ID: " + ui.item.id);
         if (marker) marker.removeFrom(map);
-        map.flyTo(new L.LatLng(ui.item.location.y, ui.item.location.x), 15);
+        map.flyTo(new L.LatLng(ui.item.location.y, ui.item.location.x), 13);
         marker = L.marker([ui.item.location.y, ui.item.location.x]).addTo(map);
 
         getWaterDistrictName(ui.item.location);
