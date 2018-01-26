@@ -26,8 +26,14 @@
 
 	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
 	
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
-	<style>
+	<style id="map-style">
+		.major, .minor, .info {
+			display: block;
+		}
+		
 		#map {
 			height: 600px;
 		}
@@ -41,7 +47,7 @@
 			width: 16px;
 			height: 16px;
 			float: left;
-			margin-right: 8px;
+			margin-right: 3px;
 			opacity: 0.8;
 		}
 
@@ -53,15 +59,18 @@
 			z-index: 1000;
 		}
 
-		input,
 		.water-district-result {
 			margin: 5px;
+		}
+
+		.hideMarker {
+			display: none;
 		}
 	</style>
 </head>
 <body>
 	<div class="ui-widget">
-		<input size="40" placeholder="Type 123 Main or 5th Ave and Main or City Hall" id="user-address">
+		<input class="water-district-result" size="40" placeholder="Type 123 Main or 5th Ave and Main or City Hall" id="user-address">
 		<br/>
 		<div class="water-district-result">Water District:
 			<label id="water-district"></label>

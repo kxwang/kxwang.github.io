@@ -113,9 +113,9 @@ var esri2geo = {};
   function prop(a){
     var p = {};
     for(var k in a){
-      if(a[k]){
+      //if(a[k]){
         p[k]=a[k];  
-      }
+      //}
     }
     return p;
   }

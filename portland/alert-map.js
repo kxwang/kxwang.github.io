@@ -1,461 +1,6 @@
-//////////////////////////////////////////////////
-// Base layers
-//////////////////////////////////////////////////
-
-// The feature layer from Metro
-var esri = L.esri.featureLayer({
-    url: "https://gis.oregonmetro.gov/arcgis/rest/services/OpenData/BoundaryData/MapServer/1",
-});
-
-// Base layer from Metro. Token required
-var metroBaseGray = L.esri.tiledMapLayer({
-    url: "https://gis.oregonmetro.gov/arcgis/rest/services/metromap/baseGraySimple/MapServer",
-    token: 'FKzRbI4X2PFi6h4cg3yLlWv_OPz0BJWGtKEWxFwhufk.',
-});
-
-
-// BEECN
-// https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92
-var beecn = L.esri.featureLayer({
-    url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92",
-});
-
-var esriGray = L.esri.basemapLayer('Gray'),
-esriGrayLabels = L.esri.basemapLayer('GrayLabels'),
-test = L.esri.tiledMapLayer({
-    url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/Basemap_Gray_Complete/MapServer'
-    //url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/Basemap_Gray_Complete/MapServer'
-});
-var baseMaps = {
-    'metroBaseGray': metroBaseGray,
-    'esriGray': L.esri.basemapLayer('Streets'),
-    'esriGrayLabels': L.esri.basemapLayer('GrayLabels'),
-    'test': test 
-};
-
-// initialize the map
-var map = L.map('map', {
-    center: [45.53, -122.68],
-    zoom: 10,
-    layers: [test]
-});
-
-
-
-//////////////////////////////////////////////////
-// Overlay layers
-//////////////////////////////////////////////////
-
-// Filter out small delays
-/*
-odotCategoryID
-    Event ID
-    A Crash/Hazard
-    C Construction Work
-    CH Cancelled Herbicide Application
-    CV Commercial Vehicle Information
-    H Herbicide Application
-    I Information
-    M Maintenance Work
-    T Traffic Congestion
-    W Weather Impact
-
-odotSeverityID
-Severity ID
-    0 Informational only
-    1 Estimated delay < 20 minutes
-    2 Estimated delay of 20 minutes - 2 hours
-    3 Estimated delay of 2 hours or greater
-    4 Closure
-    5 Seasonal Closure
-    6 Unconfirmed
-    7 No to Minimum Delay
-    8 Closure with Detour
-*/
-
-
-
-////////////////////////////////////////////////////////////////////////
-// Common data
-
-////////////////////////////////////////////////////////////////////////
-// Incident: unscheduled
-// Create the layer first. Get the data later.
-var incidentLayer = L.geoJSON(null, {
-    pointToLayer: generateIncidentMarker,
-});
-$.getJSON("http://www.pa2.local/tripcheck/INCD.js", generateEsriJsonHandler({
-    layer: incidentLayer,
-    filterEsriFeature: function (feature) {
-        //return true;
-        return (feature.attributes.odotCategoryID == 'A') &&
-            (feature.attributes.odotSeverityID == 2 ||
-                feature.attributes.odotSeverityID == 3 ||
-                feature.attributes.odotSeverityID == 4 ||
-                //feature.attributes.odotSeverityID == 5 || 
-                feature.attributes.odotSeverityID == 8);
-    },
-    onEachGeoJsonFeature: function (feature) {
-        // The original coordinates is in spcacial reference wkid: 3857.
-        // E.g. x: -13600885.141317938, y: 5709912.011602259
-        // We use the display Lat/Long instead.
-        feature.geometry.coordinates[0] = feature.properties.displayLongitude;
-        feature.geometry.coordinates[1] = feature.properties.displayLatitude;
-    },
-    addToMapAfterLoading: true,
-}));
-
-////////////////////////////////////////////////////////////////////////
-// Event: scheduled closure, slowdown, etc.
-var eventLayer = L.geoJSON(null, {
-    pointToLayer: generateEventMarker,
-});
-
-$.getJSON("http://www.pa2.local/tripcheck/EVENT.js", generateEsriJsonHandler({
-    layer: eventLayer,
-    filterEsriFeature: function (feature) {
-        // return true;
-        return (feature.attributes.odotSeverityID == 2 ||
-            feature.attributes.odotSeverityID == 3 ||
-            feature.attributes.odotSeverityID == 4 ||
-            //feature.attributes.odotSeverityID == 5 || 
-            feature.attributes.odotSeverityID == 8);
-    },
-    onEachGeoJsonFeature: function (feature) {
-        // The original coordinates is in spcacial reference wkid: 3857.
-        // E.g. x: -13600885.141317938, y: 5709912.011602259
-        // We use the display Lat/Long instead.
-        feature.geometry.coordinates[0] = feature.properties.displayLongitude;
-        feature.geometry.coordinates[1] = feature.properties.displayLatitude;
-    },
-    addToMapAfterLoading: true,
-})
-);
-
-
-// Vancouver accident JSON
-// Original
-// http://www.wsdot.com/traffic/webservices/incidents.asmx/IncidentsJson?MapAreaID=L3VTR&Count=-1
-// Proxy
-// http://www.pa2.local/wsdot/IncidentsJson?MapAreaID=L3VTR&Count=-1
-
-var wsdotLayer = L.featureGroup().addTo(map);
-
-$.getJSON("http://www.pa2.local/wsdot/MapArea=L3VTR")
-    .done(function (jsonData) {
-        jsonData.forEach(function (item) {
-            wsdotLayer.addLayer(L.marker(
-                [item.StartRoadwayLocation.Latitude, item.StartRoadwayLocation.Longitude],
-                {
-                    icon: redCarMarker
-                }).on('mouseover', function (e) {
-                    //open popup;
-                    var popup = L.popup()
-                        .setLatLng(e.latlng)
-                        .setContent(item.HeadlineDescription
-                        + '<br>Priority: ' + item.Priority
-                        + ((item.StartTime) ? '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString() : '')
-                        + ((item.EndTime) ? '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString() : '')
-                        + ((item.LastUpdatedTime) ? '<br>updated: ' + new Date(parseInt(item.LastUpdatedTime.substr(6))).toLocaleString() : ''))
-                        .openOn(map);
-                })
-            );
-        });
-    })
-    .fail(function (jqxhr, textStatus, error) {
-        console.error(error);
-    });
-
-
-
-// PGE outages
-
-var pgeLayer = L.geoJson(null, {
-    filter: function () {
-        return true;
-    },
-    pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {
-            icon: L.AwesomeMarkers.icon({
-                icon: 'plug',
-                prefix: 'fa',
-                markerColor: 'red'
-            })
-        }).on('mouseover', function (e) {
-            //open popup;
-            var popup = L.popup()
-                .setLatLng(e.latlng)
-                .setContent('PGE Outage <br>' + feature.properties.description)
-                .openOn(map);
-        });
-    }
-}
-).addTo(map);
-
-// https://www.portlandgeneral.com/outage-data/outages
-var pgeKmlLayer = omnivore.kml('http://www.pa2.local/pge/outages', null, pgeLayer);
-
-
-// Pacific Power outage data 
-// https://www.pacificpower.net/etc/datafiles/outagemap/outagesOR.json
-
-var pacificPowerLayer = L.featureGroup().addTo(map);
-
-$.getJSON("http://www.pa2.local/pacific-power/outagesOR.json")
-    .done(function (jsonData) {
-        jsonData.outages.forEach(function (item) {
-            pacificPowerLayer.addLayer(L.marker(
-                [item.latitude, item.longitude],
-                {
-                    icon: L.AwesomeMarkers.icon({
-                        icon: 'plug',
-                        prefix: 'fa',
-                        markerColor: 'orange'
-                    })
-                }).on('mouseover', function (e) {
-                    //open popup;
-                    var popup = L.popup()
-                        .setLatLng(e.latlng)
-                        .setContent('Pacific Power Outage'
-                        + '<br>Outage Count: ' + item.outCount
-                        + '<br>Customers Count: ' + item.custOut
-                        + '<br>Last Updated: ' + jsonData.last_upd)
-                        .openOn(map);
-                })
-            );
-        });
-    })
-    .fail(function (jqxhr, textStatus, error) {
-        console.error(error);
-    });
-
-// TODO: add weather.gov alerts for Portland Metro
-// https://api.weather.gov/alerts?active=1&zone=ORZ006,WAZ039
-
-
-// TODO: add weather.gov alerts for Portland Metro
-// http://water.weather.gov/ahps2/rss/alert/ca.rss
-// http://water.weather.gov/ahps/rss/alerts.php
-// Gauge locations
-// https://water.weather.gov/ahps2/index.php?wfo=PQR
-
-
-var floodColorMap = {
-    'Near flood stage': 'darkblue',
-    'Minor flooding': 'orange',
-    'Moderate flooding': 'pink',
-    'Major flooding': 'red',
-}
-
-var waterGaugeLayer = L.geoJSON(null, {
-    pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {
-            icon: L.AwesomeMarkers.icon({
-                icon: 'tint',
-                prefix: 'fa',
-                markerColor: floodColorMap[feature.properties.level]
-            })
-        }).on('mouseover', function (e) {
-            //open popup;
-            var popup = L.popup()
-                .setLatLng(e.latlng)
-                .setContent(feature.properties.name
-                + '<br>' + feature.properties.level
-                + '<br>' + feature.properties.link
-                + '<br>' + feature.properties.pubDate)
-                .openOn(map);
-        });
-    }
-});
-
-//var waterGaugesGeoJson; defined in water-lookup.js
-$.get('http://www.pa2.local/water-alert/or.rss', function (data) {
-    var $xml = $(data);
-    var alertArray = [];
-    $xml.find("item").each(function () {
-        var $this = $(this),
-            item = {
-                title: $this.find("title").text(),
-                link: $this.find("link").text(),
-                pubDate: $this.find("pubDate").text()
-            }
-
-        // Format of title:
-        // Action (16.35 ft) - Alert - DLLO3 - Tualatin River near Dilley (Oregon)
-        var titleParts = item.title.split('-');
-        if (titleParts.length === 4) {
-            if (titleParts[0].indexOf('Action') === 0) item.level = 'Near flood stage';
-            else if (titleParts[0].indexOf('Minor') === 0) item.level = 'Minor flooding';
-            else if (titleParts[0].indexOf('Moderate') === 0) item.level = 'Moderate flooding';
-            else if (titleParts[0].indexOf('Major') === 0) item.level = 'Major flooding';
-
-            item.lid = titleParts[2].trim().toLowerCase();
-
-            alertArray.push(item);
-        }
-    });
-
-    var alertedWaterGaugesGeoJson = { "type": "FeatureCollection" };
-    alertedWaterGaugesGeoJson.features = waterGaugesGeoJson.features.filter(function (waterGauge) {
-        for (var i = 0; i < alertArray.length; i++) {
-            if (waterGauge.properties.lid === alertArray[i].lid) {
-                waterGauge.properties.level = alertArray[i].level;
-                waterGauge.properties.link = alertArray[i].link;
-                waterGauge.properties.pubDate = alertArray[i].pubDate;
-                return true;
-            }
-        }
-        return false;
-    });
-
-    waterGaugeLayer.addData(alertedWaterGaugesGeoJson).addTo(map)
-})
-
-
-////////////////////////////////////////////////////////////////////////
-// Incident-TLE: Traffic Local Events. Events reported outside tripcheck agencies.
-// https://tripcheck.com/scripts/map/data/incd-tle.js
-var incidentTleLayer = L.geoJSON(null, {
-    pointToLayer: generateIncidentTleMarker,
-});
-
-$.getJSON("http://www.pa2.local/tripcheck/INCD-tle.js", generateEsriJsonHandler({
-    layer: incidentTleLayer,
-    filterEsriFeature: function (feature) {
-        // return true; 
-        return feature.attributes.travelImpact.toLowerCase().indexOf('substantial') === 0;
-    },
-    onEachGeoJsonFeature: function (feature) {
-        // Convert from Spacial Reference 3857 to 4326
-        var latLng = L.CRS.EPSG3857.unproject(L.point(feature.geometry.coordinates));
-        feature.geometry.coordinates[0] = latLng.lng;
-        feature.geometry.coordinates[1] = latLng.lat;
-    },
-    addToMapAfterLoading: true,
-})
-);
-
-
-///////////////////////////////////////
-// Add them all
-///////////////////////////////////////
-
-var oregonCountyLayer = L.geoJSON(null, {
-    style: {
-        color: "#999",
-        weight: 1,
-        fillOpacity: 0.0,
-        zIndex: 0,
-    }
-});
-
-// $.getJSON("oregon.county.geojson", function(data) {
-//     oregonCountyLayer.addData(data).addTo(map);
-// });
-
-var overlayMaps = {
-    "Incident": incidentLayer,
-    "Event": eventLayer,
-    "Incident TLE": incidentTleLayer,
-    'Vancouver': wsdotLayer,
-    'PGE': pgeLayer,
-    'Pacific Power': pacificPowerLayer,
-    //'Oregon': oregonCountyLayer,
-
-    'esri': esri,
-    'beecn': beecn,
-
-    'pdxStreet': L.esri.featureLayer({url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/Basemap_Gray_Complete/MapServer/1'})
-}
-
-L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
-
 ///////////////////////////////////////
 // Helper functions
 ///////////////////////////////////////
-// Creates a red marker with the coffee icon
-var redCarMarker = L.AwesomeMarkers.icon({
-    icon: 'car',
-    prefix: 'fa',
-    markerColor: 'red'
-});
-
-var orangeCarMarker = L.AwesomeMarkers.icon({
-    icon: 'car',
-    prefix: 'fa',
-    markerColor: 'orange'
-});
-
-var yellowFlagMarker = L.AwesomeMarkers.icon({
-    icon: 'flag',
-    prefix: 'fa',
-    markerColor: 'purple'
-});
-
-function generateIncidentMarker(feature, latlng) {
-    return L.marker(latlng, {
-        icon: redCarMarker
-    }).on('mouseover', function (e) {
-        //open popup;
-        var popup = L.popup()
-            .setLatLng(e.latlng)
-            .setContent(feature.properties.comments
-            + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
-            + '<br>started: ' + feature.properties.startTime
-            + '<br>updated: ' + feature.properties.lastUpdated)
-            .openOn(map);
-    });
-
-    // return L.circleMarker(latlng, {
-    //     radius: 8,
-    //     fillColor: "#ee0000",
-    //     color: "#000",
-    //     weight: 1,
-    //     opacity: 1,
-    //     fillOpacity: 0.8
-    // }).on('mouseover', function (e) {
-    //     //open popup;
-    //     var popup = L.popup()
-    //         .setLatLng(e.latlng)
-    //         .setContent(feature.properties.comments
-    //         + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
-    //         + '<br>started: ' + feature.properties.startTime
-    //         + '<br>updated: ' + feature.properties.lastUpdated)
-    //         .openOn(map);
-    // });
-}
-
-function generateEventMarker(feature, latlng) {
-    return L.marker(latlng, {
-        icon: yellowFlagMarker
-    }).on('mouseover', function (e) {
-        //open popup;
-        var popup = L.popup()
-            .setLatLng(e.latlng)
-            .setContent(feature.properties.comments
-            + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
-            + '<br>started: ' + feature.properties.startTime
-            + '<br>updated: ' + feature.properties.lastUpdated)
-            .openOn(map);
-    });
-}
-
-
-function generateIncidentTleMarker(feature, latlng) {
-    return L.marker(latlng, {
-        icon: orangeCarMarker
-    }).on('mouseover', function (e) {
-        //open popup;
-        var popup = L.popup()
-            .setLatLng(e.latlng)
-            .setContent(feature.properties.publicCommentText
-            + '<br>odotSeverityID: ' + feature.properties.travelImpact
-            + '<br>started: ' + feature.properties.starts
-            + '<br>updated: ' + feature.properties.lastUpdated)
-            .openOn(map);
-    });
-}
-
 
 // Generate a funciton that handles ESRI Json data
 // Input: an option object that contains info to customize the returned function
@@ -488,3 +33,569 @@ function generateEsriJsonHandler(layerOptions) {
     return onEsriJsonReceived;
 };
 
+//////////////////////////////////////////////////
+// Base layers
+//////////////////////////////////////////////////
+var esriGray = L.esri.basemapLayer('Gray'),
+    esriGrayLabels = L.esri.basemapLayer('GrayLabels'),
+    esriStreets = L.esri.basemapLayer('Streets');
+var baseMaps = {
+    'Gray': esriGray,
+    //'esriGrayLabels': esriGrayLabels,
+    'Streets': esriStreets
+};
+
+// initialize the map
+var map = L.map('map', {
+    center: [45.53, -122.68],
+    zoom: 10,
+    layers: [esriGray /*, esriGrayLabels*/]
+});
+map.addControl(new L.Control.Fullscreen());
+
+//////////////////////////////////////////////////
+// Overlay layers
+//////////////////////////////////////////////////
+
+// Filter out small delays
+/*
+odotCategoryID
+    Event ID
+    A Crash/Hazard
+    C Construction Work
+    CH Cancelled Herbicide Application
+    CV Commercial Vehicle Information
+    H Herbicide Application
+    I Information
+    M Maintenance Work
+    T Traffic Congestion
+    W Weather Impact
+
+odotSeverityID
+Severity ID
+    0 Informational only
+    1 Estimated delay < 20 minutes
+    2 Estimated delay of 20 minutes - 2 hours
+    3 Estimated delay of 2 hours or greater
+    4 Closure
+    5 Seasonal Closure
+    6 Unconfirmed
+    7 No to Minimum Delay
+    8 Closure with Detour
+*/
+
+var severityColorMap = {
+    'info': 'darkblue',
+    'minor': 'orange',
+    'major': 'red'
+}
+
+var severityArray = ['info', // 0
+    'minor',
+    'major',
+    'major',
+    'major',
+    'major', // 5
+    'info',
+    'info', // 7
+    'major'];
+
+////////////////////////////////////////////////////////////////////////
+// Incident: unscheduled
+// Create the layer first. Get the data later.
+var incidentLayer = L.geoJSON(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.AwesomeMarkers.icon({
+                icon: 'car',
+                prefix: 'fa',
+                markerColor: severityColorMap[severityArray[feature.properties.odotSeverityID]],
+                className: getMarkerClassName(severityArray[feature.properties.odotSeverityID])
+            })
+        }).on('mouseover', function (e) {
+            //open popup;
+            var popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent(feature.properties.comments
+                + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
+                + '<br>started: ' + feature.properties.startTime
+                + '<br>updated: ' + feature.properties.lastUpdated)
+                .openOn(map);
+        });
+    },
+});
+
+
+function getIncidentData() {
+    $.getJSON("http://www.pa2.local/tripcheck/INCD.js", generateEsriJsonHandler({
+        layer: incidentLayer,
+        filterEsriFeature: function (feature) {
+            return true;
+            // return (feature.attributes.odotCategoryID == 'A') &&
+            //     (feature.attributes.odotSeverityID == 2 ||
+            //         feature.attributes.odotSeverityID == 3 ||
+            //         feature.attributes.odotSeverityID == 4 ||
+            //         //feature.attributes.odotSeverityID == 5 || 
+            //         feature.attributes.odotSeverityID == 8);
+        },
+        onEachGeoJsonFeature: function (feature) {
+            // The original coordinates is in spcacial reference wkid: 3857.
+            // E.g. x: -13600885.141317938, y: 5709912.011602259
+            // We use the display Lat/Long instead.
+            feature.geometry.coordinates[0] = feature.properties.displayLongitude;
+            feature.geometry.coordinates[1] = feature.properties.displayLatitude;
+        },
+        addToMapAfterLoading: true,
+    }));
+}
+
+
+////////////////////////////////////////////////////////////////////////
+// Incident-TLE: Traffic Local Events. Events reported outside tripcheck agencies.
+// https://tripcheck.com/scripts/map/data/incd-tle.js
+
+var incidentTleSeverityMap = {
+    'Substantial Daytime Delays': 'major',
+    'Substantial Delays': 'major',
+    'Substantial Nighttime Delays': 'minor',
+    'Minimal Delays': 'info'
+}
+
+var incidentTleLayer = L.geoJSON(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.AwesomeMarkers.icon({
+                icon: 'car',
+                prefix: 'fa',
+                markerColor: severityColorMap[incidentTleSeverityMap[feature.properties.travelImpact]],
+                className: getMarkerClassName(incidentTleSeverityMap[feature.properties.travelImpact])
+            })
+        }).on('mouseover', function (e) {
+            //open popup;
+            var popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent(feature.properties.publicCommentText
+                + '<br>odotSeverityID: ' + feature.properties.travelImpact
+                + '<br>started: ' + feature.properties.starts
+                + '<br>updated: ' + feature.properties.lastUpdated)
+                .openOn(map);
+        });
+    }
+    ,
+});
+
+function getIncidentTleData() {
+    $.getJSON("http://www.pa2.local/tripcheck/INCD-tle.js", generateEsriJsonHandler({
+        layer: incidentTleLayer,
+        filterEsriFeature: function (feature) {
+            return true;
+            //return feature.attributes.travelImpact.toLowerCase().indexOf('substantial') === 0;
+        },
+        onEachGeoJsonFeature: function (feature) {
+            // Convert from Spacial Reference 3857 to 4326
+            var latLng = L.CRS.EPSG3857.unproject(L.point(feature.geometry.coordinates));
+            feature.geometry.coordinates[0] = latLng.lng;
+            feature.geometry.coordinates[1] = latLng.lat;
+        },
+        addToMapAfterLoading: true,
+    })
+    );
+}
+
+////////////////////////////////////////////////////////////////////////
+// Event: scheduled closure, slowdown, etc.
+var eventLayer = L.geoJSON(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.AwesomeMarkers.icon({
+                icon: 'flag',
+                prefix: 'fa',
+                markerColor: severityColorMap[severityArray[feature.properties.odotSeverityID]],
+                className: getMarkerClassName(severityArray[feature.properties.odotSeverityID])
+            })
+        }).on('mouseover', function (e) {
+            //open popup;
+            var popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent(feature.properties.comments
+                + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
+                + '<br>started: ' + feature.properties.startTime
+                + '<br>updated: ' + feature.properties.lastUpdated)
+                .openOn(map);
+        });
+    },
+});
+function getEventData() {
+    $.getJSON("http://www.pa2.local/tripcheck/EVENT.js", generateEsriJsonHandler({
+        layer: eventLayer,
+        filterEsriFeature: function (feature) {
+            // return true;
+            return (feature.attributes.odotSeverityID == 2 ||
+                feature.attributes.odotSeverityID == 3 ||
+                feature.attributes.odotSeverityID == 4 ||
+                //feature.attributes.odotSeverityID == 5 || 
+                feature.attributes.odotSeverityID == 8);
+        },
+        onEachGeoJsonFeature: function (feature) {
+            // The original coordinates is in spcacial reference wkid: 3857.
+            // E.g. x: -13600885.141317938, y: 5709912.011602259
+            // We use the display Lat/Long instead.
+            feature.geometry.coordinates[0] = feature.properties.displayLongitude;
+            feature.geometry.coordinates[1] = feature.properties.displayLatitude;
+        },
+        addToMapAfterLoading: true,
+    })
+    );
+}
+
+////////////////////////////////////////////////////////////////////////
+// Vancouver accident JSON
+// Original: http://www.wsdot.com/traffic/webservices/incidents.asmx/IncidentsJson?MapAreaID=L3VTR&Count=-1
+// Proxy: http://www.pa2.local/wsdot/IncidentsJson?MapAreaID=L3VTR&Count=-1
+
+var wsdotLayer = L.featureGroup();
+
+var wsdotSeverity = {
+    'Highest': 'major',
+    'High': 'major',
+    'Medium': 'minor',
+    'Low': 'info',
+}
+function getWsdotData() {
+    $.getJSON("http://www.pa2.local/wsdot/MapArea=L3VTR")
+        .done(function (jsonData) {
+            jsonData.forEach(function (item) {
+                wsdotLayer.addLayer(L.marker(
+                    [item.StartRoadwayLocation.Latitude, item.StartRoadwayLocation.Longitude],
+                    {
+                        icon: L.AwesomeMarkers.icon({
+                            icon: 'car',
+                            prefix: 'fa',
+                            markerColor: severityColorMap[wsdotSeverity[item.Priority]],
+                            className: getMarkerClassName(severityArray[item.Priority])
+                        })
+                    }).on('mouseover', function (e) {
+                        //open popup;
+                        var popup = L.popup()
+                            .setLatLng(e.latlng)
+                            .setContent(item.HeadlineDescription
+                            + '<br>Priority: ' + item.Priority
+                            + ((item.StartTime) ? '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString() : '')
+                            + ((item.EndTime) ? '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString() : '')
+                            + ((item.LastUpdatedTime) ? '<br>updated: ' + new Date(parseInt(item.LastUpdatedTime.substr(6))).toLocaleString() : ''))
+                            .openOn(map);
+                    })
+                );
+            });
+            wsdotLayer.addTo(map);
+        })
+        .fail(function (jqxhr, textStatus, error) {
+            console.error(error);
+        });
+}
+
+
+////////////////////////////////////////////////////////////////////////
+// PGE outages
+
+/*
+<div class="global_subhead" style="margin-bottom:5px; width:300px;">
+Outage Details for 97035
+</div>
+<table class="global_table_data_highlighted">
+<tbody>
+<tr>
+    <td class="colorGray1" style="width:150px;">Number of Outages</td>
+    <td>1</td></tr>
+<tr style="height:5px;"><td></td><td></td></tr>
+<tr>
+    <td class="colorGray1" style="width:150px;">Cause</td>
+    <td>Investigating</td></tr>
+<tr style="height:5px;"><td></td><td></td></tr>
+<tr>
+    <td class="colorGray1" style="width:150px;">Customers Affected</td>
+    <td>17</td></tr>
+<tr>
+    <td class="colorGray1" style="width:150px;">Calls Received</td>
+    <td>17</td></tr>
+<tr style="height:5px;"><td></td><td></td></tr>
+<tr>
+    <td class="colorGray1" style="width:150px;">Est. Time On</td>
+    <td>January 25, 2018 8:47 p.m.</td>
+</tr>
+</tbody></table>
+*/
+
+function getPgeSeverity(feature) {
+    var descriptionArray = $.parseHTML(feature.properties.description);
+    if (descriptionArray.length < 2) return 'major';
+    var tdArray = descriptionArray[1].querySelectorAll('td');
+    for (var i = 0; i < tdArray.length; i++) {
+        if (tdArray[i].textContent === 'Customers Affected') {
+            if (+tdArray[i + 1].textContent >= 1000) return 'major';
+            if (+tdArray[i + 1].textContent >= 100) return 'minor';
+            return 'info';
+        }
+    }
+}
+
+var pgeLayer = L.geoJson(null, {
+    filter: function () {
+        return true;
+    },
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.AwesomeMarkers.icon({
+                icon: 'plug',
+                prefix: 'fa',
+                markerColor: severityColorMap[getPgeSeverity(feature)],
+                className: getMarkerClassName(getPgeSeverity(feature)),
+            })
+        }).on('mouseover', function (e) {
+            //open popup;
+            var popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent('PGE Outage <br>' + feature.properties.description)
+                .openOn(map);
+        });
+    }
+}
+);
+
+function getPgeData() {
+    // Original: https://www.portlandgeneral.com/outage-data/outages
+    var pgeKmlLayer = omnivore.kml('http://www.pa2.local/pge/outages', null, pgeLayer);
+    pgeLayer.addTo(map);
+}
+
+////////////////////////////////////////////////////////////////////////
+// Pacific Power outage data 
+// https://www.pacificpower.net/etc/datafiles/outagemap/outagesOR.json
+
+var pacificPowerLayer = L.featureGroup();
+
+function getPacificPowerSeverity(item) {
+    if (item.custOut >= 1000) return 'major';
+    if (item.custOut >= 100) return 'minor';
+    return 'info';
+}
+
+function getPacificPowerData() {
+    $.getJSON("http://www.pa2.local/pacific-power/outagesOR.json")
+        .done(function (jsonData) {
+            jsonData.outages.forEach(function (item) {
+                pacificPowerLayer.addLayer(L.marker(
+                    [item.latitude, item.longitude],
+                    {
+                        icon: L.AwesomeMarkers.icon({
+                            icon: 'plug',
+                            prefix: 'fa',
+                            markerColor: severityColorMap[getPacificPowerSeverity(item)],
+                            className: getMarkerClassName(getPacificPowerSeverity(item)),
+                        })
+                    }).on('mouseover', function (e) {
+                        //open popup;
+                        var popup = L.popup()
+                            .setLatLng(e.latlng)
+                            .setContent('Pacific Power Outage'
+                            + '<br>Outage Count: ' + item.outCount
+                            + '<br>Customers Count: ' + item.custOut
+                            + '<br>Last Updated: ' + jsonData.last_upd)
+                            .openOn(map);
+                    })
+                );
+            });
+            pacificPowerLayer.addTo(map);
+        })
+        .fail(function (jqxhr, textStatus, error) {
+            console.error(error);
+        });
+}
+// TODO: add weather.gov alerts for Portland Metro
+// https://api.weather.gov/alerts?active=1&zone=ORZ006,WAZ039
+
+
+////////////////////////////////////////////////////////////////////////
+// weather.gov hydro alerts for Portland Metro
+// http://water.weather.gov/ahps2/rss/alert/or.rss
+// Gauge locations
+// https://water.weather.gov/ahps2/index.php?wfo=PQR
+
+var floodSeverityMap = {
+    'Near flood stage': 'info',
+    'Minor flooding': 'minor',
+    'Moderate flooding': 'major',
+    'Major flooding': 'major',
+}
+
+var waterGaugeLayer = L.geoJSON(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.AwesomeMarkers.icon({
+                icon: 'tint',
+                prefix: 'fa',
+                markerColor: severityColorMap[floodSeverityMap[feature.properties.level]],
+                className: getMarkerClassName(floodSeverityMap[feature.properties.level]),
+            })
+        }).on('mouseover', function (e) {
+            //open popup;
+            var popup = L.popup()
+                .setLatLng(e.latlng)
+                .setContent(feature.properties.name
+                + '<br>' + feature.properties.level
+                + '<br>' + feature.properties.link
+                + '<br>' + feature.properties.pubDate)
+                .openOn(map);
+        });
+    }
+});
+
+function getWaterGaugeData() {
+    //var waterGaugesGeoJson; defined in water-lookup.js
+    $.get('http://www.pa2.local/water-alert/or.rss', function (data) {
+        var $xml = $(data);
+        var alertArray = [];
+        $xml.find("item").each(function () {
+            var $this = $(this),
+                item = {
+                    title: $this.find("title").text(),
+                    link: $this.find("link").text(),
+                    pubDate: $this.find("pubDate").text()
+                }
+
+            // Format of title:
+            // Action (16.35 ft) - Alert - DLLO3 - Tualatin River near Dilley (Oregon)
+            var titleParts = item.title.split('-');
+            if (titleParts.length === 4) {
+                if (titleParts[0].indexOf('Action') === 0) item.level = 'Near flood stage';
+                else if (titleParts[0].indexOf('Minor') === 0) item.level = 'Minor flooding';
+                else if (titleParts[0].indexOf('Moderate') === 0) item.level = 'Moderate flooding';
+                else if (titleParts[0].indexOf('Major') === 0) item.level = 'Major flooding';
+
+                item.lid = titleParts[2].trim().toLowerCase();
+
+                alertArray.push(item);
+            }
+        });
+
+        // Check which gauge is generating the alert
+        var alertedWaterGaugesGeoJson = { "type": "FeatureCollection" };
+        alertedWaterGaugesGeoJson.features = waterGaugesGeoJson.features.filter(function (waterGauge) {
+            for (var i = 0; i < alertArray.length; i++) {
+                if (waterGauge.properties.lid === alertArray[i].lid) {
+                    waterGauge.properties.level = alertArray[i].level;
+                    waterGauge.properties.link = alertArray[i].link;
+                    waterGauge.properties.pubDate = alertArray[i].pubDate;
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        waterGaugeLayer.addData(alertedWaterGaugesGeoJson).addTo(map)
+    })
+}
+
+
+///////////////////////////////////////
+// Add them all
+///////////////////////////////////////
+
+var oregonCountyLayer = L.geoJSON(null, {
+    style: {
+        color: "#999",
+        weight: 1,
+        fillOpacity: 0.0,
+        zIndex: 0,
+    }
+});
+
+$.getJSON("oregon.county.geojson", function (data) {
+    oregonCountyLayer.addData(data);//.addTo(map);
+});
+
+var overlayMaps = {
+    "Incident": incidentLayer,
+    "Event": eventLayer,
+    "Incident TLE": incidentTleLayer,
+    'Vancouver': wsdotLayer,
+    'PGE': pgeLayer,
+    'Pacific Power': pacificPowerLayer,
+    'Flood': waterGaugeLayer,
+    'Oregon': oregonCountyLayer,
+    'beecn': L.esri.featureLayer({
+        url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92",
+    }),
+}
+
+L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
+
+// Each layer and the function that update it
+var layerAndUpdateFunctionMap = new Map([
+    [incidentLayer, getIncidentData],
+    [eventLayer, getEventData],
+    [incidentTleLayer, getIncidentTleData],
+    [wsdotLayer, getWsdotData],
+    [pgeLayer, getPgeData],
+    [pacificPowerLayer, getPacificPowerData],
+    [waterGaugeLayer, getWaterGaugeData]
+])
+
+// Update all layers
+function updateLayers() {
+    layerAndUpdateFunctionMap.forEach(function (updateFunction, layer) {
+        if (layer) { 
+            layer.clearLayers();
+            map.removeLayer(layer); 
+            delete layer; 
+        }
+        updateFunction();
+    })
+}
+
+updateLayers();
+
+
+
+// Update layers every 5 minutes
+var updateInterval = setInterval(updateLayers, 5 * 60 * 1000);
+
+var legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'legend');
+    div.innerHTML += '<i style="background: ' + severityColorMap['major']
+        + '"></i><input class="severity-control" checked id="major" type="checkbox">Major';
+    div.innerHTML += '<br><input class="severity-control" checked id="minor" type="checkbox"><i style="background: '
+        + severityColorMap['minor'] + '"></i>Minor';
+    div.innerHTML += '<br><input class="severity-control" id="info" type="checkbox"><i style="background: '
+        + severityColorMap['info'] + '"></i>Info';
+    return div;
+};
+
+legend.addTo(map);
+
+
+// Without 'awesome-marker ', this className will override the style for the background icon. What a hack!
+function getMarkerClassName(severityLevel) {
+    //console.log($('#' + severityLevel).is(':checked'));
+    if ($('#' + severityLevel).is(':checked')) {
+        
+        console.log('show');
+        return 'awesome-marker ' + severityLevel + ' ';
+    }
+    else {
+        console.log('hide');
+        return 'awesome-marker hideMarker ' + severityLevel + ' ';
+    }
+}
+
+$(function () {
+    //$('.severity-control').prop('checked', true);
+    $('.severity-control').on('change', function () {
+        if ($(this).is(':checked'))
+            $('.'+$(this).attr('id')).show();
+        else
+            $('.'+$(this).attr('id')).hide();
+    })
+})
