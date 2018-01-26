@@ -13,7 +13,18 @@ function generateEsriJsonHandler(layerOptions) {
         addToMapAfterLoading: true means add this layer to map after processing
     */
 
-    function onEsriJsonReceived(esriJson) {
+    function onEsriJsonReceived(esriJson, textStatus, request) {
+        // The resource is not modifed since the last update. Skip further processing
+        if (request.status == 304) {
+            return;
+        }
+
+        // Store ETag or Last Modified Time
+        var eTag = request.getResponseHeader('ETag');
+        var lastModified = request.getResponseHeader('Last-Modified');
+        if (eTag) layerOptions.layer.eTag = eTag;
+        if (lastModified) layerOptions.layer.lastModified = lastModified;
+
         // Filter out certain features. E.g. small delays
         esriJson.features = esriJson.features.filter(layerOptions.filterEsriFeature);
 
@@ -25,6 +36,12 @@ function generateEsriJsonHandler(layerOptions) {
             // For each geojson feature, bind markers, popups, style, etc.
             geoJson.features.forEach(layerOptions.onEachGeoJsonFeature);
 
+            // Clear old markers
+            if (layerOptions.layer) {
+                layerOptions.layer.clearLayers();
+                map.removeLayer(layerOptions.layer);
+                //delete layerOptions.layer;
+            }
             // Show this overlay
             if (layerOptions.addToMapAfterLoading) layerOptions.layer.addData(geoJson).addTo(map);
         });
@@ -127,26 +144,37 @@ var incidentLayer = L.geoJSON(null, {
 
 
 function getIncidentData() {
-    $.getJSON("http://www.pa2.local/tripcheck/INCD.js", generateEsriJsonHandler({
-        layer: incidentLayer,
-        filterEsriFeature: function (feature) {
-            return true;
-            // return (feature.attributes.odotCategoryID == 'A') &&
-            //     (feature.attributes.odotSeverityID == 2 ||
-            //         feature.attributes.odotSeverityID == 3 ||
-            //         feature.attributes.odotSeverityID == 4 ||
-            //         //feature.attributes.odotSeverityID == 5 || 
-            //         feature.attributes.odotSeverityID == 8);
+    $.ajax({
+        url: "http://www.pa2.local/tripcheck/INCD.js",
+        dataType: 'json',
+        beforeSend: function (request) {
+            if (incidentLayer.eTag) request.setRequestHeader('If-None-Match', incidentLayer.eTag);
+            if (incidentLayer.lastModified) request.setRequestHeader('If-Modified-Since', incidentLayer.lastModified);
         },
-        onEachGeoJsonFeature: function (feature) {
-            // The original coordinates is in spcacial reference wkid: 3857.
-            // E.g. x: -13600885.141317938, y: 5709912.011602259
-            // We use the display Lat/Long instead.
-            feature.geometry.coordinates[0] = feature.properties.displayLongitude;
-            feature.geometry.coordinates[1] = feature.properties.displayLatitude;
-        },
-        addToMapAfterLoading: true,
-    }));
+        success: generateEsriJsonHandler({
+            layer: incidentLayer,
+            filterEsriFeature: function (feature) {
+                return true;
+                // return (feature.attributes.odotCategoryID == 'A') &&
+                //     (feature.attributes.odotSeverityID == 2 ||
+                //         feature.attributes.odotSeverityID == 3 ||
+                //         feature.attributes.odotSeverityID == 4 ||
+                //         //feature.attributes.odotSeverityID == 5 || 
+                //         feature.attributes.odotSeverityID == 8);
+            },
+            onEachGeoJsonFeature: function (feature) {
+                // The original coordinates is in spcacial reference wkid: 3857.
+                // E.g. x: -13600885.141317938, y: 5709912.011602259
+                // We use the display Lat/Long instead.
+                feature.geometry.coordinates[0] = feature.properties.displayLongitude;
+                feature.geometry.coordinates[1] = feature.properties.displayLatitude;
+            },
+            addToMapAfterLoading: true,
+        }),
+        error: function (request, textStatus, error) {
+            console.error(error);
+        }
+    });
 }
 
 
@@ -185,21 +213,31 @@ var incidentTleLayer = L.geoJSON(null, {
 });
 
 function getIncidentTleData() {
-    $.getJSON("http://www.pa2.local/tripcheck/INCD-tle.js", generateEsriJsonHandler({
-        layer: incidentTleLayer,
-        filterEsriFeature: function (feature) {
-            return true;
-            //return feature.attributes.travelImpact.toLowerCase().indexOf('substantial') === 0;
+    $.ajax({
+        url: "http://www.pa2.local/tripcheck/INCD-tle.js",
+        dataType: 'json',
+        beforeSend: function (request) {
+            if (incidentTleLayer.eTag) request.setRequestHeader('If-None-Match', incidentTleLayer.eTag);
+            if (incidentTleLayer.lastModified) request.setRequestHeader('If-Modified-Since', incidentTleLayer.lastModified);
         },
-        onEachGeoJsonFeature: function (feature) {
-            // Convert from Spacial Reference 3857 to 4326
-            var latLng = L.CRS.EPSG3857.unproject(L.point(feature.geometry.coordinates));
-            feature.geometry.coordinates[0] = latLng.lng;
-            feature.geometry.coordinates[1] = latLng.lat;
-        },
-        addToMapAfterLoading: true,
-    })
-    );
+        success: generateEsriJsonHandler({
+            layer: incidentTleLayer,
+            filterEsriFeature: function (feature) {
+                return true;
+                //return feature.attributes.travelImpact.toLowerCase().indexOf('substantial') === 0;
+            },
+            onEachGeoJsonFeature: function (feature) {
+                // Convert from Spacial Reference 3857 to 4326
+                var latLng = L.CRS.EPSG3857.unproject(L.point(feature.geometry.coordinates));
+                feature.geometry.coordinates[0] = latLng.lng;
+                feature.geometry.coordinates[1] = latLng.lat;
+            },
+            addToMapAfterLoading: true,
+        }),
+        error: function (request, textStatus, error) {
+            console.error(error);
+        }
+    });
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -226,26 +264,36 @@ var eventLayer = L.geoJSON(null, {
     },
 });
 function getEventData() {
-    $.getJSON("http://www.pa2.local/tripcheck/EVENT.js", generateEsriJsonHandler({
-        layer: eventLayer,
-        filterEsriFeature: function (feature) {
-            // return true;
-            return (feature.attributes.odotSeverityID == 2 ||
-                feature.attributes.odotSeverityID == 3 ||
-                feature.attributes.odotSeverityID == 4 ||
-                //feature.attributes.odotSeverityID == 5 || 
-                feature.attributes.odotSeverityID == 8);
+    $.ajax({
+        url: "http://www.pa2.local/tripcheck/EVENT.js",
+        dataType: 'json',
+        beforeSend: function (request) {
+            if (eventLayer.eTag) request.setRequestHeader('If-None-Match', eventLayer.eTag);
+            if (eventLayer.lastModified) request.setRequestHeader('If-Modified-Since', eventLayer.lastModified);
         },
-        onEachGeoJsonFeature: function (feature) {
-            // The original coordinates is in spcacial reference wkid: 3857.
-            // E.g. x: -13600885.141317938, y: 5709912.011602259
-            // We use the display Lat/Long instead.
-            feature.geometry.coordinates[0] = feature.properties.displayLongitude;
-            feature.geometry.coordinates[1] = feature.properties.displayLatitude;
-        },
-        addToMapAfterLoading: true,
-    })
-    );
+        success: generateEsriJsonHandler({
+            layer: eventLayer,
+            filterEsriFeature: function (feature) {
+                // return true;
+                return (feature.attributes.odotSeverityID == 2 ||
+                    feature.attributes.odotSeverityID == 3 ||
+                    feature.attributes.odotSeverityID == 4 ||
+                    //feature.attributes.odotSeverityID == 5 || 
+                    feature.attributes.odotSeverityID == 8);
+            },
+            onEachGeoJsonFeature: function (feature) {
+                // The original coordinates is in spcacial reference wkid: 3857.
+                // E.g. x: -13600885.141317938, y: 5709912.011602259
+                // We use the display Lat/Long instead.
+                feature.geometry.coordinates[0] = feature.properties.displayLongitude;
+                feature.geometry.coordinates[1] = feature.properties.displayLatitude;
+            },
+            addToMapAfterLoading: true,
+        }),
+        error: function (request, textStatus, error) {
+            console.error(error);
+        }
+    });
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -262,8 +310,27 @@ var wsdotSeverity = {
     'Low': 'info',
 }
 function getWsdotData() {
-    $.getJSON("http://www.pa2.local/wsdot/MapArea=L3VTR")
-        .done(function (jsonData) {
+    $.ajax({
+        url: "http://www.pa2.local/wsdot/MapArea=L3VTR",
+        dataType: 'json',
+        beforeSend: function (request) {
+            if (wsdotLayer.eTag) request.setRequestHeader('If-None-Match', wsdotLayer.eTag);
+            if (wsdotLayer.lastModified) request.setRequestHeader('If-Modified-Since', wsdotLayer.lastModified);
+        },
+        success: function (jsonData, textStatus, request) {
+            if (request.status == 304) {
+                return;
+            }
+
+            // Store ETag or Last Modified Time
+            var eTag = request.getResponseHeader('ETag');
+            var lastModified = request.getResponseHeader('Last-Modified');
+            if (eTag) wsdotLayer.eTag = eTag;
+            if (lastModified) wsdotLayer.lastModified = lastModified;
+
+            wsdotLayer.clearLayers();
+            map.removeLayer(wsdotLayer);
+
             jsonData.forEach(function (item) {
                 wsdotLayer.addLayer(L.marker(
                     [item.StartRoadwayLocation.Latitude, item.StartRoadwayLocation.Longitude],
@@ -272,7 +339,7 @@ function getWsdotData() {
                             icon: 'car',
                             prefix: 'fa',
                             markerColor: severityColorMap[wsdotSeverity[item.Priority]],
-                            className: getMarkerClassName(severityArray[item.Priority])
+                            className: getMarkerClassName(wsdotSeverity[item.Priority])
                         })
                     }).on('mouseover', function (e) {
                         //open popup;
@@ -288,10 +355,11 @@ function getWsdotData() {
                 );
             });
             wsdotLayer.addTo(map);
-        })
-        .fail(function (jqxhr, textStatus, error) {
+        },
+        error: function (request, textStatus, error) {
             console.error(error);
-        });
+        }
+    });
 }
 
 
@@ -365,6 +433,8 @@ var pgeLayer = L.geoJson(null, {
 function getPgeData() {
     // Original: https://www.portlandgeneral.com/outage-data/outages
     var pgeKmlLayer = omnivore.kml('http://www.pa2.local/pge/outages', null, pgeLayer);
+    pgeLayer.clearLayers();
+    map.removeLayer(pgeLayer);
     pgeLayer.addTo(map);
 }
 
@@ -381,8 +451,28 @@ function getPacificPowerSeverity(item) {
 }
 
 function getPacificPowerData() {
-    $.getJSON("http://www.pa2.local/pacific-power/outagesOR.json")
-        .done(function (jsonData) {
+
+    $.ajax({
+        url: "http://www.pa2.local/pacific-power/outagesOR.json",
+        dataType: 'json',
+        beforeSend: function (request) {
+            if (pacificPowerLayer.eTag) request.setRequestHeader('If-None-Match', pacificPowerLayer.eTag);
+            if (pacificPowerLayer.lastModified) request.setRequestHeader('If-Modified-Since', pacificPowerLayer.lastModified);
+        },
+        success: function (jsonData, textStatus, request) {
+            if (request.status == 304) {
+                return;
+            }
+
+            // Store ETag or Last Modified Time
+            var eTag = request.getResponseHeader('ETag');
+            var lastModified = request.getResponseHeader('Last-Modified');
+            if (eTag) pacificPowerLayer.eTag = eTag;
+            if (lastModified) pacificPowerLayer.lastModified = lastModified;
+
+            pacificPowerLayer.clearLayers();
+            map.removeLayer(pacificPowerLayer);
+
             jsonData.outages.forEach(function (item) {
                 pacificPowerLayer.addLayer(L.marker(
                     [item.latitude, item.longitude],
@@ -406,10 +496,11 @@ function getPacificPowerData() {
                 );
             });
             pacificPowerLayer.addTo(map);
-        })
-        .fail(function (jqxhr, textStatus, error) {
+        },
+        error: function (request, textStatus, error) {
             console.error(error);
-        });
+        }
+    });
 }
 // TODO: add weather.gov alerts for Portland Metro
 // https://api.weather.gov/alerts?active=1&zone=ORZ006,WAZ039
@@ -450,50 +541,74 @@ var waterGaugeLayer = L.geoJSON(null, {
     }
 });
 
+//var waterGaugesGeoJson; defined in water-lookup.js
 function getWaterGaugeData() {
-    //var waterGaugesGeoJson; defined in water-lookup.js
-    $.get('http://www.pa2.local/water-alert/or.rss', function (data) {
-        var $xml = $(data);
-        var alertArray = [];
-        $xml.find("item").each(function () {
-            var $this = $(this),
-                item = {
-                    title: $this.find("title").text(),
-                    link: $this.find("link").text(),
-                    pubDate: $this.find("pubDate").text()
-                }
-
-            // Format of title:
-            // Action (16.35 ft) - Alert - DLLO3 - Tualatin River near Dilley (Oregon)
-            var titleParts = item.title.split('-');
-            if (titleParts.length === 4) {
-                if (titleParts[0].indexOf('Action') === 0) item.level = 'Near flood stage';
-                else if (titleParts[0].indexOf('Minor') === 0) item.level = 'Minor flooding';
-                else if (titleParts[0].indexOf('Moderate') === 0) item.level = 'Moderate flooding';
-                else if (titleParts[0].indexOf('Major') === 0) item.level = 'Major flooding';
-
-                item.lid = titleParts[2].trim().toLowerCase();
-
-                alertArray.push(item);
+    $.ajax({
+        url: "http://www.pa2.local/water-alert/or.rss",
+        dataType: 'xml',
+        beforeSend: function (request) {
+            if (waterGaugeLayer.eTag) request.setRequestHeader('If-None-Match', waterGaugeLayer.eTag);
+            if (waterGaugeLayer.lastModified) request.setRequestHeader('If-Modified-Since', waterGaugeLayer.lastModified);
+        },
+        success: function (data, textStatus, request) {
+            if (request.status == 304) {
+                return;
             }
-        });
 
-        // Check which gauge is generating the alert
-        var alertedWaterGaugesGeoJson = { "type": "FeatureCollection" };
-        alertedWaterGaugesGeoJson.features = waterGaugesGeoJson.features.filter(function (waterGauge) {
-            for (var i = 0; i < alertArray.length; i++) {
-                if (waterGauge.properties.lid === alertArray[i].lid) {
-                    waterGauge.properties.level = alertArray[i].level;
-                    waterGauge.properties.link = alertArray[i].link;
-                    waterGauge.properties.pubDate = alertArray[i].pubDate;
-                    return true;
+            // Store ETag or Last Modified Time
+            var eTag = request.getResponseHeader('ETag');
+            var lastModified = request.getResponseHeader('Last-Modified');
+            if (eTag) waterGaugeLayer.eTag = eTag;
+            if (lastModified) waterGaugeLayer.lastModified = lastModified;
+
+            var $xml = $(data);
+            var alertArray = [];
+            $xml.find("item").each(function () {
+                var $this = $(this),
+                    item = {
+                        title: $this.find("title").text(),
+                        link: $this.find("link").text(),
+                        pubDate: $this.find("pubDate").text()
+                    }
+
+                // Format of title:
+                // Action (16.35 ft) - Alert - DLLO3 - Tualatin River near Dilley (Oregon)
+                var titleParts = item.title.split('-');
+                if (titleParts.length === 4) {
+                    if (titleParts[0].indexOf('Action') === 0) item.level = 'Near flood stage';
+                    else if (titleParts[0].indexOf('Minor') === 0) item.level = 'Minor flooding';
+                    else if (titleParts[0].indexOf('Moderate') === 0) item.level = 'Moderate flooding';
+                    else if (titleParts[0].indexOf('Major') === 0) item.level = 'Major flooding';
+
+                    item.lid = titleParts[2].trim().toLowerCase();
+
+                    alertArray.push(item);
                 }
-            }
-            return false;
-        });
+            });
 
-        waterGaugeLayer.addData(alertedWaterGaugesGeoJson).addTo(map)
-    })
+            // Check which gauge is generating the alert
+            var alertedWaterGaugesGeoJson = { "type": "FeatureCollection" };
+            alertedWaterGaugesGeoJson.features = waterGaugesGeoJson.features.filter(function (waterGauge) {
+                for (var i = 0; i < alertArray.length; i++) {
+                    if (waterGauge.properties.lid === alertArray[i].lid) {
+                        waterGauge.properties.level = alertArray[i].level;
+                        waterGauge.properties.link = alertArray[i].link;
+                        waterGauge.properties.pubDate = alertArray[i].pubDate;
+                        return true;
+                    }
+                }
+                return false;
+            });
+
+            waterGaugeLayer.clearLayers();
+            map.removeLayer(waterGaugeLayer);
+
+            waterGaugeLayer.addData(alertedWaterGaugesGeoJson).addTo(map)
+        },
+        error: function (request, textStatus, error) {
+            console.error(error);
+        }
+    });
 }
 
 
@@ -531,24 +646,19 @@ var overlayMaps = {
 L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
 
 // Each layer and the function that update it
-var layerAndUpdateFunctionMap = new Map([
-    [incidentLayer, getIncidentData],
-    [eventLayer, getEventData],
-    [incidentTleLayer, getIncidentTleData],
-    [wsdotLayer, getWsdotData],
-    [pgeLayer, getPgeData],
-    [pacificPowerLayer, getPacificPowerData],
-    [waterGaugeLayer, getWaterGaugeData]
-])
+var updateFunctionArray = [
+    getIncidentData,
+    getEventData,
+    getIncidentTleData,
+    getWsdotData,
+    getPgeData,
+    getPacificPowerData,
+    getWaterGaugeData
+]
 
 // Update all layers
 function updateLayers() {
-    layerAndUpdateFunctionMap.forEach(function (updateFunction, layer) {
-        if (layer) { 
-            layer.clearLayers();
-            map.removeLayer(layer); 
-            delete layer; 
-        }
+    updateFunctionArray.forEach(function (updateFunction) { // parameters from the map above: value, key
         updateFunction();
     })
 }
@@ -556,9 +666,8 @@ function updateLayers() {
 updateLayers();
 
 
-
 // Update layers every 5 minutes
-var updateInterval = setInterval(updateLayers, 5 * 60 * 1000);
+var updateInterval = setInterval(updateLayers, 5 * 2 * 1000);
 
 var legend = L.control({ position: 'bottomright' });
 
@@ -568,7 +677,7 @@ legend.onAdd = function (map) {
         + '"></i><input class="severity-control" checked id="major" type="checkbox">Major';
     div.innerHTML += '<br><input class="severity-control" checked id="minor" type="checkbox"><i style="background: '
         + severityColorMap['minor'] + '"></i>Minor';
-    div.innerHTML += '<br><input class="severity-control" id="info" type="checkbox"><i style="background: '
+    div.innerHTML += '<br><input class="severity-control" checked id="info" type="checkbox"><i style="background: '
         + severityColorMap['info'] + '"></i>Info';
     return div;
 };
@@ -580,12 +689,9 @@ legend.addTo(map);
 function getMarkerClassName(severityLevel) {
     //console.log($('#' + severityLevel).is(':checked'));
     if ($('#' + severityLevel).is(':checked')) {
-        
-        console.log('show');
         return 'awesome-marker ' + severityLevel + ' ';
     }
     else {
-        console.log('hide');
         return 'awesome-marker hideMarker ' + severityLevel + ' ';
     }
 }
@@ -594,8 +700,8 @@ $(function () {
     //$('.severity-control').prop('checked', true);
     $('.severity-control').on('change', function () {
         if ($(this).is(':checked'))
-            $('.'+$(this).attr('id')).show();
+            $('.' + $(this).attr('id')).removeClass('hideMarker');
         else
-            $('.'+$(this).attr('id')).hide();
+            $('.' + $(this).attr('id')).addClass('hideMarker');
     })
 })
