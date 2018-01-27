@@ -145,7 +145,9 @@ var incidentLayer = L.geoJSON(null, {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
-                .setContent(feature.properties.comments
+                .setContent( '<strong>' + feature.properties.route + '</strong>'
+                + '<br>' + feature.properties.comments
+                + '<br>ID: ' + feature.properties.incidentId
                 + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
                 + '<br>started: ' + feature.properties.startTime
                 + '<br>updated: ' + feature.properties.lastUpdated)
@@ -214,9 +216,14 @@ var incidentTleLayer = L.geoJSON(null, {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
-                .setContent(feature.properties.publicCommentText
+                .setContent('<strong>Location Start: ' + feature.properties.locationStart
+                    + '<br>Location End: ' + feature.properties.locationEnd
+                    + '</strong><br>' + feature.properties.publicCommentText
+                    + '<br>eventId: ' + feature.properties.eventId
+                    + '<br>Link: ' + feature.properties.infoUrl
                 + '<br>odotSeverityID: ' + feature.properties.travelImpact
-                + '<br>started: ' + feature.properties.starts
+                + '<br>starts: ' + feature.properties.starts
+                + '<br>ends: ' + feature.properties.ends
                 + '<br>updated: ' + feature.properties.lastUpdated)
                 .openOn(map);
         });
@@ -267,7 +274,10 @@ var eventLayer = L.geoJSON(null, {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
-                .setContent(feature.properties.comments
+                .setContent('<strong>' + feature.properties.route
+                + '</strong><br>Id: ' + feature.properties.incidentId
+                + '<br>Type: ' + feature.properties.odotCategoryDescript
+                + '<br>' + feature.properties.comments
                 + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
                 + '<br>started: ' + feature.properties.startTime
                 + '<br>updated: ' + feature.properties.lastUpdated)
@@ -364,7 +374,9 @@ function getWsdotData() {
                         //open popup;
                         var popup = L.popup()
                             .setLatLng(e.latlng)
-                            .setContent(item.HeadlineDescription
+                            .setContent( '<strong>' + item.StartRoadwayLocation.RoadName + ' Mile Post ' + item.StartRoadwayLocation.MilePost
+                            + '</strong><br>' + item.HeadlineDescription
+                            + '<br>Id: ' + item.AlertID
                             + '<br>Priority: ' + item.Priority
                             + ((item.StartTime) ? '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString() : '')
                             + ((item.EndTime) ? '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString() : '')
@@ -445,7 +457,7 @@ var pgeLayer = L.geoJson(null, {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
-                .setContent('PGE Outage <br>' + feature.properties.description)
+                .setContent('<strong>PGE Outage</strong><br>' + feature.properties.description)
                 .openOn(map);
         });
     }
@@ -530,7 +542,7 @@ function getPacificPowerData() {
                         //open popup;
                         var popup = L.popup()
                             .setLatLng(e.latlng)
-                            .setContent('Pacific Power Outage'
+                            .setContent('<strong>Pacific Power Outage</strong>'
                             + '<br>Outage Count: ' + item.outCount
                             + '<br>Customers Count: ' + item.custOut
                             + '<br>Last Updated: ' + jsonData.last_upd)
@@ -577,10 +589,10 @@ var waterGaugeLayer = L.geoJSON(null, {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
-                .setContent(feature.properties.name
-                + '<br>' + feature.properties.level
+                .setContent('<strong>' + feature.properties.name
+                + '</strong><br>' + feature.properties.level
                 + '<br>' + feature.properties.link
-                + '<br>' + feature.properties.pubDate)
+                + '<br>' + (new Date(feature.properties.pubDate).toLocaleString()) )
                 .openOn(map);
         });
     }
