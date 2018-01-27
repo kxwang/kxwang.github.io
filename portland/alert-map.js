@@ -36,14 +36,26 @@ function generateEsriJsonHandler(layerOptions) {
             // For each geojson feature, bind markers, popups, style, etc.
             geoJson.features.forEach(layerOptions.onEachGeoJsonFeature);
 
+            // Must get the value before we remove the layer to update data
+            var hasLayer = map.hasLayer(layerOptions.layer);
             // Clear old markers
             if (layerOptions.layer) {
                 layerOptions.layer.clearLayers();
-                map.removeLayer(layerOptions.layer);
+                if(hasLayer)
+                    map.removeLayer(layerOptions.layer);
                 //delete layerOptions.layer;
             }
             // Show this overlay
-            if (layerOptions.addToMapAfterLoading) layerOptions.layer.addData(geoJson).addTo(map);
+            if (layerOptions.addToMapAfterLoading) {
+                // We still want to update data even if we are not adding the layer to the map.
+                layerOptions.layer.addData(geoJson);
+                // On the initial load, check if we need to add this layer
+                // On the following loads, check if the map already has this layer before the new data. It may be removed by user with the layer control.
+                if( hasLayer ||  layerOptions.layer.isAddedInitially)
+                    layerOptions.layer.addTo(map);
+                if(layerOptions.layer.isAddedInitially) 
+                    layerOptions.layer.isAddedInitially = false;
+            }
         });
     }
 
@@ -322,14 +334,21 @@ function getWsdotData() {
                 return;
             }
 
+            // Compare the HTTP response body to see if we need to update the map. There is no ETag or Last Modified
+            if (wsdotLayer.jsonData && wsdotLayer.jsonData === jsonData)
+                return;
+            else
+                wsdotLayer.jsonData = jsonData;
+
             // Store ETag or Last Modified Time
             var eTag = request.getResponseHeader('ETag');
             var lastModified = request.getResponseHeader('Last-Modified');
             if (eTag) wsdotLayer.eTag = eTag;
             if (lastModified) wsdotLayer.lastModified = lastModified;
 
+            var hasLayer = map.hasLayer(wsdotLayer);
             wsdotLayer.clearLayers();
-            map.removeLayer(wsdotLayer);
+            if(hasLayer) map.removeLayer(wsdotLayer);
 
             jsonData.forEach(function (item) {
                 wsdotLayer.addLayer(L.marker(
@@ -354,7 +373,10 @@ function getWsdotData() {
                     })
                 );
             });
-            wsdotLayer.addTo(map);
+            if( hasLayer ||  wsdotLayer.isAddedInitially)
+                wsdotLayer.addTo(map);
+            if(wsdotLayer.isAddedInitially)     
+                wsdotLayer.isAddedInitially = false;
         },
         error: function (request, textStatus, error) {
             console.error(error);
@@ -430,12 +452,32 @@ var pgeLayer = L.geoJson(null, {
 }
 );
 
+// Original: https://www.portlandgeneral.com/outage-data/outages
 function getPgeData() {
-    // Original: https://www.portlandgeneral.com/outage-data/outages
-    var pgeKmlLayer = omnivore.kml('http://www.pa2.local/pge/outages', null, pgeLayer);
-    pgeLayer.clearLayers();
-    map.removeLayer(pgeLayer);
-    pgeLayer.addTo(map);
+
+    $.ajax({
+        url: "http://www.pa2.local/pge/outages",
+        dataType: 'text', // returns raw text that will be pared by Omnivore
+        success: function (kmlData, textStatus, request) {
+            if (request.status == 304) {
+                return;
+            }
+
+            // Compare the HTTP response body to see if we need to update the map. There is no ETag or Last Modified
+            if (pgeLayer.kmlData && pgeLayer.kmlData === kmlData)
+                return;
+            else
+                pgeLayer.kmlData = kmlData;
+
+            var hasLayer = map.hasLayer(pgeLayer);
+            pgeLayer.clearLayers();
+            if(hasLayer) map.removeLayer(pgeLayer);
+            var pgeKmlLayer = omnivore.kml.parse(kmlData, null, pgeLayer);
+            
+            if( hasLayer || pgeLayer.isAddedInitially) pgeLayer.addTo(map);
+            if(pgeLayer.isAddedInitially) pgeLayer.isAddedInitially = false;
+        }
+    });
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -470,8 +512,9 @@ function getPacificPowerData() {
             if (eTag) pacificPowerLayer.eTag = eTag;
             if (lastModified) pacificPowerLayer.lastModified = lastModified;
 
+            var hasLayer = map.hasLayer(pacificPowerLayer);
             pacificPowerLayer.clearLayers();
-            map.removeLayer(pacificPowerLayer);
+            if(hasLayer) map.removeLayer(pacificPowerLayer);
 
             jsonData.outages.forEach(function (item) {
                 pacificPowerLayer.addLayer(L.marker(
@@ -495,7 +538,9 @@ function getPacificPowerData() {
                     })
                 );
             });
-            pacificPowerLayer.addTo(map);
+
+            if( hasLayer ||  pacificPowerLayer.isAddedInitially) pacificPowerLayer.addTo(map);
+            if(pacificPowerLayer.isAddedInitially) pacificPowerLayer.isAddedInitially = false;
         },
         error: function (request, textStatus, error) {
             console.error(error);
@@ -550,7 +595,7 @@ function getWaterGaugeData() {
             if (waterGaugeLayer.eTag) request.setRequestHeader('If-None-Match', waterGaugeLayer.eTag);
             if (waterGaugeLayer.lastModified) request.setRequestHeader('If-Modified-Since', waterGaugeLayer.lastModified);
         },
-        success: function (data, textStatus, request) {
+        success: function (rssData, textStatus, request) {
             if (request.status == 304) {
                 return;
             }
@@ -561,7 +606,7 @@ function getWaterGaugeData() {
             if (eTag) waterGaugeLayer.eTag = eTag;
             if (lastModified) waterGaugeLayer.lastModified = lastModified;
 
-            var $xml = $(data);
+            var $xml = $(rssData);
             var alertArray = [];
             $xml.find("item").each(function () {
                 var $this = $(this),
@@ -600,10 +645,14 @@ function getWaterGaugeData() {
                 return false;
             });
 
+            var hasLayer = map.hasLayer(waterGaugeLayer);
             waterGaugeLayer.clearLayers();
-            map.removeLayer(waterGaugeLayer);
+            if(hasLayer) map.removeLayer(waterGaugeLayer);
+            
+            waterGaugeLayer.addData(alertedWaterGaugesGeoJson);
 
-            waterGaugeLayer.addData(alertedWaterGaugesGeoJson).addTo(map)
+            if( hasLayer || waterGaugeLayer.isAddedInitially) waterGaugeLayer.addTo(map);
+            if(waterGaugeLayer.isAddedInitially) waterGaugeLayer.isAddedInitially = false;
         },
         error: function (request, textStatus, error) {
             console.error(error);
@@ -643,7 +692,7 @@ var overlayMaps = {
     }),
 }
 
-L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
+var layerControl = L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
 
 // Each layer and the function that update it
 var updateFunctionArray = [
@@ -663,8 +712,16 @@ function updateLayers() {
     })
 }
 
-updateLayers();
+// Initially add all layers. TODO: save this in local storage or cookie
+incidentLayer.isAddedInitially = true;
+eventLayer.isAddedInitially = true;
+incidentTleLayer.isAddedInitially = true;
+wsdotLayer.isAddedInitially = true;
+pgeLayer.isAddedInitially = true;
+pacificPowerLayer.isAddedInitially = true;
+waterGaugeLayer.isAddedInitially = true;
 
+updateLayers();
 
 // Update layers every 5 minutes
 var updateInterval = setInterval(updateLayers, 5 * 2 * 1000);
