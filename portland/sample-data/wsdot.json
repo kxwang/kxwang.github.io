@@ -1,0 +1,58 @@
+[{
+	"AlertID": 305583,
+	"County": null,
+	"EndRoadwayLocation": {
+		"Description": null,
+		"Direction": "N",
+		"Latitude": 0,
+		"Longitude": 0,
+		"MilePost": 0,
+		"RoadName": "205"
+	},
+	"EndTime": null,
+	"EventCategory": "Collision",
+	"EventStatus": "Open",
+	"ExtendedDescription": null,
+	"HeadlineDescription": "Collision blocking the left lanes on the Glenn Jackson Bridge I-205 northbound at milepost 26.5  Oregon State Line beginning at 11:16 pm on January 26, 2018 until further notice. ",
+	"LastUpdatedTime": "\/Date(1517037630710-0800)\/",
+	"Priority": "Medium",
+	"Region": "Southwest Region",
+	"StartRoadwayLocation": {
+		"Description": null,
+		"Direction": "N",
+		"Latitude": 45.596925153,
+		"Longitude": -122.549952077,
+		"MilePost": 26.59,
+		"RoadName": "205"
+	},
+	"StartTime": "\/Date(1517037360000-0800)\/"
+},
+{
+	"AlertID": 305582,
+	"County": "Clark",
+	"EndRoadwayLocation": {
+		"Description": null,
+		"Direction": "B",
+		"Latitude": 0,
+		"Longitude": 0,
+		"MilePost": 0,
+		"RoadName": "503"
+	},
+	"EndTime": null,
+	"EventCategory": "Water over Roadway",
+	"EventStatus": "Open",
+	"ExtendedDescription": null,
+	"HeadlineDescription": "Water over Roadway use caution on SR 503 both directions at milepost 1.2 near 87th Street beginning at 10:22 pm on January 26, 2018 until further notice. ",
+	"LastUpdatedTime": "\/Date(1517034383963-0800)\/",
+	"Priority": "High",
+	"Region": "Southwest Region",
+	"StartRoadwayLocation": {
+		"Description": null,
+		"Direction": "B",
+		"Latitude": 45.684705190,
+		"Longitude": -122.552554930,
+		"MilePost": 1.20,
+		"RoadName": "503"
+	},
+	"StartTime": "\/Date(1517034120000-0800)\/"
+}]

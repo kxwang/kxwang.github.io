@@ -1,0 +1,450 @@
+{
+	"fields": [{
+		"name": "eventId",
+		"alias": "Event ID",
+		"type": "esriFieldTypeOID"
+	},
+	{
+		"name": "jurisdiction",
+		"alias": "Jurisdiction",
+		"type": "esriFieldTypeString",
+		"length": 50
+	},
+	{
+		"name": "eventType",
+		"alias": "Event Type",
+		"type": "esriFieldTypeString",
+		"length": 50
+	},
+	{
+		"name": "iconType",
+		"alias": "Icon Type",
+		"type": "esriFieldTypeInteger"
+	},
+	{
+		"name": "publicCommentText",
+		"alias": "Public Comment Text",
+		"type": "esriFieldTypeString",
+		"length": 255
+	},
+	{
+		"name": "publicContact",
+		"alias": "Public Contact",
+		"type": "esriFieldTypeString",
+		"length": 100
+	},
+	{
+		"name": "publiContactPhone",
+		"alias": "Contact Phone",
+		"type": "esriFieldTypeString",
+		"length": 20
+	},
+	{
+		"name": "infoUrl",
+		"alias": "Info URL",
+		"type": "esriFieldTypeString",
+		"length": 255
+	},
+	{
+		"name": "specialArea",
+		"alias": "Special Area",
+		"type": "esriFieldTypeString",
+		"length": 6
+	},
+	{
+		"name": "locationStart",
+		"alias": "Location Start",
+		"type": "esriFieldTypeString",
+		"length": 50
+	},
+	{
+		"name": "locationEnd",
+		"alias": "Location End",
+		"type": "esriFieldTypeString",
+		"length": 50
+	},
+	{
+		"name": "locationSpecialArea",
+		"alias": "Location Special Area",
+		"type": "esriFieldTypeString",
+		"length": 50
+	},
+	{
+		"name": "direction",
+		"alias": "Direction",
+		"type": "esriFieldTypeString",
+		"length": 20
+	},
+	{
+		"name": "starts",
+		"alias": "Starts",
+		"type": "esriFieldTypeString",
+		"length": 19
+	},
+	{
+		"name": "ends",
+		"alias": "Ends",
+		"type": "esriFieldTypeString",
+		"length": 19
+	},
+	{
+		"name": "travelImpact",
+		"alias": "Travel Impact",
+		"type": "esriFieldTypeString",
+		"length": 50
+	},
+	{
+		"name": "trafficControl",
+		"alias": "Traffic Control",
+		"type": "esriFieldTypeString",
+		"length": 50
+	},
+	{
+		"name": "lastUpdated",
+		"alias": "Last Updated",
+		"type": "esriFieldTypeString",
+		"length": 19
+	}],
+	"geometryType": "esriGeometryPoint",
+	"spatialReference": {
+		"wkid": 3857
+	},
+	"features": [{
+		"attributes": {
+			"eventId": 558,
+			"jurisdiction": "Benton County",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "Bridge is closed until further notice. County is applying for grant to replace bridge. Bridge may be opened to light traffic during flooding events.",
+			"publicContact": "Laurel Byer",
+			"publicContactPhone": "5417666821",
+			"infoUrl": "",
+			"specialArea": "False",
+			"locationStart": "27017 Hubbard Rd, Monroe, OR 97456",
+			"locationEnd": "",
+			"locationSpecialArea": "",
+			"direction": "East, West",
+			"starts": "12\/29\/2014 7:00 AM",
+			"ends": "12\/31\/2018 5:01 AM",
+			"travelImpact": "Substantial Delays",
+			"trafficControl": "No Through Traffic",
+			"lastUpdated": "8\/16\/2016 4:50 PM"
+		},
+		"geometry": {
+			"x": -13724666.84719503,
+			"y": 5521791.752715775
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 683,
+			"jurisdiction": "Springfield, Oregon",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "The right turn lane from South Franklin Boulevard (McVay Highway 225) onto Franklin Boulevard is now open. The rest of the intersection of Franklin Boulevard and South Franklin (McVay Highway 225) is still closed to all other turns. Franklin Boulevard will remain open to eastbound and westbound travel. Construction will take place between 7 am and 6 pm, Monday through Friday. Businesses will remain open and accessible. Businesses located on South Franklin Boulevard near the intersection with Franklin Boulevard can be accessed using a detour via Henderson Avenue and E 19th Avenue. Construction will include grading, drainage, paving, signing, lighting, roundabouts, sidewalks, and bike facilities on Franklin Blvd in Glenwood from Mississippi to McVay Hwy. To receive periodic project updates send an email to info@newfranklinblvd.org and include your name.",
+			"publicContact": "Kristi Krueger",
+			"publicContactPhone": "5417264584",
+			"infoUrl": "www.newfranklinblvd.org",
+			"specialArea": "False",
+			"locationStart": "Mississippi Ave",
+			"locationEnd": "intersection of Franklin Blvd and McVay Hwy",
+			"locationSpecialArea": "",
+			"direction": "East, West",
+			"starts": "3\/20\/2017 7:00 AM",
+			"ends": "10\/1\/2018 7:00 AM",
+			"travelImpact": "Minimal Delays",
+			"trafficControl": "Traffic Flow Change",
+			"lastUpdated": "10\/4\/2017 11:30 AM"
+		},
+		"geometry": {
+			"x": -13696170.170750824,
+			"y": 5472351.377468516
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 683,
+			"jurisdiction": "Springfield, Oregon",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "The right turn lane from South Franklin Boulevard (McVay Highway 225) onto Franklin Boulevard is now open. The rest of the intersection of Franklin Boulevard and South Franklin (McVay Highway 225) is still closed to all other turns. Franklin Boulevard will remain open to eastbound and westbound travel. Construction will take place between 7 am and 6 pm, Monday through Friday. Businesses will remain open and accessible. Businesses located on South Franklin Boulevard near the intersection with Franklin Boulevard can be accessed using a detour via Henderson Avenue and E 19th Avenue. Construction will include grading, drainage, paving, signing, lighting, roundabouts, sidewalks, and bike facilities on Franklin Blvd in Glenwood from Mississippi to McVay Hwy. To receive periodic project updates send an email to info@newfranklinblvd.org and include your name.",
+			"publicContact": "Kristi Krueger",
+			"publicContactPhone": "5417264584",
+			"infoUrl": "www.newfranklinblvd.org",
+			"specialArea": "False",
+			"locationStart": "Mississippi Ave",
+			"locationEnd": "intersection of Franklin Blvd and McVay Hwy",
+			"locationSpecialArea": "",
+			"direction": "East, West",
+			"starts": "3\/20\/2017 7:00 AM",
+			"ends": "10\/1\/2018 7:00 AM",
+			"travelImpact": "Minimal Delays",
+			"trafficControl": "Traffic Flow Change",
+			"lastUpdated": "10\/4\/2017 11:30 AM"
+		},
+		"geometry": {
+			"x": -13695659.214288154,
+			"y": 5472314.209021117
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 746,
+			"jurisdiction": "Washington County",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "Local access only",
+			"publicContact": "Washington County Land Use & Transportation",
+			"publicContactPhone": "5038467800",
+			"infoUrl": "www.co.washington.or.us\/LUT\/News\/basalt-creek-opens.cfm",
+			"specialArea": "False",
+			"locationStart": "SW Tonquin Road & SW Waldo Way",
+			"locationEnd": "SW Tonquin Road & SW 124th Avenue",
+			"locationSpecialArea": "",
+			"direction": "East, West",
+			"starts": "11\/30\/2017 2:00 PM",
+			"ends": "1\/30\/2018 8:00 PM",
+			"travelImpact": "Minimal Delays",
+			"trafficControl": "No Through Traffic",
+			"lastUpdated": "1\/25\/2018 2:36 PM"
+		},
+		"geometry": {
+			"x": -13669444.587404895,
+			"y": 5676352.392897116
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 746,
+			"jurisdiction": "Washington County",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "Local access only",
+			"publicContact": "Washington County Land Use & Transportation",
+			"publicContactPhone": "5038467800",
+			"infoUrl": "www.co.washington.or.us\/LUT\/News\/basalt-creek-opens.cfm",
+			"specialArea": "False",
+			"locationStart": "SW Tonquin Road & SW Waldo Way",
+			"locationEnd": "SW Tonquin Road & SW 124th Avenue",
+			"locationSpecialArea": "",
+			"direction": "East, West",
+			"starts": "11\/30\/2017 2:00 PM",
+			"ends": "1\/30\/2018 8:00 PM",
+			"travelImpact": "Minimal Delays",
+			"trafficControl": "No Through Traffic",
+			"lastUpdated": "1\/25\/2018 2:36 PM"
+		},
+		"geometry": {
+			"x": -13670173.730069492,
+			"y": 5676049.868626644
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 757,
+			"jurisdiction": "Portland",
+			"eventType": "Obstruction",
+			"iconType": 18,
+			"publicCommentText": "NW Newberry Road is closed near 13342 NW Newberry Road due to a landslide, which will be repaired in the spring\/summer of 2018.",
+			"publicContact": "Mike Pullen",
+			"publicContactPhone": "5032094111",
+			"infoUrl": "https:\/\/multco.us\/roads\/webform\/newberry-road-slide-repair",
+			"specialArea": "False",
+			"locationStart": "13220 NW Newberry Rd, Portland, OR 97231",
+			"locationEnd": "13342 NW Newberry Rd, Portland, OR 97231",
+			"locationSpecialArea": "",
+			"direction": "East, West",
+			"starts": "2\/1\/2017 1:00 AM",
+			"ends": "9\/30\/2018 1:00 AM",
+			"travelImpact": "Substantial Delays",
+			"trafficControl": "No Through Traffic",
+			"lastUpdated": "10\/20\/2017 1:25 PM"
+		},
+		"geometry": {
+			"x": -13671448.338238896,
+			"y": 5718964.57072098
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 757,
+			"jurisdiction": "Portland",
+			"eventType": "Obstruction",
+			"iconType": 18,
+			"publicCommentText": "NW Newberry Road is closed near 13342 NW Newberry Road due to a landslide, which will be repaired in the spring\/summer of 2018.",
+			"publicContact": "Mike Pullen",
+			"publicContactPhone": "5032094111",
+			"infoUrl": "https:\/\/multco.us\/roads\/webform\/newberry-road-slide-repair",
+			"specialArea": "False",
+			"locationStart": "13220 NW Newberry Rd, Portland, OR 97231",
+			"locationEnd": "13342 NW Newberry Rd, Portland, OR 97231",
+			"locationSpecialArea": "",
+			"direction": "East, West",
+			"starts": "2\/1\/2017 1:00 AM",
+			"ends": "9\/30\/2018 1:00 AM",
+			"travelImpact": "Substantial Delays",
+			"trafficControl": "No Through Traffic",
+			"lastUpdated": "10\/20\/2017 1:25 PM"
+		},
+		"geometry": {
+			"x": -13671511.790348641,
+			"y": 5718778.3687131945
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 764,
+			"jurisdiction": "Clackamas County",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "Closed 7 am - 6 pm, Monday-Saturday, Jan. 15-May 15. Detour route in place. Water main replacement and road construction.",
+			"publicContact": "Duffy Gehrts",
+			"publicContactPhone": "5037424676",
+			"infoUrl": "",
+			"specialArea": "False",
+			"locationStart": "16282 S Bradley Rd, Oregon City, OR 97045",
+			"locationEnd": "15575 S Bradley Rd, Oregon City, OR 97045",
+			"locationSpecialArea": "",
+			"direction": "North, South",
+			"starts": "1\/15\/2018 7:00 AM",
+			"ends": "5\/15\/2018 6:00 PM",
+			"travelImpact": "Substantial Daytime Delays",
+			"trafficControl": "Detour",
+			"lastUpdated": "1\/9\/2018 12:51 PM"
+		},
+		"geometry": {
+			"x": -13638542.296764986,
+			"y": 5679989.81892601
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 764,
+			"jurisdiction": "Clackamas County",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "Closed 7 am - 6 pm, Monday-Saturday, Jan. 15-May 15. Detour route in place. Water main replacement and road construction.",
+			"publicContact": "Duffy Gehrts",
+			"publicContactPhone": "5037424676",
+			"infoUrl": "",
+			"specialArea": "False",
+			"locationStart": "16282 S Bradley Rd, Oregon City, OR 97045",
+			"locationEnd": "15575 S Bradley Rd, Oregon City, OR 97045",
+			"locationSpecialArea": "",
+			"direction": "North, South",
+			"starts": "1\/15\/2018 7:00 AM",
+			"ends": "5\/15\/2018 6:00 PM",
+			"travelImpact": "Substantial Daytime Delays",
+			"trafficControl": "Detour",
+			"lastUpdated": "1\/9\/2018 12:51 PM"
+		},
+		"geometry": {
+			"x": -13638673.653764102,
+			"y": 5681539.658749059
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 766,
+			"jurisdiction": "Clackamas County",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "Oregon City&#39;s Beavercreek Road Sanitary Sewer Project",
+			"publicContact": "Jonathan Archibald or jarchibald@orcity.org",
+			"publicContactPhone": "5039745506",
+			"infoUrl": "https:\/\/www.orcity.org\/publicworks\/project\/ci-16-013",
+			"specialArea": "False",
+			"locationStart": "19272 Beavercreek Rd, Oregon City, OR 97045",
+			"locationEnd": "19675 Beavercreek Rd, Oregon City, OR 97045",
+			"locationSpecialArea": "",
+			"direction": "North, South",
+			"starts": "1\/3\/2018 8:00 PM",
+			"ends": "3\/31\/2018 5:30 AM",
+			"travelImpact": "Substantial Nighttime Delays",
+			"trafficControl": "Flagger",
+			"lastUpdated": "1\/17\/2018 3:47 PM"
+		},
+		"geometry": {
+			"x": -13644030.34766033,
+			"y": 5673224.689674863
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 766,
+			"jurisdiction": "Clackamas County",
+			"eventType": "Construction",
+			"iconType": 16,
+			"publicCommentText": "Oregon City&#39;s Beavercreek Road Sanitary Sewer Project",
+			"publicContact": "Jonathan Archibald or jarchibald@orcity.org",
+			"publicContactPhone": "5039745506",
+			"infoUrl": "https:\/\/www.orcity.org\/publicworks\/project\/ci-16-013",
+			"specialArea": "False",
+			"locationStart": "19272 Beavercreek Rd, Oregon City, OR 97045",
+			"locationEnd": "19675 Beavercreek Rd, Oregon City, OR 97045",
+			"locationSpecialArea": "",
+			"direction": "North, South",
+			"starts": "1\/3\/2018 8:00 PM",
+			"ends": "3\/31\/2018 5:30 AM",
+			"travelImpact": "Substantial Nighttime Delays",
+			"trafficControl": "Flagger",
+			"lastUpdated": "1\/17\/2018 3:47 PM"
+		},
+		"geometry": {
+			"x": -13643523.84397729,
+			"y": 5672377.626151441
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 767,
+			"jurisdiction": "Clackamas County",
+			"eventType": "Emergency Response",
+			"iconType": 18,
+			"publicCommentText": "S. Eldorado Rd closed at southern intersection with Highway 213 because of widening cracks caused by a slide. Opening date unknown at this time.",
+			"publicContact": "Vince Hall, vincehal@clackamas.us",
+			"publicContactPhone": "5036503210",
+			"infoUrl": "",
+			"specialArea": "False",
+			"locationStart": "S Eldorado Rd & Highway 213, Mulino, OR 97042",
+			"locationEnd": "S Eldorado Rd & S Union Hall Rd, Mulino, OR 97042",
+			"locationSpecialArea": "",
+			"direction": "North, South",
+			"starts": "1\/18\/2018 11:00 AM",
+			"ends": "8\/10\/2018 1:00 AM",
+			"travelImpact": "Substantial Delays",
+			"trafficControl": "Detour",
+			"lastUpdated": "1\/17\/2018 5:49 PM"
+		},
+		"geometry": {
+			"x": -13646191.058976326,
+			"y": 5657890.183009554
+		}
+	},
+	{
+		"attributes": {
+			"eventId": 767,
+			"jurisdiction": "Clackamas County",
+			"eventType": "Emergency Response",
+			"iconType": 18,
+			"publicCommentText": "S. Eldorado Rd closed at southern intersection with Highway 213 because of widening cracks caused by a slide. Opening date unknown at this time.",
+			"publicContact": "Vince Hall, vincehal@clackamas.us",
+			"publicContactPhone": "5036503210",
+			"infoUrl": "",
+			"specialArea": "False",
+			"locationStart": "S Eldorado Rd & Highway 213, Mulino, OR 97042",
+			"locationEnd": "S Eldorado Rd & S Union Hall Rd, Mulino, OR 97042",
+			"locationSpecialArea": "",
+			"direction": "North, South",
+			"starts": "1\/18\/2018 11:00 AM",
+			"ends": "8\/10\/2018 1:00 AM",
+			"travelImpact": "Substantial Delays",
+			"trafficControl": "Detour",
+			"lastUpdated": "1\/17\/2018 5:49 PM"
+		},
+		"geometry": {
+			"x": -13645353.936405677,
+			"y": 5660135.012736122
+		}
+	}]
+}

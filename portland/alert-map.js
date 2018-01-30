@@ -148,6 +148,7 @@ var incidentLayer = L.geoJSON(null, {
                 .setContent( '<strong>' + feature.properties.route + '</strong>'
                 + '<br>' + feature.properties.comments
                 + '<br>ID: ' + feature.properties.incidentId
+                + '<br>Type: ' + feature.properties.odotCategoryDescript
                 + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
                 + '<br>started: ' + feature.properties.startTime
                 + '<br>updated: ' + feature.properties.lastUpdated)
@@ -377,6 +378,7 @@ function getWsdotData() {
                             .setContent( '<strong>' + item.StartRoadwayLocation.RoadName + ' Mile Post ' + item.StartRoadwayLocation.MilePost
                             + '</strong><br>' + item.HeadlineDescription
                             + '<br>Id: ' + item.AlertID
+                            + '<br>Type: ' + item.EventCategory
                             + '<br>Priority: ' + item.Priority
                             + ((item.StartTime) ? '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString() : '')
                             + ((item.EndTime) ? '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString() : '')
@@ -736,7 +738,7 @@ waterGaugeLayer.isAddedInitially = true;
 updateLayers();
 
 // Update layers every 5 minutes
-var updateInterval = setInterval(updateLayers, 5 * 2 * 1000);
+var updateInterval = setInterval(updateLayers, 5 * 60 * 1000);
 
 var legend = L.control({ position: 'bottomright' });
 

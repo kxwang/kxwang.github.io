@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kml="http://www.opengis.net/kml/2.2"><Document>
+  <Placemark><name>97035</name><description><![CDATA[<div class="global_subhead" style="margin-bottom:5px; width:300px;">Outage Details for 97035</div><table class="global_table_data_highlighted"><tr><td class="colorGray1" style="width:150px;">Number of Outages</td><td>1</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Cause</td><td>Planned Work</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Customers Affected</td><td>6</td></tr><tr><td class="colorGray1" style="width:150px;">Calls Received</td><td>1</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Est. Time On</td><td>January 25, 2018 2:00 p.m.</td></tr></table>]]></description><Point><coordinates>-122.726278343425900,45.411363681020156,0.000000000000000</coordinates></Point></Placemark>
+  <Placemark><name>97229</name><description><![CDATA[<div class="global_subhead" style="margin-bottom:5px; width:300px;">Outage Details for 97229</div><table class="global_table_data_highlighted"><tr><td class="colorGray1" style="width:150px;">Number of Outages</td><td>1</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Cause</td><td>Investigating</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Customers Affected</td><td>17</td></tr><tr><td class="colorGray1" style="width:150px;">Calls Received</td><td>17</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Est. Time On</td><td>January 25, 2018 8:47 p.m.</td></tr></table>]]></description><Point><coordinates>-122.816136168388080,45.550231087073996,0.000000000000000</coordinates></Point></Placemark>
+  <Placemark><name>97230</name><description><![CDATA[<div class="global_subhead" style="margin-bottom:5px; width:300px;">Outage Details for 97230</div><table class="global_table_data_highlighted"><tr><td class="colorGray1" style="width:150px;">Number of Outages</td><td>1</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Cause</td><td>Investigating</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Customers Affected</td><td>12</td></tr><tr><td class="colorGray1" style="width:150px;">Calls Received</td><td>2</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Est. Time On</td><td>January 25, 2018 9:11 p.m.</td></tr></table>]]></description><Point><coordinates>-122.496893066404130,45.546876325799211,0.000000000000000</coordinates></Point></Placemark>
+  <Placemark><name>97302</name><description><![CDATA[<div class="global_subhead" style="margin-bottom:5px; width:300px;">Outage Details for 97302</div><table class="global_table_data_highlighted"><tr><td class="colorGray1" style="width:150px;">Number of Outages</td><td>2</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Cause</td><td>Investigating</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Customers Affected</td><td>106</td></tr><tr><td class="colorGray1" style="width:150px;">Calls Received</td><td>117</td></tr><tr style="height:5px;"><td/><td/></tr><tr><		#map {
+			height: 600px;
+		}
+
+		.legend {
+			line-height: 18px;
+			color: #555;
+		}
+
+		.legend i {
+			width: 16px;
+			height: 16px;
+			float: left;
+			margin-right: 3px;
+			opacity: 0.8;
+		}
+
+		.ui-autocomplete-loading {
+			background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+		}
+
+		ul.ui-autocomplete.ui-menu {
+			z-index: 1000;
+		}
+
+		.water-district-result {
+			margin: 5px;
+		}
+
+		.hideMarker {
+			display: none;
+		}td class="colorGray1" style="width:150px;">Est. Time On</td><td>January 25, 2018 8:46 p.m.</td></tr></table><div class="global_annotate" style="margin-bottom:5px; width:300px;">*see <a href="outage-list">Outage List</a> for details.</div>]]></description><Point><coordinates>-123.057211668307270,44.906565401041874,0.000000000000000</coordinates></Point></Placemark>
+  <Placemark><name>97306</name><description><![CDATA[<div class="global_subhead" style="margin-bottom:5px; width:300px;">Outage Details for 97306</div><table class="global_table_data_highlighted"><tr><td class="colorGray1" style="width:150px;">Number of Outages</td><td>1</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Cause</td><td>Investigating</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Customers Affected</td><td>3</td></tr><tr><td class="colorGray1" style="width:150px;">Calls Received</td><td>4</td></tr><tr style="height:5px;"><td/><td/></tr><tr><td class="colorGray1" style="width:150px;">Est. Time On</td><td>January 25, 2018 6:52 p.m.</td></tr></table>]]></description><Point><coordinates>-123.070935845321090,44.842844291950591,0.000000000000000</coordinates></Point></Placemark>
+</Document></kml>                              

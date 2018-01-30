@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rss version="2.0"
+ xmlns:blogChannel="http://backend.userland.com/blogChannelModule"
+ xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+<channel>
+<title>Oregon - Current Hydrologic Observations - NWS AHPS</title>
+<link>https://water.weather.gov/ahps/</link>
+<description>Current Hydrologic Alerts for Oregon provided by the National Weather Service - Advanced Hydrologic Prediction Service</description>
+<language>en-us</language>
+<copyright>None</copyright>
+<lastBuildDate>Sat, 27 Jan 2018 07:32:19 +0000</lastBuildDate>
+<managingEditor>ahps.webmaster@noaa.gov (Webmaster)</managingEditor>
+<webMaster>ahps.cms@noaa.gov (Webmaster)</webMaster>
+
+<image>
+<title>Oregon - Current Hydrologic Observations - NWS AHPS</title>
+<url>https://water.weather.gov/images/xml_logo.gif</url>
+<link>https://water.weather.gov/ahps/</link>
+<width>80</width>
+<height>41</height>
+<description>NOAA - National Weather Service - Advanced Hydrologic Prediction Service</description>
+</image>
+<item>
+<title>Action (11.62 ft) - Alert - KRBO3 - Illinois River near Kerby (Oregon)</title>
+<link>https://water.weather.gov/ahps2/hydrograph.php?wfo=mfr&#x26;gage=krbo3</link>
+<description>&#x3C;h2&#x3E;Flood Categories&#x3C;/h2&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Primary (ft)&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;ul&#x3E;&#x3C;li&#x3E;Action  : 10 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Minor  : 35 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Moderate  : 37 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Major  : 40 ft&#x3C;/li&#x3E;
+&#x3C;/ul&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Secondary (kcfs)&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;ul&#x3E;&#x3C;li&#x3E;Action  : 3.97 kcfs&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Minor  : 47.58 kcfs&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Moderate  : 53.12 kcfs&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Major  : 61.99 kcfs&#x3C;/li&#x3E;
+&#x3C;/ul&#x3E;
+&#x3C;p&#x3E;&#x3C;i&#x3E;The forecast flood categories are the same as the observation flood categories.&#x3C;/i&#x3E;&#x3C;/p&#x3E;
+&#x3C;h2&#x3E;Gauge Data&#x3C;/h2&#x3E;
+&#x3C;h3&#x3E;&#x3C;i&#x3E;Observations&#x3C;/i&#x3E;&#x3C;/h3&#x3E;
+&#x3C;div&#x3E;Latest Observation Category: Normal&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Latest Observation: 9.36 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Latest Observation (Secondary): 3.58 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Observation Time: Jan 26, 2018 10:45 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h3&#x3E;&#x3C;i&#x3E;Forecasts&#x3C;/i&#x3E;&#x3C;/h3&#x3E;
+&#x3C;p&#x3E;Forecast Issued: Jan 26, 2018 05:54 PM -0800&#x3C;/p&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Recent&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Recent Category: Normal&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Available: 9.42 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Available (Secondary): 3.63 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Time: Jan 27, 2018 04:00 AM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Highest&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Highest Category: Action&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Available: 11.62 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Available (Secondary): 5.64 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Time: Jan 27, 2018 10:00 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Last&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Last Category: Normal&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Available: 7.05 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Available (Secondary): 1.96 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Time: Jan 30, 2018 10:00 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;div&#x3E;U.S. Geological Survey (USGS) Data and Site Info for Kerby: &#x3C;a href=&#x22;https://waterdata.usgs.gov/nwis/inventory/?site_no=14377100&#x22;&#x3E;USGS ID: 14377100&#x3C;/a&#x3E;&#x3C;/div&#x3E;
+</description>
+<pubDate>Sat, 27 Jan 2018 07:32:19 +0000</pubDate>
+</item>
+<item>
+<title>Action (16.4 ft) - Alert - DLLO3 - Tualatin River near Dilley (Oregon)</title>
+<link>https://water.weather.gov/ahps2/hydrograph.php?wfo=pqr&#x26;gage=dllo3</link>
+<description>&#x3C;h2&#x3E;Flood Categories&#x3C;/h2&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Primary (ft)&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;ul&#x3E;&#x3C;li&#x3E;Action  : 16 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Minor  : 17.5 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Moderate  : Not Set&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Major  : 19.5 ft&#x3C;/li&#x3E;
+&#x3C;/ul&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Secondary (kcfs)&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;ul&#x3E;&#x3C;li&#x3E;Action  : 0.91 kcfs&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Minor  : 2.5 kcfs&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Moderate  : Not Set&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Major  : 14.5 kcfs&#x3C;/li&#x3E;
+&#x3C;/ul&#x3E;
+&#x3C;p&#x3E;&#x3C;i&#x3E;The forecast flood categories are the same as the observation flood categories.&#x3C;/i&#x3E;&#x3C;/p&#x3E;
+&#x3C;h2&#x3E;Gauge Data&#x3C;/h2&#x3E;
+&#x3C;h3&#x3E;&#x3C;i&#x3E;Observations&#x3C;/i&#x3E;&#x3C;/h3&#x3E;
+&#x3C;div&#x3E;Latest Observation Category: Action&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Latest Observation: 16.4 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Latest Observation (Secondary): 1.08 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Observation Time: Jan 26, 2018 10:00 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h3&#x3E;&#x3C;i&#x3E;Forecasts&#x3C;/i&#x3E;&#x3C;/h3&#x3E;
+&#x3C;p&#x3E;Forecast Issued: Jan 26, 2018 05:39 PM -0800&#x3C;/p&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Recent&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Recent Category: Action&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Available: 16.53 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Available (Secondary): 1.17 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Time: Jan 27, 2018 04:00 AM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Highest&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Highest Category: Action&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Available: 16.58 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Available (Secondary): 1.21 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Time: Jan 27, 2018 10:00 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Last&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Last Category: Normal&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Available: 15.64 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Available (Secondary): 0.806 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Time: Jan 31, 2018 10:00 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;div&#x3E;U.S. Geological Survey (USGS) Data and Site Info for Dilley: &#x3C;a href=&#x22;https://waterdata.usgs.gov/nwis/inventory/?site_no=14203500&#x22;&#x3E;USGS ID: 14203500&#x3C;/a&#x3E;&#x3C;/div&#x3E;
+</description>
+<pubDate>Sat, 27 Jan 2018 07:32:19 +0000</pubDate>
+</item>
+<item>
+<title>Action (20 ft) - Alert - COQO3 - Coquille River at Coquille (Oregon)</title>
+<link>https://water.weather.gov/ahps2/hydrograph.php?wfo=mfr&#x26;gage=coqo3</link>
+<description>&#x3C;h2&#x3E;Flood Categories&#x3C;/h2&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Primary (ft)&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;ul&#x3E;&#x3C;li&#x3E;Action  : 20 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Minor  : 21 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Moderate  : 23 ft&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Major  : 25 ft&#x3C;/li&#x3E;
+&#x3C;/ul&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Secondary (kcfs)&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;ul&#x3E;&#x3C;li&#x3E;Action  : 21.6 kcfs&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Minor  : Not Set&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Moderate  : Not Set&#x3C;/li&#x3E;
+&#x3C;li&#x3E;Major  : Not Set&#x3C;/li&#x3E;
+&#x3C;/ul&#x3E;
+&#x3C;p&#x3E;&#x3C;i&#x3E;The forecast flood categories are the same as the observation flood categories.&#x3C;/i&#x3E;&#x3C;/p&#x3E;
+&#x3C;h2&#x3E;Gauge Data&#x3C;/h2&#x3E;
+&#x3C;h3&#x3E;&#x3C;i&#x3E;Observations&#x3C;/i&#x3E;&#x3C;/h3&#x3E;
+&#x3C;div&#x3E;Latest Observation Category: Action&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Latest Observation: 20 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Latest Observation (Secondary): 21.6 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Observation Time: Jan 26, 2018 10:30 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h3&#x3E;&#x3C;i&#x3E;Forecasts&#x3C;/i&#x3E;&#x3C;/h3&#x3E;
+&#x3C;p&#x3E;Forecast Issued: Jan 26, 2018 05:54 PM -0800&#x3C;/p&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Recent&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Recent Category: Normal&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Available: 19.68 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Available (Secondary): 21.1 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Recent Projected Forecast Time: Jan 27, 2018 12:00 AM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Highest&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Highest Category: Normal&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Available: 19.68 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Available (Secondary): 21.1 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Highest Projected Forecast Time: Jan 27, 2018 12:00 AM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;h4&#x3E;&#x3C;u&#x3E;Last&#x3C;/u&#x3E;&#x3C;/h4&#x3E;
+&#x3C;div&#x3E;Last Category: Normal&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Available: 13.25 ft&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Available (Secondary): 10.5 kcfs&#x3C;/div&#x3E;
+&#x3C;div&#x3E;Last Projected Forecast Time: Jan 30, 2018 11:00 PM -0800&#x3C;/div&#x3E;
+
+&#x3C;/br&#x3E;
+
+&#x3C;/br&#x3E;
+&#x3C;div&#x3E;U.S. Geological Survey (USGS) Data and Site Info for Coquille: &#x3C;a href=&#x22;https://waterdata.usgs.gov/nwis/inventory/?site_no=14327055&#x22;&#x3E;USGS ID: 14327055&#x3C;/a&#x3E;&#x3C;/div&#x3E;
+</description>
+<pubDate>Sat, 27 Jan 2018 07:32:19 +0000</pubDate>
+</item>
+</channel>
+</rss>

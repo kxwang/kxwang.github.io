@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Signup Map</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.2.0/MarkerCluster.Default.css"
+	/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />
+
+	<link href="//library.oregonmetro.gov/libraries/metro/rlis/css/autosuggest.css" rel='stylesheet' type='text/css' />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.2.0/leaflet.markercluster.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+	<script src="https://unpkg.com/esri-leaflet@2.1.2/dist/esri-leaflet.js" integrity="sha512-ouokQ1RIIoqPTZKwlapdxHO5VWFoAi8wE+SwhSX89Ifac0w3p+H2da4oqHvRsBTIpNLewzAZU7gRVDFXyXcfjA=="
+	 crossorigin=""></script>
+
+	<script src="//gis.oregonmetro.gov/rlisapi2/js/?token=G2DScjgJRcas5MBT9cf7lY4IxxFY_kURboqrAiXbeTY." type="text/javascript"></script>
+
+	<style id="map-style">
+		#map-signup {
+			height: 500px;
+		}
+
+		.legend {
+			line-height: 18px;
+			color: #555;
+		}
+
+		.legend i {
+			width: 16px;
+			height: 16px;
+			float: left;
+			margin-right: 3px;
+			opacity: 0.8;
+		}
+
+		.ui-autocomplete-loading {
+			background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+		}
+
+		ul.ui-autocomplete.ui-menu {
+			z-index: 1000;
+		}
+
+		.countyLabel {
+			background: rgba(255, 255, 255, 0);
+			border: 0;
+			border-radius: 0px;
+			box-shadow: 0 0px 0px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="ui-widget">
+		<input class="water-district-result" size="40" placeholder="Click on the map or type an address here" id="user-address">
+		<br/>
+		<div class="result-city">City:
+			<label id="city-name"></label>
+		</div>
+		<div class="result-county">County:
+			<label id="county-name"></label>
+		</div>
+	</div>
+	<div id="map-signup"></div>
+	<div class="field-item even" property="content:encoded">
+		<p>Sign up and learn more about the community emergency notification systems in the following areas:</p>
+		<p> Oregon</p>
+		<ul>
+			<li>
+				<a href="https://member.everbridge.net/index/453003085612905#/login">Portland, Gresham, and all other cities and unincorporated areas in Multnomah County</a>
+			</li>
+			<li>
+				<a href="http://www.clackamas.us/emergency/ccens.html">Clackamas County</a>
+				<br> NOTE: If you live in Lake Oswego or Milwaukie you can register for the city notification system and the Clackamas County
+				system. All other Clackamas County residents should only register for the county system.
+				<ul>
+					<li>
+						<a href="https://www.ci.oswego.or.us/citymanager/code-red-emergency-notification">City of Lake Oswego</a>
+					</li>
+					<li>
+						<a href="http://www.milwaukieoregon.gov/police/sign-codered-emergency-telephone-notification-system">City of Milwaukie</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="http://ww2.citywatchonline.com/Public/Signup.aspx?SUID=fat2WMgptRBn1uknCPcs+Q==">Columbia County</a>
+			</li>
+			<li>
+				<a href="http://www.wccca.com/wcens/">Washington County</a>
+				<br> NOTE: If you live in Tigard you can register for the city notification system and the Washington County system. All
+				other Washington County residents should only register for the county system.
+				<ul>
+					<li>
+						<a href="https://public.coderedweb.com/CNE/1E28B1D668D7">City of Tigard</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="https://member.everbridge.net/index/453003085613276#/login">Linn and Benton counties</a>
+			</li>
+			<li>
+				<a href="https://member.everbridge.net/index/892807736721950#/login">Marion County</a> (north)&nbsp;- Aurora, Butteville, Donald, Drakes Crossing, Gervais, Hubbard, Monitor, Mt. Angel, Scotts
+				Mills, Silverton, St. Paul and Woodburn.</li>
+		</ul>
+		<p> Washington</p>
+		<ul>
+			<li>
+				<a href="https://member.everbridge.net/index/453003085616336">Clark County</a>
+			</li>
+			<li>
+				<a href="http://www.co.cowlitz.wa.us/index.aspx?NID=702">Cowlitz County</a>
+			</li>
+			<li>
+				<a href="https://signup.hyper-reach.com/hyper_reach/sign_up_page_2/?id=45462">Skamania County</a>
+			</li>
+			<li>
+				<a href="http://www.co.wahkiakum.wa.us/depts/sheriff/EmergencyComunityNotification.htm">Wahkiakum County</a>
+			</li>
+		</ul>
+		<p>&nbsp;
+			<br> The jurisdictions listed above have instituted community notification systems that can text, call or email residents
+			and businesses throughout the area impacted by, or in danger of being impacted by, an emergency or significant event.
+			These systems will be used by emergency response personnel to notify those individuals, homes and businesses at risk with
+			information on the event and/or actions that may be needed to protect life safety.
+		</p>
+	</div>
+	<script src="esri2geo.js"></script>
+	<script src="map-signup.js"></script>
+</body>
+
+</html>
