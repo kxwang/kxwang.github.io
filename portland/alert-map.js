@@ -41,7 +41,7 @@ function generateEsriJsonHandler(layerOptions) {
             // Clear old markers
             if (layerOptions.layer) {
                 layerOptions.layer.clearLayers();
-                if(hasLayer)
+                if (hasLayer)
                     map.removeLayer(layerOptions.layer);
                 //delete layerOptions.layer;
             }
@@ -51,9 +51,9 @@ function generateEsriJsonHandler(layerOptions) {
                 layerOptions.layer.addData(geoJson);
                 // On the initial load, check if we need to add this layer
                 // On the following loads, check if the map already has this layer before the new data. It may be removed by user with the layer control.
-                if( hasLayer ||  layerOptions.layer.isAddedInitially)
+                if (hasLayer || layerOptions.layer.isAddedInitially)
                     layerOptions.layer.addTo(map);
-                if(layerOptions.layer.isAddedInitially) 
+                if (layerOptions.layer.isAddedInitially)
                     layerOptions.layer.isAddedInitially = false;
             }
         });
@@ -145,7 +145,7 @@ var incidentLayer = L.geoJSON(null, {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
-                .setContent( '<strong>' + feature.properties.route + '</strong>'
+                .setContent('<strong>' + feature.properties.route + '</strong>'
                 + '<br>' + feature.properties.comments
                 + '<br>ID: ' + feature.properties.incidentId
                 + '<br>Type: ' + feature.properties.odotCategoryDescript
@@ -218,10 +218,10 @@ var incidentTleLayer = L.geoJSON(null, {
             var popup = L.popup()
                 .setLatLng(e.latlng)
                 .setContent('<strong>Location Start: ' + feature.properties.locationStart
-                    + '<br>Location End: ' + feature.properties.locationEnd
-                    + '</strong><br>' + feature.properties.publicCommentText
-                    + '<br>eventId: ' + feature.properties.eventId
-                    + '<br>Link: ' + feature.properties.infoUrl
+                + '<br>Location End: ' + feature.properties.locationEnd
+                + '</strong><br>' + feature.properties.publicCommentText
+                + '<br>eventId: ' + feature.properties.eventId
+                + '<br>Link: ' + feature.properties.infoUrl
                 + '<br>odotSeverityID: ' + feature.properties.travelImpact
                 + '<br>starts: ' + feature.properties.starts
                 + '<br>ends: ' + feature.properties.ends
@@ -359,7 +359,7 @@ function getWsdotData() {
 
             var hasLayer = map.hasLayer(wsdotLayer);
             wsdotLayer.clearLayers();
-            if(hasLayer) map.removeLayer(wsdotLayer);
+            if (hasLayer) map.removeLayer(wsdotLayer);
 
             jsonData.forEach(function (item) {
                 wsdotLayer.addLayer(L.marker(
@@ -375,7 +375,7 @@ function getWsdotData() {
                         //open popup;
                         var popup = L.popup()
                             .setLatLng(e.latlng)
-                            .setContent( '<strong>' + item.StartRoadwayLocation.RoadName + ' Mile Post ' + item.StartRoadwayLocation.MilePost
+                            .setContent('<strong>' + item.StartRoadwayLocation.RoadName + ' Mile Post ' + item.StartRoadwayLocation.MilePost
                             + '</strong><br>' + item.HeadlineDescription
                             + '<br>Id: ' + item.AlertID
                             + '<br>Type: ' + item.EventCategory
@@ -387,9 +387,9 @@ function getWsdotData() {
                     })
                 );
             });
-            if( hasLayer ||  wsdotLayer.isAddedInitially)
+            if (hasLayer || wsdotLayer.isAddedInitially)
                 wsdotLayer.addTo(map);
-            if(wsdotLayer.isAddedInitially)     
+            if (wsdotLayer.isAddedInitially)
                 wsdotLayer.isAddedInitially = false;
         },
         error: function (request, textStatus, error) {
@@ -485,11 +485,11 @@ function getPgeData() {
 
             var hasLayer = map.hasLayer(pgeLayer);
             pgeLayer.clearLayers();
-            if(hasLayer) map.removeLayer(pgeLayer);
+            if (hasLayer) map.removeLayer(pgeLayer);
             var pgeKmlLayer = omnivore.kml.parse(kmlData, null, pgeLayer);
-            
-            if( hasLayer || pgeLayer.isAddedInitially) pgeLayer.addTo(map);
-            if(pgeLayer.isAddedInitially) pgeLayer.isAddedInitially = false;
+
+            if (hasLayer || pgeLayer.isAddedInitially) pgeLayer.addTo(map);
+            if (pgeLayer.isAddedInitially) pgeLayer.isAddedInitially = false;
         }
     });
 }
@@ -528,7 +528,7 @@ function getPacificPowerData() {
 
             var hasLayer = map.hasLayer(pacificPowerLayer);
             pacificPowerLayer.clearLayers();
-            if(hasLayer) map.removeLayer(pacificPowerLayer);
+            if (hasLayer) map.removeLayer(pacificPowerLayer);
 
             jsonData.outages.forEach(function (item) {
                 pacificPowerLayer.addLayer(L.marker(
@@ -553,8 +553,8 @@ function getPacificPowerData() {
                 );
             });
 
-            if( hasLayer ||  pacificPowerLayer.isAddedInitially) pacificPowerLayer.addTo(map);
-            if(pacificPowerLayer.isAddedInitially) pacificPowerLayer.isAddedInitially = false;
+            if (hasLayer || pacificPowerLayer.isAddedInitially) pacificPowerLayer.addTo(map);
+            if (pacificPowerLayer.isAddedInitially) pacificPowerLayer.isAddedInitially = false;
         },
         error: function (request, textStatus, error) {
             console.error(error);
@@ -563,6 +563,31 @@ function getPacificPowerData() {
 }
 // TODO: add weather.gov alerts for Portland Metro
 // https://api.weather.gov/alerts?active=1&zone=ORZ006,WAZ039
+
+// TODO: get flash alert emergency XML
+// http://www.craigwalker.net/IIN/reportsX/flashnews_xml_emergency.php
+
+/*
+Schema: http://www.flashalert.net/file-types/
+
+<flashnews updated=”2012-08-14 03:12:18″>
+    <emergency>
+        <emergency_category name=”Central Co. Schools”>
+            <emergency_report report_id=”26940″ effective_date=”2012-08-14 15:08:40″ updated=”0″ last_update=”2012-08-14 15:08:50″ testing=”0″ schoolrelated=”1″ orgid=”413″ custom=”0″ operating_code=”5″ transpo_code=”20″>
+                <detail>
+                    <![CDATA[2 hrs late, Buses on snow rts]]>
+                </detail>
+                <tomorrow>
+                    <![CDATA[Effective tomorrow – Wed Aug 15th]]>
+                </tomorrow>
+                <orgname orgid=”413″ tier=”1″ zipcode=”x”>
+                    <![CDATA[Cityville Schools]]>
+                </orgname>
+            </emergency_report>
+        </emergency_category>
+    </emergency>
+</flashnews>
+*/
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -594,7 +619,7 @@ var waterGaugeLayer = L.geoJSON(null, {
                 .setContent('<strong>' + feature.properties.name
                 + '</strong><br>' + feature.properties.level
                 + '<br>' + feature.properties.link
-                + '<br>' + (new Date(feature.properties.pubDate).toLocaleString()) )
+                + '<br>' + (new Date(feature.properties.pubDate).toLocaleString()))
                 .openOn(map);
         });
     }
@@ -661,12 +686,12 @@ function getWaterGaugeData() {
 
             var hasLayer = map.hasLayer(waterGaugeLayer);
             waterGaugeLayer.clearLayers();
-            if(hasLayer) map.removeLayer(waterGaugeLayer);
-            
+            if (hasLayer) map.removeLayer(waterGaugeLayer);
+
             waterGaugeLayer.addData(alertedWaterGaugesGeoJson);
 
-            if( hasLayer || waterGaugeLayer.isAddedInitially) waterGaugeLayer.addTo(map);
-            if(waterGaugeLayer.isAddedInitially) waterGaugeLayer.isAddedInitially = false;
+            if (hasLayer || waterGaugeLayer.isAddedInitially) waterGaugeLayer.addTo(map);
+            if (waterGaugeLayer.isAddedInitially) waterGaugeLayer.isAddedInitially = false;
         },
         error: function (request, textStatus, error) {
             console.error(error);

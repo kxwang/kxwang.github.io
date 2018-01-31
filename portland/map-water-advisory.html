@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Drinking Water Advirosry Map</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
+	<link href="//library.oregonmetro.gov/libraries/metro/rlis/css/autosuggest.css" rel='stylesheet' type='text/css' />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+
+	<script src="https://unpkg.com/esri-leaflet@2.1.2/dist/esri-leaflet.js" integrity="sha512-ouokQ1RIIoqPTZKwlapdxHO5VWFoAi8wE+SwhSX89Ifac0w3p+H2da4oqHvRsBTIpNLewzAZU7gRVDFXyXcfjA=="
+	 crossorigin=""></script>
+
+	<script src="//gis.oregonmetro.gov/rlisapi2/js/?token=G2DScjgJRcas5MBT9cf7lY4IxxFY_kURboqrAiXbeTY." type="text/javascript"></script>
+
+	<script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
+
+	<script src="https://unpkg.com/@mapbox/leaflet-pip@latest/leaflet-pip.js"></script>
+
+	<style id="map-style">
+		#map-water-advisory {
+			height: 500px;
+		}
+
+		.legend {
+			line-height: 18px;
+			color: #555;
+		}
+
+		.legend i {
+			width: 16px;
+			height: 16px;
+			float: left;
+			margin-right: 3px;
+			opacity: 0.8;
+		}
+
+		.ui-autocomplete-loading {
+			background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+		}
+
+		ul.ui-autocomplete.ui-menu {
+			z-index: 1000;
+		}
+
+		.distrctLabel {
+			background: rgba(255, 255, 255, 0);
+			border: 0;
+			border-radius: 0px;
+			box-shadow: 0 0px 0px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="ui-widget">
+		<input class="water-district-result" size="40" placeholder="Click on the map or type an address here" id="user-address">
+		<br/>
+		<div>Result:
+			<label id="result"></label>
+		</div>
+		<div class="file-upload">Custom Map:
+			<input type="file" id="custom-map-file" onchange="handleFiles(this.files)">
+		</div>
+	</div>
+	<div id="map-water-advisory"></div>
+
+	<script src="esri2geo.js"></script>
+	<script src="map-water-advisory.js"></script>
+</body>
+
+</html>
