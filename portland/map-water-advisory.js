@@ -46,8 +46,8 @@ var x = new RLIS.Autosuggest("user-address",
         marker = L.marker([queryResult.lat, queryResult.lng]).addTo(map);
 
         var affectedPolygonArray = leafletPip.pointInLayer([queryResult.lng, queryResult.lat], customMapLayer, true)
-        
-        if(affectedPolygonArray.length > 0){
+
+        if (affectedPolygonArray.length > 0) {
             $('#result').text('This address is affected');
         }
         else {
@@ -61,9 +61,11 @@ var x = new RLIS.Autosuggest("user-address",
 // Overlay layers
 //////////////////////////////////////////////////
 
+var waterDistrictNameAndID = {};
 var waterDistrictLayer = L.esri.featureLayer({
     url: "https://www.portlandmaps.com/arcgis/rest/services/Public/Utilities_Water/MapServer/6",
-
+    simplifyFactor: 0.35,
+    precision: 5,
     style: {
         color: "#999",
         weight: 1,
@@ -71,24 +73,23 @@ var waterDistrictLayer = L.esri.featureLayer({
         zIndex: 0,
     },
     onEachFeature: function (feature, layer) {
+        waterDistrictNameAndID[feature.properties.DISTRICT] = feature.id;
         // events
         layer.on({
             mouseover: function () {
+                if(isWaterDistrictSelected(feature.id)) return;
                 this.setStyle({
                     'fillColor': '#b45501',
                     fillOpacity: 0.5,
                 });
             },
             mouseout: function () {
+                if(isWaterDistrictSelected(feature.id)) return;
                 this.setStyle({
                     'fillColor': '#f0d1b1',
                     fillOpacity: 0,
                 });
             },
-            click: function (ev) {
-                var latlng = map.mouseEventToLatLng(ev.originalEvent);
-                console.log(latlng.lat + ', ' + latlng.lng);
-            }
         });
         layer.bindTooltip(feature.properties.DISTRICT, {
             //permanent: true,
@@ -97,6 +98,13 @@ var waterDistrictLayer = L.esri.featureLayer({
             className: 'distrctLabel'
         });
     }
+}).on('load', function () {
+    console.log('feature layer ready');
+    // Initialize the water district multi-select list
+    var $dropdown = $("#water-districts");
+    for(var waterDistrictName in waterDistrictNameAndID){
+        $dropdown.append($("<option />").val(waterDistrictNameAndID[waterDistrictName]).text(waterDistrictName));
+    }    
 })
 
 var overlayMaps = {
@@ -116,7 +124,7 @@ var map = L.map('map-water-advisory', {
 var customMapLayer = L.geoJSON(null, {
     style: {
         color: "#ee0000",
-        weight: 1,
+        weight: 2,
         fillOpacity: 0.2,
         zIndex: 0,
     },
@@ -164,3 +172,35 @@ function handleFiles(files) {
 }
 
 var layerControl = L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
+
+$(function(){
+    console.log('document ready');
+})
+
+function isWaterDistrictSelected(featureId) {
+    var waterDistrictList = document.getElementById('water-districts');
+    
+    for (var i = 0; i < waterDistrictList.length; i++) {
+        if (waterDistrictList.options[i].value == featureId 
+            && waterDistrictList.options[i].selected){
+            return true;
+        }
+    }
+    return false;
+}
+
+function districtSelected(waterDistrictList) {
+    for (var i = 0; i < waterDistrictList.length; i++) {
+        if (waterDistrictList.options[i].selected){
+            waterDistrictLayer.setFeatureStyle(waterDistrictList.options[i].value, {color: 'red', fillOpacity: 0.2, weight: 2});
+        }
+        else {
+            waterDistrictLayer.setFeatureStyle(waterDistrictList.options[i].value, {
+                color: "#999",
+                weight: 1,
+                fillOpacity: 0.0,
+                zIndex: 0,
+            });
+        }
+    }
+}

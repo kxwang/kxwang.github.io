@@ -51,6 +51,10 @@
 			border-radius: 0px;
 			box-shadow: 0 0px 0px;
 		}
+		#water-districts {
+			-webkit-appearance: menulist-button;
+			height: 50px;
+		}
 	</style>
 </head>
 
@@ -63,6 +67,9 @@
 		</div>
 		<div class="file-upload">Custom Map:
 			<input type="file" id="custom-map-file" onchange="handleFiles(this.files)">
+		</div>
+		<div>Water Districts:
+			<select multiple id="water-districts" onchange="districtSelected(this)"></select>
 		</div>
 	</div>
 	<div id="map-water-advisory"></div>
