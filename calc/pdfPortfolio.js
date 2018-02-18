@@ -135,7 +135,7 @@ content: [
 				layout: 'lightHorizontalLines'
 		},
 		{
-			text: 'The information provided above is for educational purposes only and is not intended as specific investment advice for you. Fund expense ratios last updated on 9/2/2014.  Model Portfolios provided courtesy of EISRC.  ' +  pdfParameterToPrint.orgNameInPdfFooter + ' not providing or offering to provide services or advice to you and will not be liable for any losses you may incur as a result of any investment decision made.'
+			text: 'The information provided above is for educational purposes only and is not intended as specific investment advice for you. Fund expense ratios last updated on 7/5/2015.  Model Portfolios provided courtesy of EISRC.  ' +  pdfParameterToPrint.orgNameInPdfFooter + ' not providing or offering to provide services or advice to you and will not be liable for any losses you may incur as a result of any investment decision made.'
 			,style: 'footer'
 		}
 		// ,
