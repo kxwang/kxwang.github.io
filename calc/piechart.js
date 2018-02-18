@@ -114,8 +114,8 @@ var userInputVM;
 
 var previousMonthlySavings = 0;
 var lastSliderStopAlreadyRetired = false;
-function handleSlideStop(e) {
-
+function handleSlideStop(e, data) {
+	console.error(e.target);
 	// Automatically set the value to min or max if the number input is out of the range. Don't care about slider as it's impossible to go out of range.
 	var numberInputElement = e.target;
 	if (numberInputElement.getAttribute('type') === 'number') {
@@ -239,7 +239,7 @@ $(function () {
 
 	// Only allow numbers to be typed in number input boxes
 	$('input[type="number"]').on('keydown', function (e) {
-		// Allow: backspace, delete, tab, escape, enter
+		// Allow: backspace, delete, tab, escape, enter, comma
 		if ($.inArray(e.keyCode, [/*46, */8, 9, 27, 13, 110]) !== -1 ||
 			// Allow: Ctrl+A
 			(e.keyCode == 65 && e.ctrlKey === true) ||
@@ -257,13 +257,13 @@ $(function () {
 	});
 
 	// When slider stops, update allocation
-	$('.sliderContainer input[type="text"]').on('slideStop', handleSlideStop);
+	$('.sliderContainer input[type="text"]').on('slideStop', {target: 'slider'}, handleSlideStop);
 
 	// When Number input changes, update allocation
 	// $('input[type="number"]').on('focus', function(e) {
 	// console.log(e.currentTarget.value);
 	// });
-	$('input[type="number"]').on('change', handleSlideStop);
+	$('input[type="number"]').on('input', {target: 'input-box'}, handleSlideStop);
 
 
 	$('.selectpicker').selectpicker({

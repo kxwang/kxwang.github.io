@@ -537,13 +537,15 @@ function runCalculation(userInput) {
 
 // This function checks the user input and decide which allocation plan should be used.
 function allocateAsset(userInput) {
+
+	var datasetIndexAndAgeRange = getDatasetIndexAndAgeRange(userInput)
 	// set global variables
 	explanationToUse = getDataSetAndExplanation(userInput).explanation
 	datasetToUse = getDataSetAndExplanation(userInput).dataset;
-	ageRange = getDatasetIndexAndAgeRange(userInput).ageRange;
+	ageRange = datasetIndexAndAgeRange.ageRange;
 
-	var riskGroupIndex = calculateRiskGroupIndex(userInput);
-	var datasetIndex = getDatasetIndexAndAgeRange(userInput).datasetIndex;
+	var riskGroupIndex = datasetIndexAndAgeRange.riskGroupIndex;
+	var datasetIndex = datasetIndexAndAgeRange.datasetIndex;
 		
 	// check if the new array is the same as what's being displayed.
 	// only update pie and table if the actual data changed.
@@ -600,6 +602,7 @@ function getDatasetIndexAndAgeRange(userInput) {
 	var age = +userInput.age();
 	var datasetIndex = 0;
 	var ageRange;
+	var riskGroupIndex = calculateRiskGroupIndex(userInput);
 	
 	if(age <= 25) {
 		datasetIndex = 0;
@@ -626,14 +629,14 @@ function getDatasetIndexAndAgeRange(userInput) {
 		datasetIndex = 7;
 		ageRange = "60-65";
 	} else {
-		var riskGroupIndex = calculateRiskGroupIndex(userInput);
 		datasetIndex = 8 + riskGroupIndex;
 		ageRange = "65+ RG" + riskGroupIndex;
 	}	
 	
 	return {
 		datasetIndex: datasetIndex,
-		ageRange: ageRange
+		ageRange: ageRange,
+		riskGroupIndex: riskGroupIndex,
 	}
 }
 
