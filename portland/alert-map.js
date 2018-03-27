@@ -2,6 +2,11 @@
 // Helper functions
 ///////////////////////////////////////
 
+function isOlderThanOneDay(lastUpdatedInString) {
+    if (!lastUpdatedInString) return false; // We cannot tell if it's stale. Treat it as fresh.
+    return ((new Date()).getTime() - (new Date(lastUpdatedInString)).getTime()) >= 1000 * 60 * 60 * 24;
+}
+
 // Generate a funciton that handles ESRI Json data
 // Input: an option object that contains info to customize the returned function
 function generateEsriJsonHandler(layerOptions) {
@@ -139,19 +144,20 @@ var incidentLayer = L.geoJSON(null, {
                 icon: 'car',
                 prefix: 'fa',
                 markerColor: severityColorMap[severityArray[feature.properties.odotSeverityID]],
-                className: getMarkerClassName(severityArray[feature.properties.odotSeverityID])
+                className: getMarkerClassName(severityArray[feature.properties.odotSeverityID],
+                    isOlderThanOneDay(feature.properties.lastUpdated))
             })
         }).on('mouseover', function (e) {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
                 .setContent('<strong>' + feature.properties.route + '</strong>'
-                + '<br>' + feature.properties.comments
-                + '<br>ID: ' + feature.properties.incidentId
-                + '<br>Type: ' + feature.properties.odotCategoryDescript
-                + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
-                + '<br>started: ' + feature.properties.startTime
-                + '<br>updated: ' + feature.properties.lastUpdated)
+                    + '<br>' + feature.properties.comments
+                    + '<br>ID: ' + feature.properties.incidentId
+                    + '<br>Type: ' + feature.properties.odotCategoryDescript
+                    + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
+                    + '<br>started: ' + feature.properties.startTime
+                    + '<br>updated: ' + feature.properties.lastUpdated)
                 .openOn(map);
         });
     },
@@ -160,7 +166,7 @@ var incidentLayer = L.geoJSON(null, {
 
 function getIncidentData() {
     $.ajax({
-        url: "http://www.pa2.local/tripcheck/INCD.js",
+        url: "http://test.publicalerts.org/tripcheck/INCD.js",
         dataType: 'json',
         beforeSend: function (request) {
             if (incidentLayer.eTag) request.setRequestHeader('If-None-Match', incidentLayer.eTag);
@@ -211,21 +217,22 @@ var incidentTleLayer = L.geoJSON(null, {
                 icon: 'car',
                 prefix: 'fa',
                 markerColor: severityColorMap[incidentTleSeverityMap[feature.properties.travelImpact]],
-                className: getMarkerClassName(incidentTleSeverityMap[feature.properties.travelImpact])
+                className: getMarkerClassName(incidentTleSeverityMap[feature.properties.travelImpact],
+                    isOlderThanOneDay(feature.properties.lastUpdated))
             })
         }).on('mouseover', function (e) {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
                 .setContent('<strong>Location Start: ' + feature.properties.locationStart
-                + '<br>Location End: ' + feature.properties.locationEnd
-                + '</strong><br>' + feature.properties.publicCommentText
-                + '<br>eventId: ' + feature.properties.eventId
-                + '<br>Link: ' + feature.properties.infoUrl
-                + '<br>odotSeverityID: ' + feature.properties.travelImpact
-                + '<br>starts: ' + feature.properties.starts
-                + '<br>ends: ' + feature.properties.ends
-                + '<br>updated: ' + feature.properties.lastUpdated)
+                    + '<br>Location End: ' + feature.properties.locationEnd
+                    + '</strong><br>' + feature.properties.publicCommentText
+                    + '<br>eventId: ' + feature.properties.eventId
+                    + '<br>Link: ' + feature.properties.infoUrl
+                    + '<br>odotSeverityID: ' + feature.properties.travelImpact
+                    + '<br>starts: ' + feature.properties.starts
+                    + '<br>ends: ' + feature.properties.ends
+                    + '<br>updated: ' + feature.properties.lastUpdated)
                 .openOn(map);
         });
     }
@@ -234,7 +241,7 @@ var incidentTleLayer = L.geoJSON(null, {
 
 function getIncidentTleData() {
     $.ajax({
-        url: "http://www.pa2.local/tripcheck/INCD-tle.js",
+        url: "http://test.publicalerts.org/tripcheck/INCD-tle.js",
         dataType: 'json',
         beforeSend: function (request) {
             if (incidentTleLayer.eTag) request.setRequestHeader('If-None-Match', incidentTleLayer.eTag);
@@ -269,26 +276,27 @@ var eventLayer = L.geoJSON(null, {
                 icon: 'flag',
                 prefix: 'fa',
                 markerColor: severityColorMap[severityArray[feature.properties.odotSeverityID]],
-                className: getMarkerClassName(severityArray[feature.properties.odotSeverityID])
+                className: getMarkerClassName(severityArray[feature.properties.odotSeverityID],
+                    isOlderThanOneDay(feature.properties.lastUpdated))
             })
         }).on('mouseover', function (e) {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
                 .setContent('<strong>' + feature.properties.route
-                + '</strong><br>Id: ' + feature.properties.incidentId
-                + '<br>Type: ' + feature.properties.odotCategoryDescript
-                + '<br>' + feature.properties.comments
-                + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
-                + '<br>started: ' + feature.properties.startTime
-                + '<br>updated: ' + feature.properties.lastUpdated)
+                    + '</strong><br>Id: ' + feature.properties.incidentId
+                    + '<br>Type: ' + feature.properties.odotCategoryDescript
+                    + '<br>' + feature.properties.comments
+                    + '<br>odotSeverityID: ' + feature.properties.odotSeverityID
+                    + '<br>started: ' + feature.properties.startTime
+                    + '<br>updated: ' + feature.properties.lastUpdated)
                 .openOn(map);
         });
     },
 });
 function getEventData() {
     $.ajax({
-        url: "http://www.pa2.local/tripcheck/EVENT.js",
+        url: "http://test.publicalerts.org/tripcheck/EVENT.js",
         dataType: 'json',
         beforeSend: function (request) {
             if (eventLayer.eTag) request.setRequestHeader('If-None-Match', eventLayer.eTag);
@@ -322,7 +330,7 @@ function getEventData() {
 ////////////////////////////////////////////////////////////////////////
 // Vancouver accident JSON
 // Original: http://www.wsdot.com/traffic/webservices/incidents.asmx/IncidentsJson?MapAreaID=L3VTR&Count=-1
-// Proxy: http://www.pa2.local/wsdot/IncidentsJson?MapAreaID=L3VTR&Count=-1
+// Proxy: http://test.publicalerts.org/wsdot/IncidentsJson?MapAreaID=L3VTR&Count=-1
 
 var wsdotLayer = L.featureGroup();
 
@@ -334,7 +342,7 @@ var wsdotSeverity = {
 }
 function getWsdotData() {
     $.ajax({
-        url: "http://www.pa2.local/wsdot/MapArea=L3VTR",
+        url: "http://test.publicalerts.org/wsdot/MapArea=L3VTR",
         dataType: 'json',
         beforeSend: function (request) {
             if (wsdotLayer.eTag) request.setRequestHeader('If-None-Match', wsdotLayer.eTag);
@@ -369,20 +377,21 @@ function getWsdotData() {
                             icon: 'car',
                             prefix: 'fa',
                             markerColor: severityColorMap[wsdotSeverity[item.Priority]],
-                            className: getMarkerClassName(wsdotSeverity[item.Priority])
+                            className: getMarkerClassName(wsdotSeverity[item.Priority],
+                                isOlderThanOneDay(item.LastUpdatedTime))
                         })
                     }).on('mouseover', function (e) {
                         //open popup;
                         var popup = L.popup()
                             .setLatLng(e.latlng)
                             .setContent('<strong>' + item.StartRoadwayLocation.RoadName + ' Mile Post ' + item.StartRoadwayLocation.MilePost
-                            + '</strong><br>' + item.HeadlineDescription
-                            + '<br>Id: ' + item.AlertID
-                            + '<br>Type: ' + item.EventCategory
-                            + '<br>Priority: ' + item.Priority
-                            + ((item.StartTime) ? '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString() : '')
-                            + ((item.EndTime) ? '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString() : '')
-                            + ((item.LastUpdatedTime) ? '<br>updated: ' + new Date(parseInt(item.LastUpdatedTime.substr(6))).toLocaleString() : ''))
+                                + '</strong><br>' + item.HeadlineDescription
+                                + '<br>Id: ' + item.AlertID
+                                + '<br>Type: ' + item.EventCategory
+                                + '<br>Priority: ' + item.Priority
+                                + ((item.StartTime) ? '<br>StartTime: ' + new Date(parseInt(item.StartTime.substr(6))).toLocaleString() : '')
+                                + ((item.EndTime) ? '<br>EndTime: ' + new Date(parseInt(item.EndTime.substr(6))).toLocaleString() : '')
+                                + ((item.LastUpdatedTime) ? '<br>updated: ' + new Date(parseInt(item.LastUpdatedTime.substr(6))).toLocaleString() : ''))
                             .openOn(map);
                     })
                 );
@@ -470,7 +479,7 @@ var pgeLayer = L.geoJson(null, {
 function getPgeData() {
 
     $.ajax({
-        url: "http://www.pa2.local/pge/outages",
+        url: "http://test.publicalerts.org/pge/outages",
         dataType: 'text', // returns raw text that will be pared by Omnivore
         success: function (kmlData, textStatus, request) {
             if (request.status == 304) {
@@ -509,7 +518,7 @@ function getPacificPowerSeverity(item) {
 function getPacificPowerData() {
 
     $.ajax({
-        url: "http://www.pa2.local/pacific-power/outagesOR.json",
+        url: "http://test.publicalerts.org/pacific-power/outagesOR.json",
         dataType: 'json',
         beforeSend: function (request) {
             if (pacificPowerLayer.eTag) request.setRequestHeader('If-None-Match', pacificPowerLayer.eTag);
@@ -538,16 +547,17 @@ function getPacificPowerData() {
                             icon: 'plug',
                             prefix: 'fa',
                             markerColor: severityColorMap[getPacificPowerSeverity(item)],
-                            className: getMarkerClassName(getPacificPowerSeverity(item)),
+                            className: getMarkerClassName(getPacificPowerSeverity(item),
+                                isOlderThanOneDay(jsonData.last_upd)),
                         })
                     }).on('mouseover', function (e) {
                         //open popup;
                         var popup = L.popup()
                             .setLatLng(e.latlng)
                             .setContent('<strong>Pacific Power Outage</strong>'
-                            + '<br>Outage Count: ' + item.outCount
-                            + '<br>Customers Count: ' + item.custOut
-                            + '<br>Last Updated: ' + jsonData.last_upd)
+                                + '<br>Outage Count: ' + item.outCount
+                                + '<br>Customers Count: ' + item.custOut
+                                + '<br>Last Updated: ' + jsonData.last_upd)
                             .openOn(map);
                     })
                 );
@@ -561,8 +571,11 @@ function getPacificPowerData() {
         }
     });
 }
+
+var fipsTable = { 41001: 'Baker', 41003: 'Benton', 41005: 'Clackamas', 41007: 'Clatsop', 41009: 'Columbia', 41011: 'Coos', 41013: 'Crook', 41015: 'Curry', 41017: 'Deschutes', 41019: 'Douglas', 41021: 'Gilliam', 41023: 'Grant', 41025: 'Harney', 41027: 'Hood River', 41029: 'Jackson', 41031: 'Jefferson', 41033: 'Josephine', 41035: 'Klamath', 41037: 'Lake', 41039: 'Lane', 41041: 'Lincoln', 41043: 'Linn', 41045: 'Malheur', 41047: 'Marion', 41049: 'Morrow', 41051: 'Multnomah', 41053: 'Polk', 41055: 'Sherman', 41057: 'Tillamook', 41059: 'Umatilla', 41061: 'Union', 41063: 'Wallowa', 41065: 'Wasco', 41067: 'Washington', 41069: 'Wheeler', 41071: 'Yamhill', 53011: 'Clark', 53015: 'Cowlitz', 53039: 'Klickitat', 53059: 'Skamania', }
 // TODO: add weather.gov alerts for Portland Metro
 // https://api.weather.gov/alerts?active=1&zone=ORZ006,WAZ039
+
 
 // TODO: get flash alert emergency XML
 // http://www.craigwalker.net/IIN/reportsX/flashnews_xml_emergency.php
@@ -610,16 +623,17 @@ var waterGaugeLayer = L.geoJSON(null, {
                 icon: 'tint',
                 prefix: 'fa',
                 markerColor: severityColorMap[floodSeverityMap[feature.properties.level]],
-                className: getMarkerClassName(floodSeverityMap[feature.properties.level]),
+                className: getMarkerClassName(floodSeverityMap[feature.properties.level],
+                    isOlderThanOneDay(feature.properties.pubDate)),
             })
         }).on('mouseover', function (e) {
             //open popup;
             var popup = L.popup()
                 .setLatLng(e.latlng)
                 .setContent('<strong>' + feature.properties.name
-                + '</strong><br>' + feature.properties.level
-                + '<br>' + feature.properties.link
-                + '<br>' + (new Date(feature.properties.pubDate).toLocaleString()))
+                    + '</strong><br>' + feature.properties.level
+                    + '<br>' + feature.properties.link
+                    + '<br>' + (new Date(feature.properties.pubDate).toLocaleString()))
                 .openOn(map);
         });
     }
@@ -628,7 +642,7 @@ var waterGaugeLayer = L.geoJSON(null, {
 //var waterGaugesGeoJson; defined in water-lookup.js
 function getWaterGaugeData() {
     $.ajax({
-        url: "http://www.pa2.local/water-alert/or.rss",
+        url: "http://test.publicalerts.org/flood/or.rss",
         dataType: 'xml',
         beforeSend: function (request) {
             if (waterGaugeLayer.eTag) request.setRequestHeader('If-None-Match', waterGaugeLayer.eTag);
@@ -717,6 +731,85 @@ $.getJSON("oregon.county.geojson", function (data) {
     oregonCountyLayer.addData(data);//.addTo(map);
 });
 
+
+var schoolLayer = L.geoJSON(null, {
+    style: {
+        color: "#999",
+        weight: 1,
+        fillOpacity: 0.0,
+        zIndex: 0,
+    }
+});
+
+$.getJSON("school-districts-near-portland.geojson", function (data) {
+    schoolLayer.addData(data);//.addTo(map);
+});
+
+
+if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function (search, this_len) {
+        if (this_len === undefined || this_len > this.length) {
+            this_len = this.length;
+        }
+        return this.substring(this_len - search.length, this_len) === search;
+    };
+}
+
+function getWeatherAlertSeverity(alertType) {
+    if (alertType.endsWith('Warning')) return 'major';
+    if (alertType.endsWith('Advisory')) return 'minor';
+    return 'info'
+}
+
+var weatherLayer = L.esri.featureLayer({
+    url: "https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/watch_warn_adv/MapServer/1",
+    style: function (feature, layer) {
+        return {
+            fillColor: severityColorMap[getWeatherAlertSeverity(feature.properties.prod_type)],
+            fillOpacity: 0.2,
+            opacity: 0.0,
+        }
+
+    },
+    onEachFeature: function (feature, layer) {
+        console.log(feature.properties)
+    },
+}).on({
+    click: function (e) {
+        var results = leafletPip.pointInLayer([e.latlng.lng, e.latlng.lat],
+            weatherLayer);
+        //L.geoJSON(weatherLayer.toGeoJSON()));
+        console.log(results)
+
+        var weatherPopupHtml = ''
+        results.forEach(function(result){
+            var props = result.feature.properties
+            weatherPopupHtml += '<strong>' + props.prod_type + '</strong><br>Issued at: ' + props.issuance + '<br>Expires at: ' + props.expiration + '<br><a href="' + props.url + '">More info</a><br>'
+        })
+
+        var popup = L.popup()
+            .setLatLng([e.latlng.lat, e.latlng.lng])
+            .setContent(weatherPopupHtml)
+            .openOn(map);
+    },
+});
+
+// Leaflet PIP calls eachLayer while ESRI Leaflet only has eachFeature
+weatherLayer.eachLayer = weatherLayer.eachFeature;
+
+
+function fatalToSeverity(fatalCount) {
+    if(fatalCount > 2) return 'major'
+    else if(fatalCount > 1) return 'minor'
+    return 'info'
+}
+
+function accidentIcon(props){
+    if(props.ALCHL_INVLV_FLG) return 'beer'
+    if(props.DRUG_INVLV_FLG ) return 'thumbs-down'
+    if(props.CRASH_SPEED_INVLV_FLG ) return 'fighter-jet'
+}
+
 var overlayMaps = {
     "Incident": incidentLayer,
     "Event": eventLayer,
@@ -725,6 +818,27 @@ var overlayMaps = {
     'PGE': pgeLayer,
     'Pacific Power': pacificPowerLayer,
     'Flood': waterGaugeLayer,
+    'Weather': weatherLayer,
+    'School': schoolLayer,
+    'Test': L.esri.featureLayer({
+        url: "http://gis.odot.state.or.us/arcgis/rest/services/transgis/data_catalog_display/Mapserver/88",
+        where: "TOT_FATAL_CNT > 1",
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: L.AwesomeMarkers.icon({
+                    icon: accidentIcon(feature.properties),
+                    prefix: 'fa',
+                    markerColor: severityColorMap[fatalToSeverity(feature.properties.TOT_FATAL_CNT)],
+                    className: getMarkerClassName(fatalToSeverity(feature.properties.TOT_FATAL_CNT))
+                        // ,isOlderThanOneDay(feature.properties.lastUpdated))
+                })
+            }).on({
+                click: function (e) {
+                    console.log(feature.properties);
+                }
+            })
+        },
+    }).addTo(map),
     'Oregon': oregonCountyLayer,
     'beecn': L.esri.featureLayer({
         url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92",
@@ -752,18 +866,18 @@ function updateLayers() {
 }
 
 // Initially add all layers. TODO: save this in local storage or cookie
-incidentLayer.isAddedInitially = true;
-eventLayer.isAddedInitially = true;
-incidentTleLayer.isAddedInitially = true;
-wsdotLayer.isAddedInitially = true;
-pgeLayer.isAddedInitially = true;
-pacificPowerLayer.isAddedInitially = true;
-waterGaugeLayer.isAddedInitially = true;
+incidentLayer.isAddedInitially = false;
+eventLayer.isAddedInitially = false;
+incidentTleLayer.isAddedInitially = false;
+wsdotLayer.isAddedInitially = false;
+pgeLayer.isAddedInitially = false;
+pacificPowerLayer.isAddedInitially = false;
+waterGaugeLayer.isAddedInitially = false;
 
 updateLayers();
 
 // Update layers every 5 minutes
-var updateInterval = setInterval(updateLayers, 5 * 60 * 1000);
+// var updateInterval = setInterval(updateLayers, 5 * 2 * 1000);
 
 var legend = L.control({ position: 'bottomright' });
 
@@ -782,10 +896,10 @@ legend.addTo(map);
 
 
 // Without 'awesome-marker ', this className will override the style for the background icon. What a hack!
-function getMarkerClassName(severityLevel) {
+function getMarkerClassName(severityLevel, isStale) {
     //console.log($('#' + severityLevel).is(':checked'));
     if ($('#' + severityLevel).is(':checked')) {
-        return 'awesome-marker ' + severityLevel + ' ';
+        return (isStale ? 'staleMarker ' : '') + 'awesome-marker ' + severityLevel + ' ';
     }
     else {
         return 'awesome-marker hideMarker ' + severityLevel + ' ';

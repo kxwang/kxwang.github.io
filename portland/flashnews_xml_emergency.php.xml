@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"  ?>
+
+<!DOCTYPE flashnews [
+	<!ATTLIST flashnews updated CDATA #REQUIRED>
+	<!ELEMENT flashnews (emergency*)>
+		<!ELEMENT emergency (emergency_category*)>
+			<!ELEMENT emergency_category (emergency_report*)>
+				<!ATTLIST emergency_category name CDATA #REQUIRED>
+				<!ELEMENT emergency_report (detail*,orgname*,tomorrow*)>
+					<!ATTLIST emergency_report custom CDATA #REQUIRED>	
+					<!ATTLIST emergency_report updated CDATA #REQUIRED>
+					<!ATTLIST emergency_report last_update CDATA #REQUIRED>
+					<!ATTLIST emergency_report testing CDATA #REQUIRED>
+					<!ATTLIST emergency_report schoolrelated CDATA #REQUIRED>
+					<!ATTLIST emergency_report orgid CDATA #REQUIRED>
+					<!ATTLIST emergency_report effective_date CDATA #REQUIRED>
+					<!ATTLIST emergency_report report_id CDATA #REQUIRED>
+					<!ATTLIST emergency_report operating_code CDATA #REQUIRED>
+					<!ATTLIST emergency_report transpo_code CDATA #REQUIRED>
+					
+		<!ELEMENT detail (#PCDATA)>
+		<!ELEMENT tomorrow (#PCDATA)>
+		<!ELEMENT orgname (#PCDATA)>			
+		<!ATTLIST orgname orgid CDATA #IMPLIED>
+        <!ATTLIST orgname zipcode CDATA #IMPLIED>
+        <!ATTLIST orgname tier CDATA #IMPLIED>
+]><flashnews updated="2018-02-20 07:38:49">
+<emergency>
+		<emergency_category name="Multnomah Co. Schools">
+			<emergency_report report_id="48674" effective_date="2018-02-20 06:39:09" updated="1" last_update="2018-02-20 06:39:09" testing="0" schoolrelated="1" orgid="64" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed]]></detail>
+				<orgname orgid="64" tier="1" zipcode="97019"><![CDATA[Corbett Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Washington Co. Schools">
+			<emergency_report report_id="48654" effective_date="2018-02-20 06:04:58" updated="1" last_update="2018-02-20 06:04:58" testing="0" schoolrelated="1" orgid="435" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed. All activities, including meetings, games and practices are canceled.]]></detail>
+				<orgname orgid="435" tier="1" zipcode="97106"><![CDATA[Banks Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48768" effective_date="2018-02-20 07:26:11" updated="1" last_update="2018-02-20 07:26:11" testing="0" schoolrelated="1" orgid="105" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[School has been canceled. After school activities are also canceled.]]></detail>
+				<orgname orgid="105" tier="1" zipcode="97116"><![CDATA[Forest Grove Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48737" effective_date="2018-02-20 04:52:58" updated="0" last_update="2018-02-20 04:52:58" testing="0" schoolrelated="1" orgid="107" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Buses in Zones 9 and 10 on snow routes for AM pick-up and PM drop-off.]]></detail>
+				<orgname orgid="107" tier="1" zipcode="97124"><![CDATA[Hillsboro Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Clackamas Co. Schools">
+			<emergency_report report_id="48655" effective_date="2018-02-19 19:17:18" updated="1" last_update="2018-02-19 19:17:18" testing="0" schoolrelated="1" orgid="11" custom="0"  operating_code="3" transpo_code="20">
+				<detail><![CDATA[3 Hours Late, AM/PM Buses on snow routes. No bus service to Elwood, pick up and drop off at Bailey's Inn. Watch for updates in the morning.]]></detail>
+				<orgname orgid="11" tier="1" zipcode="97017"><![CDATA[Colton Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48658" effective_date="2018-02-19 18:08:45" updated="0" last_update="2018-02-19 18:08:45" testing="0" schoolrelated="1" orgid="12" custom="0"  operating_code="6" transpo_code="20">
+				<detail><![CDATA[AM Buses on snow routes, no out-of-district transportation]]></detail>
+				<orgname orgid="12" tier="1" zipcode="97023-0805"><![CDATA[Estacada Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48659" effective_date="2018-02-20 07:10:41" updated="1" last_update="2018-02-20 07:10:41" testing="0" schoolrelated="1" orgid="17" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Restricted AM &amp;amp; PM bus routes in Beavercreek and Redland areas. No bus service on Buckner Creek, Carus, Howards Mill, Outlook, Ridge &amp;amp; Polehn roads. See district website for alternative bus stops.]]></detail>
+				<orgname orgid="17" tier="1" zipcode="97045"><![CDATA[Oregon City Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48675" effective_date="2018-02-19 23:04:55" updated="0" last_update="2018-02-19 23:04:55" testing="0" schoolrelated="1" orgid="18" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed]]></detail>
+				<orgname orgid="18" tier="1" zipcode="97055"><![CDATA[Oregon Trail Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Columbia Co. Schools">
+			<emergency_report report_id="48763" effective_date="2018-02-20 06:10:29" updated="0" last_update="2018-02-20 06:10:29" testing="0" schoolrelated="1" orgid="411" custom="0"  operating_code="5" transpo_code="20">
+				<detail><![CDATA[2 Hours Late, AM/PM Buses on snow routes]]></detail>
+				<orgname orgid="411" tier="1" zipcode="97016"><![CDATA[Clatskanie Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48778" effective_date="2018-02-20 06:41:15" updated="0" last_update="2018-02-20 06:41:15" testing="0" schoolrelated="1" orgid="55" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed]]></detail>
+				<orgname orgid="55" tier="1" zipcode="97064"><![CDATA[Vernonia Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="No. Ore. Coast Schools">
+			<emergency_report report_id="48775" effective_date="2018-02-20 06:36:27" updated="0" last_update="2018-02-20 06:36:27" testing="0" schoolrelated="1" orgid="395" custom="0"  operating_code="5" transpo_code="0">
+				<detail><![CDATA[2 Hours Late]]></detail>
+				<orgname orgid="395" tier="1" zipcode="97103"><![CDATA[Astoria Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48754" effective_date="2018-02-20 05:57:37" updated="0" last_update="2018-02-20 05:57:37" testing="0" schoolrelated="1" orgid="375" custom="0"  operating_code="5" transpo_code="20">
+				<detail><![CDATA[2 Hours Late, No preschool, AM/PM Buses on snow routes]]></detail>
+				<orgname orgid="375" tier="1" zipcode="97138"><![CDATA[Jewell Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48793" effective_date="2018-02-20 07:37:14" updated="0" last_update="2018-02-20 07:37:14" testing="0" schoolrelated="1" orgid="396" custom="0"  operating_code="5" transpo_code="0">
+				<detail><![CDATA[2 Hours Late]]></detail>
+				<orgname orgid="396" tier="1" zipcode="97103"><![CDATA[Knappa Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48782" effective_date="2018-02-20 06:50:19" updated="0" last_update="2018-02-20 06:50:19" testing="0" schoolrelated="1" orgid="722" custom="0"  operating_code="5" transpo_code="0">
+				<detail><![CDATA[2 Hours Late]]></detail>
+				<orgname orgid="722" tier="1" zipcode="97124"><![CDATA[NW Regional ESD: Clatsop Co.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Marion &amp; Polk Co. Schools">
+			<emergency_report report_id="48662" effective_date="2018-02-19 19:55:19" updated="0" last_update="2018-02-19 19:55:19" testing="0" schoolrelated="1" orgid="165" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Buses on snow routes for Scotts Mills School, Silver Crest School, Victor Point School and high school routes 1,3,4,5 and 7.]]></detail>
+				<orgname orgid="165" tier="1" zipcode="97381"><![CDATA[Silver Falls Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Yamhill Co. Schools">
+			<emergency_report report_id="48669" effective_date="2018-02-20 07:34:09" updated="1" last_update="2018-02-20 07:34:09" testing="0" schoolrelated="1" orgid="115" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Bus 10 on Snow Route. No bus service to Haugen Rd, Heater Rd, or Finnigan Hill. Students on Melott Road meet bus at Chehalem Way. Students on Upper Parrett Mountain Road meet bus at Shaad Road.]]></detail>
+				<orgname orgid="115" tier="1" zipcode="97132"><![CDATA[Newberg Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Clark Co. Schools">
+			<emergency_report report_id="48749" effective_date="2018-02-20 05:38:23" updated="0" last_update="2018-02-20 05:38:23" testing="0" schoolrelated="1" orgid="23" custom="0"  operating_code="6" transpo_code="20">
+				<detail><![CDATA[AM buses on snow routes. No bus service to Goodnight Road.]]></detail>
+				<orgname orgid="23" tier="1" zipcode="98674"><![CDATA[Green Mountain Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48759" effective_date="2018-02-20 06:04:56" updated="0" last_update="2018-02-20 06:04:56" testing="0" schoolrelated="1" orgid="207" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[SWCCC programs in the Washougal School District no AM session]]></detail>
+				<orgname orgid="207" tier="1" zipcode="98661-6812"><![CDATA[SW Wash. Child Care Consortium]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48731" effective_date="2018-02-20 04:40:57" updated="0" last_update="2018-02-20 04:40:57" testing="0" schoolrelated="1" orgid="28" custom="0"  operating_code="5" transpo_code="0">
+				<detail><![CDATA[2 Hours Late. The following buses on snow routes: Ammeter Road, Mabee Mines Road, Krogstead Road, and Martin Road.]]></detail>
+				<orgname orgid="28" tier="1" zipcode="98671"><![CDATA[Washougal Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Cowlitz Co. &amp; Lower Columbia (WA) Schools">
+			<emergency_report report_id="48747" effective_date="2018-02-20 07:24:37" updated="1" last_update="2018-02-20 07:24:37" testing="0" schoolrelated="1" orgid="57" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Route 3, 20 and 31 will operate a.m. snow route. Route 14 will have no service to Grimm Road or West Highland. Route 20 will be on elementary a.m. snow route.  Route 26 no service to Cedar or Laulainen.]]></detail>
+				<orgname orgid="57" tier="1" zipcode="98626"><![CDATA[Kelso Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48755" effective_date="2018-02-20 05:58:00" updated="0" last_update="2018-02-20 05:58:00" testing="0" schoolrelated="1" orgid="559" custom="0"  operating_code="5" transpo_code="0">
+				<detail><![CDATA[2 Hours Late]]></detail>
+				<orgname orgid="559" tier="1" zipcode="98612"><![CDATA[Wahkiakum Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48741" effective_date="2018-02-20 04:58:34" updated="0" last_update="2018-02-20 04:58:34" testing="0" schoolrelated="1" orgid="59" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Little Kalama River Road on Snow Route AM and PM]]></detail>
+				<orgname orgid="59" tier="1" zipcode="98674"><![CDATA[Woodland Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Columbia Gorge Schools">
+			<emergency_report report_id="48671" effective_date="2018-02-19 21:47:05" updated="0" last_update="2018-02-19 21:47:05" testing="0" schoolrelated="1" orgid="91" custom="0"  operating_code="5" transpo_code="0">
+				<detail><![CDATA[2 Hours Late]]></detail>
+				<orgname orgid="91" tier="1" zipcode="98671"><![CDATA[Mt. Pleasant Sch. Dist.]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Head Start /Early Childhood Centers">
+			<emergency_report report_id="48781" effective_date="2018-02-20 06:52:23" updated="1" last_update="2018-02-20 06:52:23" testing="0" schoolrelated="1" orgid="5967" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[2 hour late start at Jose Pedro in Cornelius and in Forest Grove.  Please stay tuned for updates.  Office is open but use your judgement on driving and safety.]]></detail>
+				<orgname orgid="5967" tier="1" zipcode="97116"><![CDATA[Adelante Mujeres]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48784" effective_date="2018-02-20 07:31:41" updated="1" last_update="2018-02-20 07:31:41" testing="0" schoolrelated="1" orgid="786" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Washington County - all programs canceled.]]></detail>
+				<orgname orgid="786" tier="1" zipcode="97070"><![CDATA[OCDC Headstart]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Private &amp; Charter Schools - Portland area">
+			<emergency_report report_id="48789" effective_date="2018-02-20 07:17:08" updated="0" last_update="2018-02-20 07:17:08" testing="0" schoolrelated="1" orgid="5740" custom="0"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Early release, all aft/eve activities canceled. Closing at Noon. Pick up by noon, or stay home if not safe to drive.]]></detail>
+				<orgname orgid="5740" tier="1" zipcode="97211"><![CDATA[Bridges Middle School]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48673" effective_date="2018-02-19 22:11:36" updated="0" last_update="2018-02-19 22:11:36" testing="0" schoolrelated="1" orgid="523" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[MINIMUM DAY Schedule with school ending at 12 noon. Regular bus shuttles will run after dismissal. No after school programs.]]></detail>
+				<orgname orgid="523" tier="1" zipcode="97123"><![CDATA[Faith Bible Christian]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48760" effective_date="2018-02-20 06:05:13" updated="0" last_update="2018-02-20 06:05:13" testing="0" schoolrelated="1" orgid="5607" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed]]></detail>
+				<orgname orgid="5607" tier="1" zipcode="97109"><![CDATA[Faith West - Buxton Campus]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48783" effective_date="2018-02-20 06:52:35" updated="0" last_update="2018-02-20 06:52:35" testing="0" schoolrelated="1" orgid="1313" custom="0"  operating_code="5" transpo_code="0">
+				<detail><![CDATA[2 Hours Late, No preschool]]></detail>
+				<orgname orgid="1313" tier="1" zipcode="97113"><![CDATA[Forest Hills Lutheran Christian School]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48791" effective_date="2018-02-20 07:21:05" updated="0" last_update="2018-02-20 07:21:05" testing="0" schoolrelated="1" orgid="177" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed]]></detail>
+				<orgname orgid="177" tier="1" zipcode="97229"><![CDATA[French American International School]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48744" effective_date="2018-02-20 05:09:34" updated="0" last_update="2018-02-20 05:09:34" testing="0" schoolrelated="1" orgid="3589" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Early dismissal at 12:00 PM]]></detail>
+				<orgname orgid="3589" tier="2" zipcode="97216"><![CDATA[Harmony Montessori School]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48790" effective_date="2018-02-20 07:18:16" updated="1" last_update="2018-02-20 07:18:16" testing="0" schoolrelated="1" orgid="5376" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed, No preschool]]></detail>
+				<orgname orgid="5376" tier="2" zipcode="97229"><![CDATA[Kozy Kids Enrichment Center]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48773" effective_date="2018-02-20 06:48:42" updated="1" last_update="2018-02-20 06:48:42" testing="0" schoolrelated="1" orgid="5601" custom="0"  operating_code="2" transpo_code="0">
+				<detail><![CDATA[Early release, all aft/eve activities canceled, No PM preschool. 11:30 Dismissal. Parents in a higher elevation/hilly area have the option of a full-day excused absence. See email and social media for other details. NO AFTER SCHOOL CARE TODAY.]]></detail>
+				<orgname orgid="5601" tier="2" zipcode="97078"><![CDATA[Life Christian School]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48780" effective_date="2018-02-20 06:46:14" updated="1" last_update="2018-02-20 06:46:14" testing="0" schoolrelated="1" orgid="424" custom="0"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Early release, all aft/eve activities canceled. 11:30 dismissal as usual.  All other student to leave at 12:00 noon.  As always, use your discretion.]]></detail>
+				<orgname orgid="424" tier="1" zipcode="97229"><![CDATA[Montessori School of Beaverton]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48767" effective_date="2018-02-20 06:14:01" updated="0" last_update="2018-02-20 06:14:01" testing="0" schoolrelated="1" orgid="938" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[School will close at 12:15pm today.  Curbside dismissal will run until 12:45.]]></detail>
+				<orgname orgid="938" tier="1" zipcode="97201"><![CDATA[The International School]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48777" effective_date="2018-02-20 06:38:53" updated="0" last_update="2018-02-20 06:38:53" testing="0" schoolrelated="1" orgid="708" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[SW Portland and Lake Oswego campuses closing at 1:00 pm today.]]></detail>
+				<orgname orgid="708" tier="1" zipcode="97219"><![CDATA[West Hills Montessori]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Private &amp; Charter Schools - SW Wash.">
+			<emergency_report report_id="48788" effective_date="2018-02-20 07:14:46" updated="0" last_update="2018-02-20 07:14:46" testing="0" schoolrelated="1" orgid="3766" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed]]></detail>
+				<orgname orgid="3766" tier="1" zipcode="98604"><![CDATA[Firm Foundation Christian]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48772" effective_date="2018-02-20 07:34:28" updated="0" last_update="2018-02-20 07:34:28" testing="0" schoolrelated="1" orgid="3284" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed]]></detail>
+				<orgname orgid="3284" tier="1" zipcode="98686"><![CDATA[Gardner School of Arts &amp; Sciences]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Businesses">
+			<emergency_report report_id="48670" effective_date="2018-02-19 21:44:16" updated="0" last_update="2018-02-19 21:44:16" testing="0" schoolrelated="0" orgid="5680" custom="0"  operating_code="1" transpo_code="0">
+				<detail><![CDATA[Closed. Morning Classes Canceled]]></detail>
+				<orgname orgid="5680" tier="2" zipcode="97030"><![CDATA[Northwest Gymnastics Training Center]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+		<emergency_category name="Organizations &amp; Associations">
+			<emergency_report report_id="48681" effective_date="2018-02-20 02:57:11" updated="0" last_update="2018-02-20 02:57:11" testing="0" schoolrelated="0" orgid="4964" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[Open tonight from 6:30 pm to 8:00 am. Check in from 6:30-9:30 pm. 125 N. 17th Street, St. Helens. 503-410-5800.]]></detail>
+				<orgname orgid="4964" tier="1" zipcode="97051"><![CDATA[Columbia Co. Warming Center]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+			<emergency_report report_id="48785" effective_date="2018-02-20 06:54:07" updated="0" last_update="2018-02-20 06:54:07" testing="0" schoolrelated="0" orgid="4535" custom="1"  operating_code="0" transpo_code="0">
+				<detail><![CDATA[All locations Open.]]></detail>
+				<orgname orgid="4535" tier="1" zipcode="98661"><![CDATA[Columbia River Mental Health Services]]></orgname>
+				<tomorrow><![CDATA[]]></tomorrow>
+			</emergency_report>
+		</emergency_category>
+</emergency></flashnews>

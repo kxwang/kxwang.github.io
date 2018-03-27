@@ -66,7 +66,7 @@
 			<label id="result"></label>
 		</div>
 		<div class="file-upload">Custom Map:
-			<input type="file" id="custom-map-file" onchange="handleFiles(this.files)">
+			<input type="file" id="custom-map-file" onchange="handleFiles(this.files)"><input type="button" value="Clear" onclick="customMapLayer.clearLayers()">
 		</div>
 		<div>Water Districts:
 			<select multiple id="water-districts" onchange="districtSelected(this)"></select>

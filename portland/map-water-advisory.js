@@ -77,14 +77,14 @@ var waterDistrictLayer = L.esri.featureLayer({
         // events
         layer.on({
             mouseover: function () {
-                if(isWaterDistrictSelected(feature.id)) return;
+                if (isWaterDistrictSelected(feature.id)) return;
                 this.setStyle({
                     'fillColor': '#b45501',
                     fillOpacity: 0.5,
                 });
             },
             mouseout: function () {
-                if(isWaterDistrictSelected(feature.id)) return;
+                if (isWaterDistrictSelected(feature.id)) return;
                 this.setStyle({
                     'fillColor': '#f0d1b1',
                     fillOpacity: 0,
@@ -100,11 +100,13 @@ var waterDistrictLayer = L.esri.featureLayer({
     }
 }).on('load', function () {
     console.log('feature layer ready');
+    // skip if the select control is already filled
+    if (document.getElementById('water-districts').options.length > 0) return;
     // Initialize the water district multi-select list
     var $dropdown = $("#water-districts");
-    for(var waterDistrictName in waterDistrictNameAndID){
+    for (var waterDistrictName in waterDistrictNameAndID) {
         $dropdown.append($("<option />").val(waterDistrictNameAndID[waterDistrictName]).text(waterDistrictName));
-    }    
+    }
 })
 
 var overlayMaps = {
@@ -173,16 +175,16 @@ function handleFiles(files) {
 
 var layerControl = L.control.layers(baseMaps, overlayMaps /*, { autoZIndex: false }*/).addTo(map);
 
-$(function(){
+$(function () {
     console.log('document ready');
 })
 
 function isWaterDistrictSelected(featureId) {
     var waterDistrictList = document.getElementById('water-districts');
-    
+
     for (var i = 0; i < waterDistrictList.length; i++) {
-        if (waterDistrictList.options[i].value == featureId 
-            && waterDistrictList.options[i].selected){
+        if (waterDistrictList.options[i].value == featureId
+            && waterDistrictList.options[i].selected) {
             return true;
         }
     }
@@ -191,8 +193,15 @@ function isWaterDistrictSelected(featureId) {
 
 function districtSelected(waterDistrictList) {
     for (var i = 0; i < waterDistrictList.length; i++) {
-        if (waterDistrictList.options[i].selected){
+        if (waterDistrictList.options[i].selected) {
             waterDistrictLayer.setFeatureStyle(waterDistrictList.options[i].value, {color: 'red', fillOpacity: 0.2, weight: 2});
+            // waterDistrictLayer.getFeature(waterDistrictList.options[i].value).setStyle({
+            //     color: "#ee0000",
+            //     weight: 2,
+            //     fillOpacity: 0.2,
+            //     zIndex: 0,
+            // });
+            // customMapLayer.addLayer(waterDistrictLayer.getFeature(waterDistrictList.options[i].value));
         }
         else {
             waterDistrictLayer.setFeatureStyle(waterDistrictList.options[i].value, {
@@ -201,6 +210,8 @@ function districtSelected(waterDistrictList) {
                 fillOpacity: 0.0,
                 zIndex: 0,
             });
+            // waterDistrictLayer.getFeature(waterDistrictList.options[i].value).resetStyle();
+            // customMapLayer.removeLayer(waterDistrictLayer.getFeature(waterDistrictList.options[i].value));
         }
     }
 }

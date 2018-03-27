@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />
 
 	<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-	
+
 	<!-- <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css"> -->
 	<link rel="stylesheet" href="leaflet.awesome-markers/leaflet.awesome-markers.css">
 
@@ -20,14 +20,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-	<script src="https://unpkg.com/esri-leaflet@2.1.2/dist/esri-leaflet.js"
-    integrity="sha512-ouokQ1RIIoqPTZKwlapdxHO5VWFoAi8wE+SwhSX89Ifac0w3p+H2da4oqHvRsBTIpNLewzAZU7gRVDFXyXcfjA=="
-	crossorigin=""></script>
-	
+	<script src="https://unpkg.com/esri-leaflet@2.1.2/dist/esri-leaflet.js" integrity="sha512-ouokQ1RIIoqPTZKwlapdxHO5VWFoAi8wE+SwhSX89Ifac0w3p+H2da4oqHvRsBTIpNLewzAZU7gRVDFXyXcfjA=="
+	 crossorigin=""></script>
+
 	<script src="leaflet.awesome-markers/leaflet.awesome-markers.js"></script>
 
 	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
-	
+
+	<script src="https://unpkg.com/@mapbox/leaflet-pip@latest/leaflet-pip.js"></script>
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
@@ -64,8 +64,18 @@
 		.hideMarker {
 			display: none;
 		}
+
+		.timeline-header,
+		.timeline-footer {
+			display: none;
+		}
+
+		.staleMarker {
+			opacity: 0.6;
+		}
 	</style>
 </head>
+
 <body>
 	<div class="ui-widget">
 		<input class="water-district-result" size="40" placeholder="Type 123 Main or 5th Ave and Main or City Hall" id="user-address">
@@ -79,4 +89,5 @@
 	<script src="water-lookup.js"></script>
 	<script src="alert-map.js"></script>
 </body>
+
 </html>
