@@ -136,9 +136,21 @@ padding: 0px 10px 10px 10px;
 	display: inline-block;
 	min-width: 2.5em;
 	text-align: left;
-	margin-left: 5px;
+	margin-left: 10px;
 }
 
-.slider.slider-horizontal {
-	width: 180px !important;
+#divFundTable .bootstrap-select {
+	width: 290px !important;
+}
+
+#select-portfolio {
+	display: none;
+}
+
+.slider {
+	width: 132px !important;
+}
+
+input#asset {
+	display: inline;
 }
