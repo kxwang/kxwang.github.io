@@ -782,7 +782,7 @@ var weatherLayer = L.esri.featureLayer({
         console.log(results)
 
         var weatherPopupHtml = ''
-        results.forEach(function(result){
+        results.forEach(function (result) {
             var props = result.feature.properties
             weatherPopupHtml += '<strong>' + props.prod_type + '</strong><br>Issued at: ' + props.issuance + '<br>Expires at: ' + props.expiration + '<br><a href="' + props.url + '">More info</a><br>'
         })
@@ -799,46 +799,79 @@ weatherLayer.eachLayer = weatherLayer.eachFeature;
 
 
 function fatalToSeverity(fatalCount) {
-    if(fatalCount > 2) return 'major'
-    else if(fatalCount > 1) return 'minor'
+    if (fatalCount > 2) return 'major'
+    else if (fatalCount > 1) return 'minor'
     return 'info'
 }
 
-function accidentIcon(props){
-    if(props.ALCHL_INVLV_FLG) return 'beer'
-    if(props.DRUG_INVLV_FLG ) return 'thumbs-down'
-    if(props.CRASH_SPEED_INVLV_FLG ) return 'fighter-jet'
+function accidentIcon(props) {
+    if (props.ALCHL_INVLV_FLG) return 'beer'
+    if (props.DRUG_INVLV_FLG) return 'thumbs-down'
+    if (props.CRASH_SPEED_INVLV_FLG) return 'fighter-jet'
 }
 
+
+var heatLayer = L.heatLayer([], {});
+
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
 var overlayMaps = {
-    "Incident": incidentLayer,
-    "Event": eventLayer,
-    "Incident TLE": incidentTleLayer,
-    'Vancouver': wsdotLayer,
-    'PGE': pgeLayer,
-    'Pacific Power': pacificPowerLayer,
-    'Flood': waterGaugeLayer,
-    'Weather': weatherLayer,
-    'School': schoolLayer,
-    'Test': L.esri.featureLayer({
-        url: "http://gis.odot.state.or.us/arcgis/rest/services/transgis/data_catalog_display/Mapserver/88",
-        where: "TOT_FATAL_CNT > 1",
-        pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, {
-                icon: L.AwesomeMarkers.icon({
-                    icon: accidentIcon(feature.properties),
-                    prefix: 'fa',
-                    markerColor: severityColorMap[fatalToSeverity(feature.properties.TOT_FATAL_CNT)],
-                    className: getMarkerClassName(fatalToSeverity(feature.properties.TOT_FATAL_CNT))
-                        // ,isOlderThanOneDay(feature.properties.lastUpdated))
-                })
-            }).on({
-                click: function (e) {
-                    console.log(feature.properties);
-                }
-            })
+    // "Incident": incidentLayer,
+    // "Event": eventLayer,
+    // "Incident TLE": incidentTleLayer,
+    // 'Vancouver': wsdotLayer,
+    // 'PGE': pgeLayer,
+    // 'Pacific Power': pacificPowerLayer,
+    // 'Flood': waterGaugeLayer,
+    // 'Weather': weatherLayer,
+    // 'School': schoolLayer,
+    // "Heat": L.esri.Heat.featureLayer({
+    //     url: "http://gis.odot.state.or.us/arcgis/rest/services/transgis/data_catalog_display/Mapserver/58",
+    //     //where: "TOT_FATAL_CNT > 1",
+    //     // where: "(CNTY_NM = 'Washington' OR CNTY_NM = 'Multnomah') AND CRASH_SVRTY_CD = '4'",
+    //     radius: 12,
+    // }).addTo(map),
+    // 'Cluster': L.esri.Cluster.featureLayer({
+    //     url: "http://gis.odot.state.or.us/arcgis/rest/services/transgis/data_catalog_display/Mapserver/88",
+    //     //where: "TOT_FATAL_CNT > 1",
+    //     where: "(CNTY_NM = 'Washington' OR CNTY_NM = 'Multnomah') AND CRASH_SVRTY_CD = '4'",
+    // }).addTo(map),
+    'Highway': L.esri.featureLayer({
+        url: "http://gis.odot.state.or.us/arcgis/rest/services/transgis/data_catalog_display/Mapserver/73",
+        //where: "TOT_FATAL_CNT > 1",
+        //where: "(CNTY_NM = 'Washington' OR CNTY_NM = 'Multnomah') AND CRASH_SVRTY_CD = '4'",
+        onEachFeature: function(feature, layer) {
+            layer.options.color = getRandomColor();
         },
     }).addTo(map),
+    // 'Test': L.esri.featureLayer({
+    //     url: "http://gis.odot.state.or.us/arcgis/rest/services/transgis/data_catalog_display/Mapserver/88",
+    //     //where: "TOT_FATAL_CNT > 1",
+    //     where: "CNTY_NM = 'Washington'",
+    //     pointToLayer: function (feature, latlng) {
+    //         return L.marker(latlng, {
+    //             icon: L.AwesomeMarkers.icon({
+    //                 icon: accidentIcon(feature.properties),
+    //                 prefix: 'fa',
+    //                 markerColor: severityColorMap[fatalToSeverity(feature.properties.TOT_FATAL_CNT)],
+    //                 className: getMarkerClassName(fatalToSeverity(feature.properties.TOT_FATAL_CNT))
+    //                     // ,isOlderThanOneDay(feature.properties.lastUpdated))
+    //             })
+    //         }).on({
+    //             click: function (e) {
+    //                 console.log(feature.properties);
+    //             }
+    //         })
+    //     },
+    // }).addTo(map),
     'Oregon': oregonCountyLayer,
     'beecn': L.esri.featureLayer({
         url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData/MapServer/92",
