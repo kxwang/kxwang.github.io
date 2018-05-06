@@ -37,7 +37,9 @@
 		}
 
 		if (typeof Modernizr !== 'undefined' && Modernizr.touch) {
-			this.touchCapable = true;
+			// Kevin: make it work on touchscreen
+			//https://stackoverflow.com/questions/25006721/bootstrap-slider-js-mouse-events-are-not-working-on-touchscreen-devices
+			this.touchCapable = false; //true;
 		}
 
 		var tooltip = this.element.data('slider-tooltip')||options.tooltip;
