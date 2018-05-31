@@ -122,14 +122,14 @@
 					<div class="form-group">
 							<label for="asset" class="col-sm-3 col-xs-7 control-label">Current Retirement Funds:</label>
 							<div class="col-sm-3 col-xs-5">
-								<input id="asset" class="form-control number-with-comma" type="text" pattern="[0-9]+([,][0-9]+)?" min="0" max="2000000" data-bind="value: formattedAsset"/>
+								<input id="asset" class="form-control number-with-comma" type="text" pattern="[0-9]+([,][0-9]+)?" min="0" max="3000000" data-bind="value: formattedAsset"/>
 							</div>
 
 						<div class="col-sm-6 hidden-xs sliderContainer">
 							<span class="sliderHead">$0</span>
-							<input id="asset-slider" data-slider-id="asset-slider" data-bind="sliderValue: asset" type="text" data-slider-min="0" data-slider-max="2000"
+							<input id="asset-slider" data-slider-id="asset-slider" data-bind="sliderValue: asset" type="text" data-slider-min="0" data-slider-max="3000"
 							 data-slider-step="1" data-slider-tooltip="hide" data-slider-handle="square" />
-							<span class="sliderTail">$2M</span>
+							<span class="sliderTail">$3M</span>
 						</div>
 					</div>
 
@@ -234,11 +234,9 @@
 						</div>
 					</div>
 
-					<div class="form-group additionalControls">
-						<div class="col-xs-9 col-xs-offset-2">
-							<input id="highYield" type="checkbox" data-bind="checked: isHighYield" />
-							<label for="highYield" class="control-label">Display Yield Optimized Portfolio (Not Recommended)</label>
-						</div>
+					<div class="center-align form-group additionalControls">
+						<input id="highYield" type="checkbox" data-bind="checked: isHighYield" />
+						<label for="highYield" id="isHighYield" class="control-label">Display Yield Optimized Portfolio (Not Recommended)</label>
 					</div>
 				</form>
 			</div>
