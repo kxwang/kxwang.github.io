@@ -2,6 +2,7 @@
   // Wrap ko.observable and ko.observableArray
   var methods = ['observable', 'observableArray'];
 
+  try {
   ko.utils.arrayForEach(methods, function(method){
     var saved = ko[method];
     
@@ -30,4 +31,5 @@
       return observable;
     }
   })
+} catch() {}
 })(ko);
