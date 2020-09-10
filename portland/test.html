@@ -31,22 +31,27 @@
 
 <script>
   var map = L.map('map').setView([37.75, -122.23], 10);
-  var oregonCountyLayer = L.geoJSON(null, {
-    style: {
-        color: "#999",
-        weight: 1,
-        fillOpacity: 1,
-        zIndex: 0,
-    }
-}).addTo(map);
+//   var oregonCountyLayer = L.geoJSON(null, {
+//     style: {
+//         color: "#999",
+//         weight: 1,
+//         fillOpacity: 1,
+//         zIndex: 0,
+//     }
+// }).addTo(map);
 
-$.getJSON("oregon.county.geojson", function (data) {
-    oregonCountyLayer.addData(data);//.addTo(map);
-});
+// $.getJSON("oregon.county.geojson", function (data) {
+//     oregonCountyLayer.addData(data);//.addTo(map);
+// });
 
 
-  L.esri.basemapLayer('Gray').addTo(map);
-  L.esri.basemapLayer('GrayLabels').addTo(map);
+//   L.esri.basemapLayer('Gray').addTo(map);
+//   L.esri.basemapLayer('GrayLabels').addTo(map);
+	
+	  // a Leaflet marker is used by default to symbolize point features.
+  L.esri.featureLayer({
+    url: 'https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/Public_Wildfire_Perimeters_View/FeatureServer/0/'
+  }).addTo(map);
 </script>
 
 </body>
