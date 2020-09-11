@@ -48,10 +48,11 @@
   L.esri.basemapLayer('Gray').addTo(map);
 //   L.esri.basemapLayer('GrayLabels').addTo(map);
 	
-	  // a Leaflet marker is used by default to symbolize point features.
-var feature_layer = L.esri.featureLayer({
+
 //     url: 'https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/Public_Wildfire_Perimeters_View/FeatureServer/0/'
-	  url: 'https://services.arcgis.com/cJ9YHowT8TU7DUyn/ArcGIS/rest/services/AirNowLatestContoursCombined/FeatureServer/0/'
+var url = 'https://services.arcgis.com/cJ9YHowT8TU7DUyn/ArcGIS/rest/services/AirNowLatestContoursCombined/FeatureServer/0/'
+var feature_layer = L.esri.featureLayer({
+	url: url
   }).addTo(map)
 
 feature_layer.bindPopup(function (layer) {
