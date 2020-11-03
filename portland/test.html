@@ -53,7 +53,7 @@
 var feature_layer = L.esri.featureLayer({
 //     url: 'https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/Public_Wildfire_Perimeters_View/FeatureServer/0/'
 // 	  url: 'https://services.arcgis.com/cJ9YHowT8TU7DUyn/ArcGIS/rest/services/AirNowLatestContoursCombined/FeatureServer/0/'
-	url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/CIP_CONST_FY_PBOT/MapServer'
+	url: 'https://www.portlandmaps.com/arcgis/rest/services/Public/CIP_CONST_FY_PBOT/MapServer/2'
   }).addTo(map);
 feature_layer.bindPopup(function (layer) {
   return JSON.stringify(layer.feature.properties)
