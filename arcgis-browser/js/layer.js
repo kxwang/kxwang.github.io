@@ -19,7 +19,10 @@ function loadFeatureLayer(layerUrl) {
         url: layerUrl,
         where: ''
     }).addTo(map);
-
+    
+    featureLayer.bindPopup(function (layer) {
+      return JSON.stringify(layer.feature.properties)
+    });
     // featureLayer.query().bounds(function (error, latlngbounds) {
     //     if (error) {
     //         console.error(error);
