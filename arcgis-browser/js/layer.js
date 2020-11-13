@@ -21,7 +21,7 @@ function loadFeatureLayer(layerUrl) {
     }).addTo(map);
     
     featureLayer.bindPopup(function (layer) {
-      return "<pre>" + JSON.stringify(layer.feature.properties, null, 4) + "</pre>"
+      return "<pre>" + JSON.stringify(layer.feature.properties, null, 2) + "</pre>"
     });
     // featureLayer.query().bounds(function (error, latlngbounds) {
     //     if (error) {
