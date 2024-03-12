@@ -12,7 +12,8 @@ function getColor(d) {
            d > 325   ? '#FD8D3C' :
            d > 163   ? '#FEB24C' :
            d > 81   ? '#FFEDA0' :
-                      '#ffffff';
+           d >= 0   ? '#ffffff' :
+                      '#00008b';
 }
 
 function style(feature) {
@@ -104,7 +105,7 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 81, 163, 325, 750, 1500, 3000],
+        grades = [-100, 0, 81, 163, 325, 750, 1500, 3000],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
