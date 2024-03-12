@@ -26,6 +26,9 @@ function style(feature) {
     };
 }
 
+// Portland City Council Districts
+// https://portlandmaps.com/arcgis/rest/services/Public/CGIS_Layers/MapServer/11
+
 // Load a feature layer into the DIV
 function loadFeatureLayer(layerUrl) {
 
@@ -102,8 +105,9 @@ title.addTo(map);
 $(document).ready(function () {
 
     // Get the map url from query string
-    var layerUrl = qs('url');
-    if (!layerUrl) return;
+    // var layerUrl = qs('url');
+    // if (!layerUrl) return;
+    var layerUrl = "https://www3.multco.us/arcgispublic/rest/services/Countywide/LanguageProficiency2016/MapServer/4";
 
     // Get the layer description in JSON
     $.ajax({

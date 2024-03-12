@@ -135,8 +135,9 @@ title.addTo(map);
 $(document).ready(function () {
 
     // Get the map url from query string
-    var layerUrl = qs('url');
-    if (!layerUrl) return;
+    // var layerUrl = qs('url');
+    // if (!layerUrl) return;
+    var layerUrl = "https://www3.multco.us/arcgispublic/rest/services/Elections/VotingDistrictInfo_2020/MapServer/1"
 
     // Get the layer description in JSON
     $.ajax({
