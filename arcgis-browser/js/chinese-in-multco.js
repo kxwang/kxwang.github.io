@@ -69,6 +69,26 @@ function loadFeatureLayer(layerUrl) {
     });
 }
 
+// Load a overlay layer into the DIV
+function loadOverlayLayer(layerUrl) {
+    // a Leaflet marker is used by default to symbolize point features.
+    var featureLayer = L.esri.featureLayer({
+        url: layerUrl,
+        where: '',
+        style: {
+            fill: false,
+            color: "red",
+        },
+    }).addTo(map);
+    
+    // featureLayer.bindPopup(function (layer) {
+    //     return "Total Population >5yo: " + layer.feature.properties.C16001_001 + "</br>"
+    //         + "Chinese Speaking count: " + layer.feature.properties.C16001_021 + " (English not well: " + ((layer.feature.properties.C16001_021 == 0) ? "0%" : Math.floor(100*layer.feature.properties.C16001_023/layer.feature.properties.C16001_021) + "%") + ")</br>"
+    //         + "Chinese Speaking %: " + Math.floor(100*layer.feature.properties.C16001_021/layer.feature.properties.C16001_001) + "%";
+    // });
+
+    featureLayer.setZIndexOffset(410);
+}
 
 var legend = L.control({position: 'bottomright'});
 
@@ -145,6 +165,9 @@ $(document).ready(function () {
                 */
             if (layer.type == 'Feature Layer') {
                 loadFeatureLayer(layerUrl);
+
+
+                loadOverlayLayer("https://www3.multco.us/gisagspublic/rest/services/Countywide/General/MapServer/11");
             }
             else if (layer.type == 'Group Layer') {
             }

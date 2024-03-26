@@ -1,0 +1,175 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <title>Test page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    @media (min-width: 858px) {
+      html {
+        font-size: 12px;
+      }
+      .wrapper {
+        padding: 10rem 20rem;
+      }
+    }
+
+    @media (min-width: 780px) {
+      html {
+        font-size: 11px;
+      }
+      .wrapper {
+        padding: 10rem 20rem;
+      }
+    }
+
+    @media (min-width: 702px) {
+      html {
+        font-size: 10px;
+      }
+      .wrapper {
+        padding: 10rem 20rem;
+      }
+    }
+
+    @media (min-width: 624px) {
+      html {
+        font-size: 9px;
+      }
+      .wrapper {
+        padding: 10rem 20rem;
+      }
+    }
+
+    @media (max-width: 623px) {
+      html {
+        font-size: 8px;
+      }
+      .wrapper {
+        padding: 10rem 0rem;
+      }
+    }
+
+    body {
+      font-family: "Barlow Condensed", Helvetica, Arial, Sans-Serif;
+      /* font-size: calc(12px + 0.390625vw); */
+    }
+
+    .wrapper {
+      /* max-width: 940px;
+      margin: 0 auto; */
+      background-image: url('1024px-Portland_panorama3.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      width: 100vw;
+      position: relative;
+      background-color: #D1EAFF;
+      left: calc(-1 * (100vw - 100%) / 2);
+
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      grid-auto-rows: minmax(100px, auto);
+
+      text-align: center;
+    }
+
+    .wrapper>div {
+      /* border: 2px solid rgb(233 171 88); */
+      border-radius: 5px;
+      padding: 1em;
+      color: white !important;
+    }
+
+    .wrapper>div>a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .one {
+      vertical-align: middle;
+      height: 100%;
+      line-height: 100%;
+      text-align: center;
+      grid-column: 2 / 4;
+      grid-row: 1/2;
+
+      padding-bottom: 0 !important;
+      font-size: 5.5rem;
+      /* font-size: calc(12px + 3vw); */
+    }
+
+    .two {
+      grid-column: 2 / 4;
+      grid-row: 2;
+      font-size: 10rem;
+      font-weight: bold;
+      padding: 0;
+    }
+
+    .three {
+      grid-column: 2;
+      grid-row: 3;
+      font-size: 6rem;
+      font-weight: bold;
+      background-color: rgba(169, 4, 4, 0.8);
+      padding: 0.3em !important;
+    }
+
+    .four {
+      grid-column: 3;
+      grid-row: 3;
+      font-size: 6rem;
+      font-weight: bold;
+      background-color: rgba(169, 4, 4, 0.8);
+      padding: 0.3em !important;
+    }
+
+    .five {
+      grid-column: 2;
+      grid-row: 4;
+      font-size: 2.6rem;
+      border: 2px solid white;
+    }
+
+    .six {
+      grid-column: 3;
+      grid-row: 4;
+      font-size: 2.6rem;
+      border: 2px solid white;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Grid Test</p>
+  <div class="wrapper">
+    <div class="one">Emergencies can happen any time</div>
+    <div class="two" style="padding: 0;">LET'S BE PREPARED!</div>
+    <div class="three"><a href="#">SIGN UP</a></div>
+    <div class="four"><a href="#">GET READY</a></div>
+    <div class="five">PublicAlerts sends lifesaving info when an emergency is happening in the Portland-Vancouver Metro
+      Region</div>
+    <div class="six">Preparing for disasters is a community effort. Get yourself ready. Help those around you get ready.
+      Start small, but start today.</div>
+  </div>
+
+  <!-- <script type="text/javascript" src="js/index.js"></script> -->
+
+  <script>
+  </script>
+</body>
+
+</html>

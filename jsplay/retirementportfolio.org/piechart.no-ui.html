@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+	<p>The page does a calculation from a view model.</p>
+
+  <script src="no-ui-stubs.js"></script>
+	<script src="./lib/knockout-min.js"></script>
+	<script src="piedata.js"></script>
+	<script src="piechart.js"></script>
+
+  <script type="text/javascript">
+    var uivm = new UserInputViewModel();
+
+    uivm.age(42);
+    uivm.retirementAge(65);
+    uivm.asset(20);
+    uivm.monthlySavings(500);
+    uivm.monthlyRetirementIncome(5000);
+    uivm.lifeExpectancy(95);
+    uivm.realReturnRate(8);
+    uivm.inflationRate(3);
+
+    var results = runCalculation(uivm);
+    document.write("<h2>Results</h2>");
+    document.write(JSON.stringify(results));
+  </script>
+
+</body>
+</html>

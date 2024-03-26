@@ -1,0 +1,35 @@
+,US Equity,US Small Cap Value Equity,International Equity,REIT,Emerging Mkt Stock,Preferred Stock,US Total Bond Mkt,Treasury Inflation Prot Sec,INTL Total Bond Mkt,Short Term Bond,Inv Grade Bond / CD Ladder,Emerging Market Bond,High Yield Bond,Cash / MM
+,Charles Schwab U.S. Broad Equity ETF (SCHB) ,Vanguard Small Cap Value ETF (VBR),Vanguard FTSE Developed Markets ETF (VEA),PowerShares KBW Premium Yield Equity REIT ETF (KBWY),Charles Schwab Emerging Markets Equity ETF (SCHE),Market Vectors Preferred ex Financials ETF (PFXF) ,Charles Schwab U.S. Aggregate Bond ETF (SCHZ),Vanguard Short-Term Inflation-Protected Sec Index ETF (VTIP),Vanguard Total Intl Bd Idx ETF (BNDX),PIMCO Enhanced Short Maturity ETF (MINT),US and INTL Rolling Bond Ladder - Investment Grade w/ Maturities 2-12 yrs,Vanguard Emerging Markets Government Bond Index ETF (VWOB),Market Vectors Intl High Yield Bond ETF (IHY),Cash/MM
+15-30 - (88% Stock / 12% Bond) ,27,22,14,10,15, ,10,,,,,,,2
+30-40 - (85% Stock / 15% Bond),25,19,14,10,14,3,10,,, ,,3, ,2
+40-45 - (80% Stock / 20% Bond),23,16,13,10,13,5,10,2,2, ,,4, ,2
+45-50 - (75% Stock / 25% Bond),22,13,13,10,12,5,10,2,2,2,,5,2,2
+50-55 - (67% Stock / 33% Bond),19,11,12,10,10,5,11,4,3,3,,6,4,2
+55-60 - (60% Stock / 40% Bond),17,8,12,10,8,5,13,6,4,5,,6,4,2
+60-65 - (55% Stock / 45% Bond),16,7,11,10,6,5,16,6,6,6,,5,4,2
+65+ Risk Group 1  (50% Stock / 50% Bond),15,5,9,10,5,6,18,6,6,6,,5,4,5
+65+ Risk Group 2 (40% Stock / 60% Bond),13,3,7,8,3,6,22,9,8,7,,5,4,5
+65+ Risk Group 3  (20 % Stock / 80% Bond)  ,9,2,2,4,,3,25,12,9,13,,3,3,15
+65+ Risk Group 4 (10 % Stock / 90% Bond),8, , ,2,, ,27,13,9,16,,0,0,25
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+Variant 1 - Investor w/ < 20k to Invest,,,,,,,,,,,,,,
+15-30 - (88% Stock / 12% Bond) ,88,,,,,,12,,,,,,,
+30-40 - (85% Stock / 15% Bond),85,,,,,,15,,,,,,,
+40-45 - (80% Stock / 20% Bond),80,,,,,,20,,,,,,,
+45-50 - (75% Stock / 25% Bond),75,,,,,,25,,,,,,,
+50-55 - (67% Stock / 33% Bond),67,,,,,,33,,,,,,,
+55-60 - (60% Stock / 40% Bond),60,,,,,,40,,,,,,,
+60-65 - (55% Stock / 45% Bond),55,,,,,,45,,,,,,,
+65+ Risk Group 1  (50% Stock / 50% Bond),50,,,,,,50,,,,,,,
+65+ Risk Group 2 (40% Stock / 60% Bond),40,,,,,,60,,,,,,,
+65+ Risk Group 3 (20 % Stock / 80% Bond)  ,20,,,,,,80,,,,,,,
+65+ Risk Group 4 (10 % Stock / 90% Bond),10,,,,,,90,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+Variant 2 - Bond Ladder - Investor w/ > 1.5 million to Invest and is 55+ through 65+ Risk Group 2,,,,,,,,,,,,,,
+55-60 - (60% Stock / 40% Bond),17,8,12,10,8,5,,6,,5,17,6,4,2
+60-65 - (55% Stock / 45% Bond),16,7,11,10,6,5,,6,,6,22,5,4,2
+65+ Risk Group 1  (50% Stock / 50% Bond),15,5,9,10,5,6,,6,,6,24,5,4,5
+65+ Risk Group 2 (40% Stock / 60% Bond),13,3,7,8,3,6,,9,,7,30,5,4,5

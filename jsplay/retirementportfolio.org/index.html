@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
+	
+	<title>Asset Allocation</title>
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css"  media="screen">
+	<!-- link href="jumbotron-narrow.css" rel="stylesheet" -->
+	<link href="./lib/slider/css/slider.css" rel="stylesheet">
+	<link href="./lib/bootstrap-select/bootstrap-select.css" rel="stylesheet">
+	<link href="./piechart.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="allocationApp" class="container">
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="closeDisclaimerTop" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Terms and Conditions</h4>
+      </div>
+      <div class="modal-body" id="disclaimerContent">
+<p>
+The purpose of this tool is to provide a sample investment portfolio given a hypothetical investor's current age, funds,and retirement time horizon. Users of this tool will already have adequate investing experience, understand modern portfolio theory, the usage of limit orders, portfolio-rebalancing and other relevant concepts. Users may be choosing the DIY investing approach in order to avoid the inefficiency of sales commissions, fees and other expenses associated with the financial industry. The tool is designed for individuals that will retire within a fairly normal age range (55-75) and will have a fairly normal life expectancy (80-105), and is not suggested for use outside these ranges. The information provided by this tool is for educational purposes only and is not intended as specific investment advice for you. It is based on inputs and assumptions provided by you. The calculations do not infer that RetirementPortfolio.org or EISRC assumes any fiduciary duties. The calculations and portfolio provided should not be construed as financial, legal or tax advice. In addition, such information should not be relied upon as the only source of information. This information, including expense ratios, is supplied from sources we believe to be reliable but we cannot guarantee its accuracy.  The sole purpose of the Retirement Projection section of the tool is to determine whether the investor is likely to have adequate funding to retire. Accordingly, at age 65 and older, if the investor has inadequate retirement funding, a more conservative portfolio than normal is displayed in order to conserve what little assets the investor may have. It is assumed that Monthly Savings input is expressed in Today's Dollars and will have to be adjusted each year for inflation. The assumed rate of return used by the Retirement Projection is setup in the assumptions section as a fixed amount and is in no way tied to past performance of the specific portfolio displayed. Past performance does not guarantee nor indicate future results. 
+</p><p>
+The Model Portfolio displayed consists primarily of low-cost Index Exchange-Traded Funds and is based on research from EISRC, a fee-only, independent Registered Investment Advisor firm in the State of Oregon.  EISRC is not providing investment advice, but rather providing RetirementPortfolio.org users example portfolios similar to what it uses for it's own clients. Please consult with your financial advisor for investment advice appropriate for your particular situation.
+</p><p>
+I acknowledge that I have read and agree to the above Terms and Conditions.
+</p></div>
+      <div class="modal-footer">
+        <button type="button" id="closeDisclaimerBottom" class="btn btn-default" data-dismiss="modal">Disagree</button>
+        <button type="button" id="acceptDisclaimerBottom" class="btn btn-primary" data-dismiss="modal">Agree</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	<div class="row" id="divUserInput">
+	
+	<div class='circle'></div>
+	
+	<div class="row"> &nbsp; </div>
+	<div class="col-xs-12 text-center" >
+		<img id="top-logo" src="http://retirementportfolio.org/retirement_portfolio.png">
+	</div>
+		<div class="col-md-6 col-xs-12" >
+			
+			<h3 class="text-center">Retirement Projection</h3>
+			<div class="row"> &nbsp; </div>
+			<form id="formUserInput" class="form-horizontal">			
+			
+				<div class="form-group">
+					<label for="age" class="col-sm-4 col-xs-7 control-label">Current Age:</label>
+					<div class="col-sm-2 col-xs-5">
+						<input id="age" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="10" 
+							max="100" 
+							data-bind="value: age"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer">
+						<span class="sliderHead">10</span>
+						<input id="age-slider" 
+							data-slider-id="age-slider"
+							data-bind="sliderValue: age"
+							type="text" 
+							data-slider-min="10" 
+							data-slider-max="100" 
+							data-slider-step="1" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">100</span>
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label for="retirementAge" class="col-sm-4 col-xs-7 control-label">Retirement Age:</label>
+					<div class="col-sm-2 col-xs-5">
+						<input id="retirementAge" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="35" 
+							max="100" 
+							data-bind="value: retirementAge"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer">
+						<span class="sliderHead">35</span>
+						<input id="retirementAge-slider" 
+							data-slider-id="retirementAge-slider"
+							data-bind="sliderValue: retirementAge"
+							type="text" 
+							data-slider-min="35" 
+							data-slider-max="100" 
+							data-slider-step="1" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">100</span>
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="asset" class="no-padding-top col-sm-4 col-xs-7 control-label">Current Retirement Funds (in Thousands):</label>
+					<div class="col-sm-2 col-xs-5">
+						<input id="asset" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="0" 
+							max="2000"  
+							data-bind="value: asset"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer">
+						<span class="sliderHead">$0</span>
+						<input id="asset-slider" 
+							data-slider-id="asset-slider"
+							data-bind="sliderValue: asset"
+							type="text" 
+							data-slider-min="0" 
+							data-slider-max="2000" 
+							data-slider-step="1" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">$2M</span>
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="monthlySavings" class="col-sm-4 col-xs-7 control-label">Monthly Savings:</label>
+					<div class="col-sm-2 col-xs-5">
+						<input id="monthlySavings" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="0" 
+							max="20000" 
+							data-bind="value: monthlySavings
+									,disable: alreadyRetired"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer">
+						<span class="sliderHead">$0</span>
+						<input id="monthlySavings-slider" 
+							data-slider-id="monthlySavings-slider"
+							data-bind="sliderValue: monthlySavings"
+							type="text" 
+							data-slider-min="0" 
+							data-slider-max="20000" 
+							data-slider-step="10" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">$20K</span>
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label for="monthlyRetirementIncome" class="no-padding-top col-sm-4 col-xs-7 control-label">Desired Monthly Retirement Income (In Today's Dollars):</label>
+					<div class="col-sm-2 col-xs-5 margin-top-1em">
+						<input id="monthlyRetirementIncome" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="0" 
+							max="40000" 
+							data-bind="value: monthlyRetirementIncome"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer margin-top-1em">
+						<span class="sliderHead">$0</span>
+						<input id="monthlyRetirementIncome-slider" 
+							data-slider-id="monthlyRetirementIncome-slider"
+							data-bind="sliderValue: monthlyRetirementIncome"
+							type="text" 
+							data-slider-min="0" 
+							data-slider-max="40000" 
+							data-slider-step="100" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">$40K</span>
+					</div>
+				</div>
+				
+				
+				<div class="form-group" id="change-assumptions">
+					<div class="col-xs-5 col-xs-push-1 text-center"> 
+						<h5><a href="#" data-bind="click: changeAssumptions, text: changeAssumptionsText"></a></h5> 
+					</div>
+					<div class="col-xs-5 text-center"> 
+						<h5><a href="#" data-bind="click: resetToDefault">Reset</a></h5> 
+					</div>
+				</div>
+				
+					<div class="col-xs-12 text-center">
+						<div id="message" class="" data-bind="html: userMessage"></div>
+					</div>
+
+				
+				<div class="form-group additionalControls">
+					<label for="lifeExpectancy" class="col-sm-3 col-xs-7 control-label">Life Expectancy:</label>
+					<div class="col-sm-3 col-xs-5">
+						<input id="lifeExpectancy" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="50" 
+							max="100" 
+							data-bind="value: lifeExpectancy"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer">
+						<span class="sliderHead">50</span>
+						<input id="lifeExpectancy-slider" 
+							data-slider-id="lifeExpectancy-slider"
+							data-bind="sliderValue: lifeExpectancy"
+							type="text" 
+							data-slider-min="50" 
+							data-slider-max="100" 
+							data-slider-step="1" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">100</span>
+					</div>
+				</div>
+				
+				<div class="form-group additionalControls">
+					<label for="realReturnRate" class="col-sm-3 col-xs-7 control-label">Return Rate in %:</label>
+					<div class="col-sm-3 col-xs-5">
+						<input id="realReturnRate" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="0" 
+							max="20" 
+							data-bind="value: realReturnRate"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer">
+						<span class="sliderHead">0%</span>
+						<input id="realReturnRate-slider" 
+							data-slider-id="realReturnRate-slider"
+							data-bind="sliderValue: realReturnRate"
+							type="text" 
+							data-slider-min="0" 
+							data-slider-max="20" 
+							data-slider-step="1" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">20%</span>
+					</div>
+				</div>	
+				
+				<div class="form-group additionalControls">
+					<label for="inflationRate" class="col-sm-3 col-xs-7 control-label">Inflation Rate in %:</label>
+					<div class="col-sm-3 col-xs-5">
+						<input id="inflationRate" 
+							class="form-control" 
+							type="number" 
+							pattern="[0-9]*"
+							min="0" 
+							max="20" 
+							data-bind="value: inflationRate"/>
+					</div>
+					
+					<div class="col-sm-6 hidden-xs sliderContainer">
+						<span class="sliderHead">0%</span>
+						<input id="inflationRate-slider" 
+							data-slider-id="inflationRate-slider"
+							data-bind="sliderValue: inflationRate"
+							type="text" 
+							data-slider-min="0" 
+							data-slider-max="20" 
+							data-slider-step="1" 
+							data-slider-tooltip="hide"
+							data-slider-handle="square"
+						/>
+						<span class="sliderTail">20%</span>
+					</div>
+				</div>
+			</form>		
+		</div>
+	
+		<div class="col-md-6 col-xs-12">
+			<h3 class="text-center"> Asset Allocation</h3>
+			<div id="pieAllocation" class="row">
+			</div>
+			<div id="explanation" class="row"></div>
+		</div>
+		
+
+	</div>	
+	<div class="col-md-12 text-center top-line"> &nbsp;</div>
+	<div class="row" id="divFundTable" >		
+		<div class="col-xs-12">
+			<div class="text-center">
+			<strong>Portfolio: &nbsp;</strong><select class="selectpicker" data-bind="value: selectedFundFamily, options: preferredFundFamilies"></select>
+			</div>
+	
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Allocation</th>
+						<th>Asset Class</th>
+						<th>Fund Name</th>
+						<th>Expense Ratio</th>
+					</tr>
+				</thead>
+				<tbody id="tbodyFunds" data-bind="foreach: funds">
+					<tr>
+						<td class="text-right padding-right-2em" data-bind="text: (allocation == '') ? '' : (allocation + '%  ')"></td>
+						<td data-bind="text: assetClass"></td>
+						<td> 
+							<div class="colorDot" data-bind="style: { background: fundColor}"></div>&nbsp;
+							<span data-bind="text: fundName"> </span>
+						</td>
+						<td class="text-center" data-bind="text: formatExpenseRatio(expenseRatio)"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row col-xs-12"> 
+		<div class="col-xs-2 col-xs-offset-7 col-sm-2 col-sm-offset-10">
+			<!--button class="btn btn-small" id="testDocx"><i class="glyphicon glyphicon-print"></i>&nbsp;Print Portfolio</button-->
+			<button class="btn btn-small" id="printPdf"><i class="glyphicon glyphicon-print"></i>&nbsp;Print Portfolio</button>
+			<!--button class="btn btn-small" id="loadDocxAsDataUrl"><i class="glyphicon glyphicon-print"></i>&nbsp;Print Portfolio DataUrl</button-->
+		</div>
+	</div>
+	<div class="row col-xs-12"> &nbsp; </div>
+		
+	
+	<div class="col-xs-12 top-line"> &nbsp; </div>
+	<div class="col-xs-12 text-center"><small> The information provided by the Portfolio Modeling Tool is for educational purposes only and is not intended as specific investment advice for you. Fund expense ratios last updated on 7/5/2015.</small></div>
+	<div class="col-xs-12 text-center"> &copy; 2014,  <span id="copyrightOwner">RetirementPortfolio.org and EISRC</span>, All Rights Reserved &nbsp; | &nbsp; <a href="/contact">Contact Us</a></div>
+</div>
+
+<script type="text/javascript" src="./lib/d3.v2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="./lib/knockout-min.js"></script>
+<script src="./lib/knockout.localStorage.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src='./lib/modernizr.js'></script>
+<script src="./lib/slider/js/orig.bootstrap-slider.js"></script>
+<script src="./lib/bootstrap-select/bootstrap-select.min.js"></script>
+<script src='./lib/pdfmake.js'></script>
+<script src='./lib/vfs_fonts.js'></script>
+<script src="piechart.min.js"></script>
+</body>
+</html>
