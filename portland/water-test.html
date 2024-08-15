@@ -12,14 +12,18 @@
 <body>
 	<!--- div id='MicrosoftTranslatorWidget' class='Dark' style='color:white;background-color:#555555'></div><script type='text/javascript'>setTimeout(function(){{var s=document.createElement('script');s.type='text/javascript';s.charset='UTF-8';s.src=((location && location.href && location.href.indexOf('https') == 0)?'https://ssl.microsofttranslator.com':'http://www.microsofttranslator.com')+'/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=False&ui=true&settings=Manual&from=';var p=document.getElementsByTagName('head')[0]||document.documentElement;p.insertBefore(s,p.firstChild); }},0);</script--->
 	Test water alert widget
-	<iframe frameborder="0" height="210" src="https://test-publicalerts-org.translate.goog/water-notice-embed?_x_tr_sl=auto&_x_tr_tl=es&_x_tr_hl=en-US&_x_tr_pto=op" width="100%"></iframe>
+	<!--- iframe frameborder="0" height="210" src="https://test-publicalerts-org.translate.goog/water-notice-embed?_x_tr_sl=auto&_x_tr_tl=es&_x_tr_hl=en-US&_x_tr_pto=op" width="100%"></iframe--->
 	
-	<iframe frameborder="0" height="210" id="test"></iframe>
-		  <script type = "text/javascript">
-		  $(function() {
-  $("#test").load("https://test-publicalerts-org.translate.goog/water-notice-embed?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=en&_x_tr_pto=op")
-			  });
-  </script>
+	<!--- iframe frameborder="0" height="210" id="test"></iframe --->
+
+	<iframe frameborder="0" width="100%" height="210" scrolling="yes" src="https://dev-publicalerts-org.translate.goog/water-notice-embed">
+	</iframe>
+	
+	<script type = "text/javascript">
+	$(function() {
+  		$("#test").load("https://test-publicalerts-org.translate.goog/water-notice-embed?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=en&_x_tr_pto=op")
+	});
+  	</script>
 </body>
 
 </html>
